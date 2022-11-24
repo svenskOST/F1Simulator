@@ -1,0 +1,40 @@
+For v1.0.0 Alpha:
+  Formula 1 Randomizer:
+
+- Fix and finnish the Formula 1 Randomizer.
+
+
+  Formula 1 Comparator:
+
+- Make Formula 1 Comparator's overall rating calculations more sophisticated. Do this by having conditional statements for the calculations.
+  For example if (driver1.skill > 80 and car1.performance < 70) {rating1 = calculation} and if (skill < 75 and performance > 90) 
+  {other factor for the calculation} etc. 
+
+- Decide this factor in the calculation. Difference in car and driver? Make the factor less/more effective depending on high/low skill/performance.
+
+- Make it possible to create a custom driver/car. If the user chooses to do this the program will ask user to give ratings for different attributes.
+  These attributes then themselves decide the final skill and performance in a TBD calculation. 
+
+- For this I may have to create new classes and more parameters, like engine, downforce, power, pace, defending, overtaking, control and much more.
+
+
+For v1.0.0 Beta:
+- Make the general structure of the simulator program. The program will allow the user to either choose manually or randomize the grid for 
+  each season. The program will simulate each season, each race and hand out points to finally decide both championships. I will create classes
+  for the tracks. Each track will have different parameters like location and name, as well as different ways to calculate overall ratings based
+  on whats important for that particular circuit, like high downforce, high speed, overtaking, pace and so on.
+
+- Use randomizer to randomize. Comparator to decide ratings and make something that sorts them.
+
+- The simulator will also gather statistics over time, like poles, wins and so on.
+
+- Results in each race will be based on the array from the sorted ratings, which gives different probabilities for the results. Maybe the console
+  describes events like engine failure, spin and so on.
+
+
+Further updates:
+- Add drivers and teams not currently in Formula 1. For example Michael Schumacher, Ayrton Senna, Dino Beganovic, Tyrell, BMW and SAAB.
+
+- Add historic, and not currently used tracks such as Macau, China, Russia and Hockenheim.
+
+- Add more aspects to the simulation? Money? Team principals? Weather? Pit stops?
