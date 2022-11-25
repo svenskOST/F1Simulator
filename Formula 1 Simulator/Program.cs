@@ -1,37 +1,42 @@
 ﻿using Meta;
 
-Car RedBull = new Car("Red Bull", 95);
-Car Ferrari = new Car("Ferrari", 92);
-Car Mercedes = new Car("Mercedes", 87);
-Car Alpine = new Car("Alpine", 80);
-Car Mclaren = new Car("McLaren", 78);
-Car AlfaRomeo = new Car("Alfa Romeo", 68);
-Car AstonMartin = new Car("Aston Martin", 70);
-Car Haas = new Car("Haas", 71);
-Car AlphaTauri = new Car("Alpha Tauri", 70);
-Car Williams = new Car("Williams", 66);
+Engine eRedBull = new Engine(90, 92);
+Engine eFerrari = new Engine(95, 85);
+Engine eMercedes = new Engine(85, 96);
+Engine eRenault = new Engine(85, 85);
 
+Team RedBull = new Team("Red Bull", "Milton Keynes", "austrian", "Christian Horner", eRedBull.power, eRedBull.reliability, 1, 2, 3, 4, 5, 95);
+Team Ferrari = new Team("Ferrari", "Maranello", "italian", "Mattia Binotto", eFerrari.power, eFerrari.reliability, 1, 2, 3, 4, 5, 92);
+Team Mercedes = new Team("Mercedes", "Brackley", "german", "Toto Wolff", eMercedes.power, eMercedes.reliability, 1, 2, 3, 4, 5, 87);
+Team Alpine = new Team("Alpine", "Enstone", "french", "Otmar Szafnauer", eRenault.power, eRenault.reliability, 1, 2, 3, 4, 5, 80);
+Team Mclaren = new Team("McLaren", "Woking", "british", "Zak Brown", eMercedes.power, eMercedes.reliability, 1, 2, 3, 4, 5, 78);
+Team AlfaRomeo = new Team("Alfa Romeo", "Hinwil", "swiss", "Frédéric Vasseur", eFerrari.power, eFerrari.reliability, 1, 2, 3, 4, 5, 68);
+Team AstonMartin = new Team("Aston Martin", "Silverstone", "british", "Mike Krack", eMercedes.power, eMercedes.reliability, 1, 2, 3, 4, 5, 70);
+Team Haas = new Team("Haas", "Kannapolis", "american", "Günther Steiner", eFerrari.power, eFerrari.reliability, 1, 2, 3, 4, 5, 71);
+Team AlphaTauri = new Team("Alpha Tauri", "Faenza", "italian", "Franz Tost", eRedBull.power, eRedBull.reliability, 1, 2, 3, 4, 5, 70);
+Team Williams = new Team("Williams", "Wantage", "british", "Jost Capito", eMercedes.power, eMercedes.reliability, 1, 2, 3, 4, 5, 66);
+ 
 Driver ver = new Driver("Max Verstappen", "the Netherlands", "dutch", 97, 92, 90, 78, (1 + 1));
 Driver per = new Driver("Sergio Peréz", "Mexicó", "mexican", 86, 89, 93, 88, (1 + 1));
 Driver lec = new Driver("Charles Leclerc", "Monaco", "monegasque", 94, 85, 97, 71, (1 + 1));
 Driver sai = new Driver("Carlos Sainz", "Spain", "spanish", 90, 83, 90, 79, (1 + 1));
 Driver ham = new Driver("Lewis Hamilton", "Great Britain", "british", 88, 95, 94, 95, (1 + 1));
-Driver rus = new Driver("George Russell", "Great Britain","british", 89, 90, 87, 66, (1 + 1));
+Driver rus = new Driver("George Russell", "Great Britain", "british", 89, 90, 87, 66, (1 + 1));
 Driver alo = new Driver("Fernando Alonso", "Spain", "spanish", 85, 87, 91, 100, (1 + 1));
 Driver oco = new Driver("Estéban Ocon", "France", "french", 81, 79, 80, 65, (1 + 1));
 Driver nor = new Driver("Lando Norris", "Great Britain", "british", 88, 82, 88, 67, (1 + 1));
-Driver ric = new Driver("Daniel Ricciardo", "Australia","australian", 78, 80, 89, 90, (1 + 1));
-Driver bot = new Driver("Valterri Bottas", "Finland", "finnish",83, 91, 75, 88, (1 + 1));
-Driver zho = new Driver("Zhou Guanyu", "China","chinese", 83, 89, 79, 52, (1 + 1));
-Driver vet = new Driver("Sebastian Vettel", "Germany", "german",82, 85, 82, 99, (1 + 1));
-Driver str = new Driver("Lance Stroll", "Canada","canadian", 81, 83, 72, 62, (1 + 1));
-Driver mag = new Driver("Kevin Magnussen","Denmark", "danish", 80, 80, 85, 84 , (1 + 1));
-Driver msc = new Driver("Mick Schumacher","Germany","german", 79, 72, 86, 60, (1 + 1));
-Driver gas = new Driver("Pierre Gasly","France","french",78, 83, 80, 65, (1 + 1));
-Driver tsu = new Driver("Yuki Tsunoda", "Japan","japanese", 80, 82, 80, 55, (1 + 1));
-Driver alb = new Driver("Alexander Albon","Thailand","thai", 82, 90, 78, 68, (1 + 1));
-Driver lat = new Driver("Nicholas Latifi","Canada", "canadian", 67, 71, 73, 61, (1 + 1));
-
+Driver ric = new Driver("Daniel Ricciardo", "Australia", "australian", 78, 80, 89, 90, (1 + 1));
+Driver bot = new Driver("Valterri Bottas", "Finland", "finnish", 83, 91, 75, 88, (1 + 1));
+Driver zho = new Driver("Zhou Guanyu", "China", "chinese", 83, 89, 79, 52, (1 + 1));
+Driver vet = new Driver("Sebastian Vettel", "Germany", "german", 82, 85, 82, 99, (1 + 1));
+Driver str = new Driver("Lance Stroll", "Canada", "canadian", 81, 83, 72, 62, (1 + 1));
+Driver mag = new Driver("Kevin Magnussen", "Denmark", "danish", 80, 80, 85, 84, (1 + 1));
+Driver msc = new Driver("Mick Schumacher", "Germany", "german", 79, 72, 86, 60, (1 + 1));
+Driver gas = new Driver("Pierre Gasly", "France", "french", 78, 83, 80, 65, (1 + 1));
+Driver tsu = new Driver("Yuki Tsunoda", "Japan", "japanese", 80, 82, 80, 55, (1 + 1));
+Driver alb = new Driver("Alexander Albon", "Thailand", "thai", 82, 90, 78, 68, (1 + 1));
+Driver lat = new Driver("Nicholas Latifi", "Canada", "canadian", 67, 71, 73, 61, (1 + 1));
+/*
 Console.ForegroundColor = ConsoleColor.DarkRed;
 Console.WriteLine("\r\n______                                 _              __          _____                                               _                \r\n|  ___|                               | |            /  |        /  __ \\                                             | |               \r\n| |_     ___   _ __  _ __ ___   _   _ | |  __ _      `| |        | /  \\/  ___   _ __ ___   _ __    __ _  _ __   __ _ | |_   ___   _ __ \r\n|  _|   / _ \\ | '__|| '_ ` _ \\ | | | || | / _` |      | |        | |     / _ \\ | '_ ` _ \\ | '_ \\  / _` || '__| / _` || __| / _ \\ | '__|\r\n| |    | (_) || |   | | | | | || |_| || || (_| |     _| |_       | \\__/\\| (_) || | | | | || |_) || (_| || |   | (_| || |_ | (_) || |   \r\n\\_|     \\___/ |_|   |_| |_| |_| \\__,_||_| \\__,_|     \\___/        \\____/ \\___/ |_| |_| |_|| .__/  \\__,_||_|    \\__,_| \\__| \\___/ |_|   \r\n                                                                                          | |                                          \r\n                                                                                          |_|                                          \r\n");
 Console.WriteLine("       .-----------,-.-----. \r\n       |:        //(_)\\    |:\r\n    ___||=======// ,--.\\===.|  ___\r\n  .'.\"\"'\\\\____.'/ | (__)\\__|\\.'.\"\"'.\r\n  | |\"\"\"||._       '---'__   `-|\"\"\"|\r\n  | |\"\"\"||. '-.___  ` -'--'     `-.| ___\r\n  | |\"\"\"|| '-.'.\"\"'.----._     .---:'.\"\"'.\r\n  `.'_\".'|   | |\"\"\"|_____ `. /\\ \\___||_\"\"|\r\n          '-.| |\"\"_/_____\\  \\ \\\\ \\_____\\_|\r\n             | |\"|____    ', '.__/   ____|\r\n             `.'__.'  `'---'-'---'-'.'__.'");
@@ -439,3 +444,4 @@ else
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine(".");
 }
+*/

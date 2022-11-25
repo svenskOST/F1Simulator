@@ -24,7 +24,9 @@ For v1.0.0 Beta:
   for the tracks. Each track will have different parameters like location and name, as well as different ways to calculate overall ratings based
   on whats important for that particular circuit, like high downforce, high speed, overtaking, pace and so on.
 
-- Use randomizer to randomize. Comparator to decide ratings and make something that sorts them.
+- Create constants (driver and car 1-20). Car 1-20 will already be decided but driver 1-20 will be pulled randomly from the array of drivers.
+
+- Use randomizer to randomize. Comparator to decide ratings and make something that sorts them (array that push/pulls).
 
 - The simulator will also gather statistics over time, like poles, wins and so on.
 

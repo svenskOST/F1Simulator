@@ -1,22 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Meta
+﻿namespace Meta
 {
-    internal class Car
+    internal class Engine
+    {
+        public int power;
+        public int reliability;
+
+        public Engine(int power, int reliability)
+        {
+            this.power = power;
+            this.reliability = reliability;
+        }
+    }
+
+    internal class Team
     {
         public string name;
+        public string hq;
+        public string prefix;
+        public string principal;
+        public object power;
+        public object reliability;
+        public int downforce;
+        public int traction;
+        public int drag;
+        public int grip;
+        public int degradation;
         public int performance;
 
-        public Car(string name, int performance)
+        public Team(string name, string hq, string prefix, string principal, object power, object reliability, int downforce, int traction, int drag, int grip, int degradation, int performance)
         {
             this.name = name;
+            this.hq = hq;
+            this.prefix = prefix;
+            this.principal = principal;
+            this.power = power;
+            this.reliability = reliability;
+            this.downforce = downforce;
+            this.traction = traction;
+            this.drag = drag;
+            this.grip = grip;
+            this.degradation = degradation;
             this.performance = performance;
         }
-    } 
+    }
 
     internal class Driver
     {
