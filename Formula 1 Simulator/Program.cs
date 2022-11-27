@@ -15,7 +15,7 @@ Team AstonMartin = new Team("Aston Martin", "Silverstone", "british", "Mike Krac
 Team Haas = new Team("Haas", "Kannapolis", "american", "Günther Steiner", eFerrari.power, eFerrari.reliability, 1, 2, 3, 4, 5, 71);
 Team AlphaTauri = new Team("Alpha Tauri", "Faenza", "italian", "Franz Tost", eRedBull.power, eRedBull.reliability, 1, 2, 3, 4, 5, 70);
 Team Williams = new Team("Williams", "Wantage", "british", "Jost Capito", eMercedes.power, eMercedes.reliability, 1, 2, 3, 4, 5, 66);
- 
+
 Driver ver = new Driver("Max Verstappen", "the Netherlands", "dutch", 97, 92, 90, 78, (1 + 1));
 Driver per = new Driver("Sergio Peréz", "Mexicó", "mexican", 86, 89, 93, 88, (1 + 1));
 Driver lec = new Driver("Charles Leclerc", "Monaco", "monegasque", 94, 85, 97, 71, (1 + 1));
@@ -36,6 +36,99 @@ Driver gas = new Driver("Pierre Gasly", "France", "french", 78, 83, 80, 65, (1 +
 Driver tsu = new Driver("Yuki Tsunoda", "Japan", "japanese", 80, 82, 80, 55, (1 + 1));
 Driver alb = new Driver("Alexander Albon", "Thailand", "thai", 82, 90, 78, 68, (1 + 1));
 Driver lat = new Driver("Nicholas Latifi", "Canada", "canadian", 67, 71, 73, 61, (1 + 1));
+
+var car1 = RedBull;
+var car2 = RedBull;
+var car3 = Ferrari;
+var car4 = Ferrari;
+var car5 = Mercedes;
+var car6 = Mercedes;
+var car7 = Alpine;
+var car8 = Alpine;
+var car9 = Mclaren;
+var car10 = Mclaren;
+var car11 = AlfaRomeo;
+var car12 = AlfaRomeo;
+var car13 = AstonMartin;
+var car14 = AstonMartin;
+var car15 = Haas;
+var car16 = Haas;
+var car17 = AlphaTauri;
+var car18 = AlphaTauri;
+var car19 = Williams;
+var car20 = Williams;
+
+ var drivers = new[]
+{
+    ver,
+    per,
+    lec,
+    sai,
+    ham,
+    rus,
+    alo,
+    oco,
+    nor,
+    ric,
+    bot,
+    zho,
+    vet,
+    str,
+    mag,
+    msc,
+    gas,
+    tsu,
+    alb,
+    lat
+};
+
+var rdrivers = new string[20];
+for (int i = 0; i < 20; i++)
+{
+    Console.WriteLine("length = " + drivers.Length);
+    Random random = new Random();
+    int rindex = random.Next(drivers.Length);
+    Console.WriteLine("rindex = " + rindex);
+    rdrivers[i] = drivers[rindex].name.ToString();
+    for (int y = rindex; y < drivers.Length - 1; y++)
+    {
+        drivers[y] = drivers[y + 1];
+    }
+    Array.Resize(ref drivers, drivers.Length - 1);
+}
+
+//if rindex 3 == rindex 1 or rindex 2 then rerun?
+//randomize order of array and make driverN pre decided index
+
+var driver1 = rdrivers[0];
+var driver2 = rdrivers[1];
+var driver3 = rdrivers[2];
+var driver4 = rdrivers[3];
+var driver5 = rdrivers[4];
+var driver6 = rdrivers[5];
+var driver7 = rdrivers[6];
+var driver8 = rdrivers[7];
+var driver9 = rdrivers[8];
+var driver10 = rdrivers[9];
+var driver11 = rdrivers[10];
+var driver12 = rdrivers[11];
+var driver13 = rdrivers[12];
+var driver14 = rdrivers[13];
+var driver15 = rdrivers[14];
+var driver16 = rdrivers[15];
+var driver17 = rdrivers[16];
+var driver18 = rdrivers[17];
+var driver19 = rdrivers[18];
+var driver20 = rdrivers[19];
+
+
+Console.WriteLine("3 = " + rdrivers[3]);
+Console.WriteLine("20 = " + rdrivers[19]);
+for (int i = 0; i < 20; i++)
+{
+    Console.WriteLine("array" + i + " = " + rdrivers[i]);
+}
+
 /*
 Console.ForegroundColor = ConsoleColor.DarkRed;
 Console.WriteLine("\r\n______                                 _              __          _____                                               _                \r\n|  ___|                               | |            /  |        /  __ \\                                             | |               \r\n| |_     ___   _ __  _ __ ___   _   _ | |  __ _      `| |        | /  \\/  ___   _ __ ___   _ __    __ _  _ __   __ _ | |_   ___   _ __ \r\n|  _|   / _ \\ | '__|| '_ ` _ \\ | | | || | / _` |      | |        | |     / _ \\ | '_ ` _ \\ | '_ \\  / _` || '__| / _` || __| / _ \\ | '__|\r\n| |    | (_) || |   | | | | | || |_| || || (_| |     _| |_       | \\__/\\| (_) || | | | | || |_) || (_| || |   | (_| || |_ | (_) || |   \r\n\\_|     \\___/ |_|   |_| |_| |_| \\__,_||_| \\__,_|     \\___/        \\____/ \\___/ |_| |_| |_|| .__/  \\__,_||_|    \\__,_| \\__| \\___/ |_|   \r\n                                                                                          | |                                          \r\n                                                                                          |_|                                          \r\n");
