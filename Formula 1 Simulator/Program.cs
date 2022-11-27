@@ -58,7 +58,7 @@ var car18 = AlphaTauri;
 var car19 = Williams;
 var car20 = Williams;
 
- var drivers = new[]
+var drivers = new[]
 {
     ver,
     per,
@@ -82,23 +82,41 @@ var car20 = Williams;
     lat
 };
 
-var rdrivers = new string[20];
+var rdrivers = new[]
+{
+    ver,
+    per,
+    lec,
+    sai,
+    ham,
+    rus,
+    alo,
+    oco,
+    nor,
+    ric,
+    bot,
+    zho,
+    vet,
+    str,
+    mag,
+    msc,
+    gas,
+    tsu,
+    alb,
+    lat
+};
+
 for (int i = 0; i < 20; i++)
 {
-    Console.WriteLine("length = " + drivers.Length);
     Random random = new Random();
     int rindex = random.Next(drivers.Length);
-    Console.WriteLine("rindex = " + rindex);
-    rdrivers[i] = drivers[rindex].name.ToString();
+    rdrivers[i] = drivers[rindex];
     for (int y = rindex; y < drivers.Length - 1; y++)
     {
         drivers[y] = drivers[y + 1];
     }
     Array.Resize(ref drivers, drivers.Length - 1);
 }
-
-//if rindex 3 == rindex 1 or rindex 2 then rerun?
-//randomize order of array and make driverN pre decided index
 
 var driver1 = rdrivers[0];
 var driver2 = rdrivers[1];
@@ -121,12 +139,9 @@ var driver18 = rdrivers[17];
 var driver19 = rdrivers[18];
 var driver20 = rdrivers[19];
 
-
-Console.WriteLine("3 = " + rdrivers[3]);
-Console.WriteLine("20 = " + rdrivers[19]);
 for (int i = 0; i < 20; i++)
 {
-    Console.WriteLine("array" + i + " = " + rdrivers[i]);
+    Console.WriteLine("array" + i + " = " + rdrivers[i].name);
 }
 
 /*
