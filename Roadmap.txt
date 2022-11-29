@@ -1,7 +1,7 @@
 For v1.0.0 Alpha:
   Formula 1 Randomizer:
 
-- Fix and finnish the Formula 1 Randomizer.
+DONE Fix and finnish the Formula 1 Randomizer.
 
 
   Formula 1 Comparator:
@@ -15,7 +15,7 @@ For v1.0.0 Alpha:
 - Make it possible to create a custom driver/car. If the user chooses to do this the program will ask user to give ratings for different attributes.
   These attributes then themselves decide the final skill and performance in a TBD calculation. 
 
-- For this I may have to create new classes and more parameters, like engine, downforce, power, pace, defending, overtaking, control and much more.
+DONE For this I may have to create new classes and more parameters, like engine, downforce, power, pace, defending, overtaking, control and much more.
 
 
 For v1.0.0 Beta:
@@ -24,7 +24,7 @@ For v1.0.0 Beta:
   for the tracks. Each track will have different parameters like location and name, as well as different ways to calculate overall ratings based
   on whats important for that particular circuit, like high downforce, high speed, overtaking, pace and so on.
 
-- Create constants (driver and car 1-20). Car 1-20 will already be decided but driver 1-20 will be pulled randomly from the array of drivers.
+DONE Create constants (driver and car 1-20). Car 1-20 will already be decided but driver 1-20 will be pulled randomly from the array of drivers.
 
 - Use randomizer to randomize. Comparator to decide ratings and make something that sorts them (array that push/pulls).
 

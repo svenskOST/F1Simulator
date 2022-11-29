@@ -53,9 +53,9 @@
         public int consistency;
         public int racecraft;
         public int experience;
-        public int skill;
+        public int overall;
 
-        public Driver(string name, string nationality, string prefix, int pace, int consistency, int racecraft, int experience, int skill)
+        public Driver(string name, string nationality, string prefix, int pace, int consistency, int racecraft, int experience, int overall)
         {
             this.name = name;
             this.nationality = nationality;
@@ -64,7 +64,7 @@
             this.consistency = consistency;
             this.racecraft = racecraft;
             this.experience = experience;
-            this.skill = skill;
+            this.overall = overall;
         }
     }
 }
