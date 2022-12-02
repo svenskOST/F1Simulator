@@ -1,5 +1,4 @@
 ACTIVE:
-// Add new attributes in the class constructors (age, firstname, lastname, shortname and so on)
 // Finnish drivers and constructors standings, for this also edit classes to add wins, podiums and points. These all start on 0 and will be changed after every race. 
    For example if driver5 was P1 then driver5.points = driver5.points + 25 and so on.
 // Each race has its own way to calculate results using the ratings. The results will work something like, it creates a new array with the drivers sorted by their ratings in the race

@@ -1,9 +1,27 @@
 ﻿using Meta;
+using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 namespace Formula_1_Simulator
 {
     class Program
     {
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr GetStdHandle(int handle);
+
+        public static void ClearCurrentConsoleLine(int x)
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(x, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(x, currentLineCursor);
+        }
+
         static void Content(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
             Team RedBull, Team Ferrari, Team Mercedes, Team Alpine, Team Mclaren, Team AlfaRomeo, Team AstonMartin, Team Haas, Team AlphaTauri, Team Williams,
             Driver ver, Driver per, Driver lec, Driver sai, Driver ham, Driver rus, Driver alo, Driver oco, Driver nor, Driver ric, Driver bot, Driver zho, Driver vet, Driver str, Driver mag, Driver msc, Driver gas, Driver tsu, Driver alb, Driver lat,
@@ -17,13 +35,14 @@ namespace Formula_1_Simulator
 
         static void Help()
         {
+            Console.WriteLine();
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Valid commands are:");
             Console.WriteLine("driver standings");
-
             Console.WriteLine("constructor standings");
             Console.WriteLine("'driver' or 'team' to find stats and info on a certain driver or team");
-            Console.WriteLine("'clear console' - clears up the console so you can stay focused on the present!");
+            Console.WriteLine("'clear' - clears up the console so you can stay focused on the present!");
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -46,6 +65,8 @@ namespace Formula_1_Simulator
             {
                 //loop2
                 TeamMode:
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("What do you wish to learn about " + currentteam.name + "?");
                 ConsoleKeyInfo help = Console.ReadKey(true);
@@ -62,7 +83,7 @@ namespace Formula_1_Simulator
                     Console.WriteLine("'Backspace' - to return to general command mode");
                     goto TeamMode;
                 }
-                var input = Console.ReadLine();
+                string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
                 if (input.ToLower() == "info")
                 {
@@ -72,7 +93,7 @@ namespace Formula_1_Simulator
                     Console.WriteLine();
                     Console.WriteLine();
                 }
-                else if (input.ToLower() == "ratings")
+                else if (input.ToLower() == "ratings" || input.ToLower() == "rating")
                 {
                     Console.WriteLine(currentteam.name + " uses the " + currentteam.engine + " power unit as their internal combustion engine.");
                     Console.WriteLine("Ratings:");
@@ -93,7 +114,7 @@ namespace Formula_1_Simulator
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(input + " is not a valid command, please try again");
+                    Console.WriteLine("'" + input + "'" + " is not a valid command, please try again");
                     Console.WriteLine();
                     Console.WriteLine();
                 }
@@ -109,6 +130,8 @@ namespace Formula_1_Simulator
             {
                 //loop2
                 DriverMode:
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("What do you want to find out about " + currentdriver.name + "?");
                 ConsoleKeyInfo help = Console.ReadKey(true);
@@ -125,53 +148,55 @@ namespace Formula_1_Simulator
                     Console.WriteLine("'Backspace' - to return to general command mode");
                     goto DriverMode;
                 }
-                var input = Console.ReadLine();
+                string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
                 if (input.ToLower() == "info")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " is a " + currentdriver.prefix + " Formula 1 driver.");
                     Console.WriteLine("He is " + currentdriver.age + " years of age.");
-                    Console.WriteLine();
-                    Console.WriteLine();
                     //andra alternativ när probabilites är fixat (50% chans till första 50% chans till denna): Console.WriteLine(currentdriver.name + " is a " + currentdriver.age + " year old Formula 1 driver from " + currentdriver.nationality);
                 }
-                else if (input.ToLower() == "ratings")
+                else if (input.ToLower() == "ratings" || input.ToLower() == "rating")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " ratings:");
-                    Console.WriteLine("              Overall skill:   " + currentdriver.overall);
+                    Console.WriteLine("           Overall skill:   " + currentdriver.overall);
                     Console.WriteLine("Pace:       " + currentdriver.pace + "     Consistency: " + currentdriver.consistency);
                     Console.WriteLine("Racecraft:  " + currentdriver.racecraft + "     Experience:  " + currentdriver.experience);
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
                 else if (input.ToLower() == "stats")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " has accumulated " + currentdriver.wins + " wins, " + currentdriver.podiums + " podiums, and " + currentdriver.points + " points since the start of this season.");
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
                 else
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(input + " is not a valid command, please try again");
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
             }
 
             //loop
+            Console.WriteLine();
+            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Enter a command or press 'Backspace' to exit command mode:");
             ConsoleKeyInfo exit = Console.ReadKey(true);
             if (exit.Key == ConsoleKey.Backspace)
             {
-                //break;
+                goto exit;
             }
             else if (exit.Key == ConsoleKey.H)
             {
                 Help();
             }
-            var input = Console.ReadLine();
+            string input = Console.ReadLine()!;
             Console.ForegroundColor = ConsoleColor.Blue;
             for (int i = 0; i < 20; i++)
             {
@@ -246,17 +271,30 @@ namespace Formula_1_Simulator
                 Console.WriteLine();
                 */
             }
+            else if (input.ToLower() == "clear")
+            {
+                Console.Clear();
+            }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(input + " is not a valid command, please try again");
-                Console.WriteLine();
-                Console.WriteLine();
             }
+            Commandmode(eRedBull, eFerrari, eMercedes, eRenault,
+                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+                ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat,
+                drivers, rdrivers,
+                car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
+                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
+                chosenteams, chosendrivers, currentteam, currentdriver);
+            exit:
+            Console.WriteLine("Exited command mode");
         }
 
         static void Main()
         {
+            Console.Title = "Formula 1 Simulator";
+
             Engine eRedBull = new(90, 92);
             Engine eFerrari = new(95, 85);
             Engine eMercedes = new(85, 96);
@@ -457,19 +495,24 @@ namespace Formula_1_Simulator
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Welcome to the ultimate Formula 1 Simulator.");
+            Thread.Sleep(400);
             Console.WriteLine("Are you ready to write a new chapter in the sports history books?");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(3000);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("After the game has started, press 'C' to enter command mode.");
-            Console.WriteLine("Press 'H' at any time to get a list of all available commands.");
-            start:
-            Console.WriteLine("To continue press Enter");
-            Console.WriteLine();
-            Console.WriteLine();
+            Thread.Sleep(400);
+            Console.WriteLine("Press 'H' at any time to get help or a list of all available commands.");
+            Thread.Sleep(400);
+            checkpoint1:
+            Console.WriteLine("To continue press Enter...");
+            fallback1:
             ConsoleKeyInfo advance = Console.ReadKey(true);
             if (advance.Key == ConsoleKey.H)
             {
                 Help();
-                goto start;
+                goto checkpoint1;
             }
             else if (advance.Key == ConsoleKey.C)
             {
@@ -480,16 +523,191 @@ namespace Formula_1_Simulator
                 car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                 driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                 chosenteams, chosendrivers, currentteam, currentdriver);
-                goto start;
+                goto checkpoint1;
             }
             else if (advance.Key == ConsoleKey.Enter)
             {
                 goto seasonstart;
             }
+            goto fallback1;
 
             seasonstart:
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.Write("Initializing new season");
+            int x = 23;
+            for (int i = 0; i < 10; i++)
+            {
+                Console.Write(" .");
+                Thread.Sleep(100);
+                Console.Write(" .");
+                Thread.Sleep(100);
+                Console.Write(" .");
+                Thread.Sleep(200);
+                Console.SetCursorPosition(x, Console.CursorTop);
+                ClearCurrentConsoleLine(x);
+                Thread.Sleep(200);
+            }
+            x = 0;
+            Console.SetCursorPosition(x, Console.CursorTop);
+            ClearCurrentConsoleLine(x);
+            Thread.Sleep(200);
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Season starts (test)");
+            Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
+            Thread.Sleep(400);
+            Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid.");
+            Thread.Sleep(400);
+            checkpoint2:
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("To continue press Enter...");
+            fallback2:
+            ConsoleKeyInfo advance2 = Console.ReadKey(true);
+            if (advance2.Key == ConsoleKey.H)
+            {
+                Help();
+                goto checkpoint2;
+            }
+            else if (advance2.Key == ConsoleKey.C)
+            {
+                Commandmode(eRedBull, eFerrari, eMercedes, eRenault,
+                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+                ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat,
+                drivers, rdrivers,
+                car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
+                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
+                chosenteams, chosendrivers, currentteam, currentdriver);
+                goto checkpoint2;
+            }
+            else if (advance2.Key == ConsoleKey.Enter)
+            {
+                goto grid;
+            }
+            goto fallback2;
+
+            grid:
+            var handle = GetStdHandle(-11);
+            int mode;
+            GetConsoleMode(handle, out mode);
+            SetConsoleMode(handle, mode | 0x4);
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.Write("\x1b[38;5;" + 21 + "m" + car1.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" has signed ");
+            Console.Write("\x1b[38;5;" + 21 + "m" + driver1.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 21 + "m" + driver2.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" for the upcoming season.");
+            Console.WriteLine();
+
+            Console.Write("Meanwhile, " + car3.principal + " has chosen ");
+            Console.Write("\x1b[38;5;" + 196 + "m" + driver3.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 196 + "m" + driver4.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" to drive for the " + car3.hq + " based team.");
+            Console.Write("I am very excited to drive for ");
+            Console.Write("\x1b[38;5;" + 196 + "m" + car3.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(", says " + driver4.lastname + " in an interview.");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 50 + "m" + driver5.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 50 + "m" + driver6.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" will be driving for ");
+            Console.Write("\x1b[38;5;" + 50 + "m" + car5.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 39 + "m" + car7.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" principal " + car7.principal + " is reported to have held negotiations with several drivers.");
+            Console.Write("The team have settled for ");
+            Console.Write("\x1b[38;5;" + 39 + "m" + driver7.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 39 + "m" + driver8.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 208 + "m" + car9.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" has surprised the whole paddock by signing ");
+            Console.Write("\x1b[38;5;" + 208 + "m" + driver9.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 208 + "m" + driver10.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 124 + "m" + driver11.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(", who says he has never driven for " + car11.prefix + " team before will be the first driver for ");
+            Console.Write("\x1b[38;5;" + 124 + "m" + car11.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(". He will be accompanied by ");
+            Console.Write("\x1b[38;5;" + 124 + "m" + driver12.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 30 + "m" + car13.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" chooses ");
+            Console.Write("\x1b[38;5;" + 30 + "m" + driver13.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 30 + "m" + driver14.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" for their lineup.");
+            Console.WriteLine();
+
+            Console.Write("Initial reports suggested that " + driver5 + " would drive for " );
+            Console.Write("\x1b[38;5;" + 11 + "m" + car15.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" this season. ");
+            Console.Write("However it seems that " + car15.principal + " had something else in mind, as he signed ");
+            Console.Write("\x1b[38;5;" + 11 + "m" + driver15.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" along with ");
+            Console.Write("\x1b[38;5;" + 11 + "m" + driver16.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("\x1b[38;5;" + 240 + "m" + car17.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" signs ");
+            Console.Write("\x1b[38;5;" + 240 + "m" + driver17.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 240 + "m" + driver18.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(".");
+            Console.WriteLine();
+
+            Console.Write("And finally, ");
+            Console.Write("\x1b[38;5;" + 26 + "m" + car19.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" has landed on the decision to involve ");
+            Console.Write("\x1b[38;5;" + 26 + "m" + driver19.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(" and ");
+            Console.Write("\x1b[38;5;" + 26 + "m" + driver20.name);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(" in this years lineup.");
+            Console.WriteLine();
         }
     }
 }
