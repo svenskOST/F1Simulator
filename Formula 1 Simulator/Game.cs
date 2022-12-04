@@ -244,8 +244,10 @@ namespace Game
             Thread.Sleep(400);
             Console.WriteLine("Press 'H' at any time to get help or a list of all available commands.");
             Thread.Sleep(400);
+            Console.WriteLine("To continue press 'Enter'.");
+            Thread.Sleep(400);
         checkpoint1:
-            Console.WriteLine("To continue press Enter...");
+            Console.WriteLine("Start new season...");
         fallback1:
             ConsoleKeyInfo advance = Console.ReadKey(true);
             if (advance.Key == ConsoleKey.H)
@@ -295,11 +297,11 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
             Thread.Sleep(400);
-            Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid.");
+            Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
             Thread.Sleep(400);
         checkpoint2:
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("To continue press Enter...");
+            Console.WriteLine("Show new grid...");
         fallback2:
             ConsoleKeyInfo advance2 = Console.ReadKey(true);
             if (advance2.Key == ConsoleKey.H)
