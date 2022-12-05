@@ -16,8 +16,6 @@ namespace Plugins
             Console.WriteLine("'team standings'");
             Console.WriteLine("'(driver)' or '(team)' to find stats and info on a certain driver or team");
             Console.WriteLine("'clear' - clears up the console so you can stay focused on the present!");
-            Console.WriteLine();
-            Console.WriteLine();
         }
 
         public static void CommandMode(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
@@ -37,26 +35,39 @@ namespace Plugins
                 Driver driver1, Driver driver2, Driver driver3, Driver driver4, Driver driver5, Driver driver6, Driver driver7, Driver driver8, Driver driver9, Driver driver10, Driver driver11, Driver driver12, Driver driver13, Driver driver14, Driver driver15, Driver driver16, Driver driver17, Driver driver18, Driver driver19, Driver driver20,
                 Team[] chosenteams, Driver[] chosendrivers, Team currentteam, Driver currentdriver)
             {
-            //loop2
-            TeamMode:
-                Console.WriteLine();
-                Console.WriteLine();
+                bool loop = true;
+
                 Console.ForegroundColor = ConsoleColor.Green;
+            checkpoint2:
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("What do you wish to learn about " + currentteam.name + "?");
-                ConsoleKeyInfo help = Console.ReadKey(true);
-                if (help.Key == ConsoleKey.Backspace)
+            fallback2:
+                ConsoleKeyInfo cmd = Console.ReadKey(true);
+                if (cmd.Key == ConsoleKey.Backspace)
                 {
-                    //break;
+                    loop = false;
+                    goto endcmd2;
                 }
-                else if (help.Key == ConsoleKey.H)
+                else if (cmd.Key == ConsoleKey.Enter)
                 {
+                    goto entercmd2;
+                }
+                else if (cmd.Key == ConsoleKey.H)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("Valid commands here are:");
                     Console.WriteLine("'info' - to learn more about them");
                     Console.WriteLine("'ratings' - displays the overall and in depth ratings of this teams car");
                     Console.WriteLine("'stats' - shows accumulated statistics since the season start");
                     Console.WriteLine("'Backspace' - to return to general command mode");
-                    goto TeamMode;
+                    goto checkpoint2;
                 }
+                goto fallback2;
+
+            entercmd2:
+                Console.Write(">");
                 string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
                 if (input.ToLower() == "info")
@@ -92,6 +103,22 @@ namespace Plugins
                     Console.WriteLine();
                     Console.WriteLine();
                 }
+
+            endcmd2:
+                if (loop == true)
+                {
+                    TeamMode(eRedBull, eFerrari, eMercedes, eRenault,
+                        RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+                        ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat,
+                        drivers, rdrivers,
+                        car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
+                        driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
+                        chosenteams, chosendrivers, currentteam, currentdriver);
+                }
+                else
+                {
+                    Console.WriteLine("Returned to command mode");
+                }
             }
 
             static void DriverMode(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
@@ -102,26 +129,39 @@ namespace Plugins
                 Driver driver1, Driver driver2, Driver driver3, Driver driver4, Driver driver5, Driver driver6, Driver driver7, Driver driver8, Driver driver9, Driver driver10, Driver driver11, Driver driver12, Driver driver13, Driver driver14, Driver driver15, Driver driver16, Driver driver17, Driver driver18, Driver driver19, Driver driver20,
                 Team[] chosenteams, Driver[] chosendrivers, Team currentteam, Driver currentdriver)
             {
-            //loop2
-            DriverMode:
-                Console.WriteLine();
-                Console.WriteLine();
+                bool loop = true;
+
                 Console.ForegroundColor = ConsoleColor.Green;
+            checkpoint3:
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("What do you want to find out about " + currentdriver.name + "?");
-                ConsoleKeyInfo help = Console.ReadKey(true);
-                if (help.Key == ConsoleKey.Backspace)
+            fallback3:
+                ConsoleKeyInfo cmd = Console.ReadKey(true);
+                if (cmd.Key == ConsoleKey.Backspace)
                 {
-                    //break;
+                    loop = false;
+                    goto endcmd3;
                 }
-                else if (help.Key == ConsoleKey.H)
+                else if (cmd.Key == ConsoleKey.Enter)
                 {
+                    goto entercmd3;
+                }
+                else if (cmd.Key == ConsoleKey.H)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("Valid commands here are:");
                     Console.WriteLine("'info' - to learn more about him");
                     Console.WriteLine("'ratings' - displays the drivers overall and other detailed ratings");
                     Console.WriteLine("'stats' - shows different statistics since the season start");
                     Console.WriteLine("'Backspace' - to return to general command mode");
-                    goto DriverMode;
+                    goto checkpoint3;
                 }
+                goto fallback3;
+
+            entercmd3:
+                Console.Write(">");
                 string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
                 if (input.ToLower() == "info")
@@ -137,9 +177,11 @@ namespace Plugins
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " ratings:");
-                    Console.WriteLine("           Overall skill:   " + currentdriver.overall);
+                    Console.WriteLine();
+                    Console.WriteLine("        Overall skill:   " + currentdriver.overall);
                     Console.WriteLine("Pace:       " + currentdriver.pace + "     Consistency: " + currentdriver.consistency);
                     Console.WriteLine("Racecraft:  " + currentdriver.racecraft + "     Experience:  " + currentdriver.experience);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else if (input.ToLower() == "stats")
                 {
@@ -154,6 +196,22 @@ namespace Plugins
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(input + " is not a valid command, please try again");
                 }
+
+            endcmd3:
+                if (loop == true)
+                {
+                    DriverMode(eRedBull, eFerrari, eMercedes, eRenault,
+                        RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+                        ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat,
+                        drivers, rdrivers,
+                        car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
+                        driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
+                        chosenteams, chosendrivers, currentteam, currentdriver);
+                }
+                else
+                {
+                    Console.WriteLine("Returned to command mode");
+                }
             }
 
             bool loop = true;
@@ -162,17 +220,19 @@ namespace Plugins
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
         checkpoint1:
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("Press 'Enter' to enter a command or 'Backspace' to exit command mode:");
         fallback1:
             ConsoleKeyInfo cmd = Console.ReadKey(true);
             if (cmd.Key == ConsoleKey.Backspace)
             {
                 loop = false;
-                goto endcmd;
+                goto endcmd1;
             }
             else if (cmd.Key == ConsoleKey.Enter)
             {
-                goto entercmd;
+                goto entercmd1;
             }
             else if (cmd.Key == ConsoleKey.H)
             {
@@ -181,7 +241,7 @@ namespace Plugins
             }
             goto fallback1;
 
-        entercmd:
+        entercmd1:
             Console.Write(">");
             string input = Console.ReadLine()!;
             for (int i = 0; i < 20; i++)
@@ -196,6 +256,7 @@ namespace Plugins
                         car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                         driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                         chosenteams, chosendrivers, currentteam, currentdriver);
+                    goto checkpoint1;
                 }
                 else if (input.ToLower() == chosenteams[i].name.ToString().ToLower())
                 {
@@ -207,11 +268,12 @@ namespace Plugins
                         car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                         driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                         chosenteams, chosendrivers, currentteam, currentdriver);
+                    goto checkpoint1;
                 }
             }
             if (input.ToLower() == "grid")
             {
-                if (grid == false)
+                if (grid == true)
                 {
                     string[] t = new[]
                     {
@@ -252,7 +314,7 @@ namespace Plugins
                                   "\r\n╠═══════════════════════════════╦══════════════════╦══════════════════╣" +
                                   "\r\n║             Team              ║    1st Driver    ║    2nd Driver    ║" +
                                   "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 21 + "m" + "Oracle Red Bull Racing" + "\x1b[38;5;" + 15 + "m" + "        ║ " + "\x1b[38;5;" + 21 + "m" + driver1.name + "\x1b[38;5;" + 15 + "m" + t[0] + "\x1b[38;5;" + 21 + "m" + driver2.name + "\x1b[38;5;" + 15 + "m" + t[1] +
+                                  "\r\n║ " + "\x1b[38;5;" + 4 + "m" + "Oracle Red Bull Racing" + "\x1b[38;5;" + 15 + "m" + "        ║ " + "\x1b[38;5;" + 4 + "m" + driver1.name + "\x1b[38;5;" + 15 + "m" + t[0] + "\x1b[38;5;" + 4 + "m" + driver2.name + "\x1b[38;5;" + 15 + "m" + t[1] +
                                   "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
                                   "\r\n║ " + "\x1b[38;5;" + 196 + "m" + "Scuderia Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║ " + "\x1b[38;5;" + 196 + "m" + driver3.name + "\x1b[38;5;" + 15 + "m" + t[2] + "\x1b[38;5;" + 196 + "m" + driver4.name + "\x1b[38;5;" + 15 + "m" + t[3] +
                                   "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
@@ -281,7 +343,7 @@ namespace Plugins
             }
             else if (input.ToLower() == "specs")
             {
-                if (specs == false)
+                if (specs == true)
                 {
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("╔═══════════════════════════════════════════════╗" +
@@ -289,7 +351,7 @@ namespace Plugins
                                   "\r\n╠══════════════╦═════════╦══════════════════════╣" +
                                   "\r\n║     Team     ║ Chassis ║      Power unit      ║" +
                                   "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 21 + "m" + "Red Bull" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 21 + "m" + "RB18" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 21 + "m" + "Red Bull Powertrains" + "\x1b[38;5;" + 15 + "m" + " ║" +
+                                  "\r\n║ " + "\x1b[38;5;" + 4 + "m" + "Red Bull" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 4 + "m" + "RB18" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 4 + "m" + "Red Bull Powertrains" + "\x1b[38;5;" + 15 + "m" + " ║" +
                                   "\r\n╠══════════════╬═════════╬══════════════════════╣" +
                                   "\r\n║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "      ║ " + "\x1b[38;5;" + 196 + "m" + "F1-75" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║" +
                                   "\r\n╠══════════════╬═════════╬══════════════════════╣" +
@@ -374,7 +436,7 @@ namespace Plugins
                 Console.WriteLine("'" + input + "'" + " is not a valid command, please try again");
             }
 
-            endcmd:
+            endcmd1:
             if (loop == true)
             {
                 CommandMode(eRedBull, eFerrari, eMercedes, eRenault,

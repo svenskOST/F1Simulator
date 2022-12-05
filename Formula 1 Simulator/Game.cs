@@ -336,13 +336,13 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
             Console.WriteLine();
-            Console.Write("\x1b[38;5;" + 21 + "m" + car1.name);
+            Console.Write("\x1b[38;5;" + 4 + "m" + car1.name);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(" has signed ");
-            Console.Write("\x1b[38;5;" + 21 + "m" + driver1.name);
+            Console.Write("\x1b[38;5;" + 4 + "m" + driver1.name);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 21 + "m" + driver2.name);
+            Console.Write("\x1b[38;5;" + 4 + "m" + driver2.name);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" for the upcoming season.");
             Console.WriteLine();
