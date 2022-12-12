@@ -14,32 +14,24 @@ DONE Fix and finnish the Formula 1 Randomizer.
 
   Formula 1 Comparator:
 
-- Make Formula 1 Comparator's overall rating calculations more sophisticated. Do this by having conditional statements for the calculations.
-  For example if (driver1.skill > 80 and car1.performance < 70) {rating1 = calculation} and if (skill < 75 and performance > 90) 
-  {other factor for the calculation} etc. 
-
-- Decide this factor in the calculation. Difference in car and driver? Make the factor less/more effective depending on high/low skill/performance.
-
-- Make it possible to create a custom driver/car. If the user chooses to do this the program will ask user to give ratings for different attributes.
-  These attributes then themselves decide the final skill and performance in a TBD calculation. 
+DONE Decide this factor in the calculation. Difference in car and driver? Make the factor less/more effective depending on high/low skill/performance.
 
 DONE For this I may have to create new classes and more parameters, like engine, downforce, power, pace, defending, overtaking, control and much more.
 
 
 For v1.0.0 Beta:
-- Make the general structure of the simulator program. The program will allow the user to either choose manually or randomize the grid for 
+DONE Make the general structure of the simulator program. The program will allow the user to either choose manually or randomize the grid for 
   each season. The program will simulate each season, each race and hand out points to finally decide both championships. I will create classes
   for the tracks. Each track will have different parameters like location and name, as well as different ways to calculate overall ratings based
   on whats important for that particular circuit, like high downforce, high speed, overtaking, pace and so on.
 
 DONE Create constants (driver and car 1-20). Car 1-20 will already be decided but driver 1-20 will be pulled randomly from the array of drivers.
 
-- Use randomizer to randomize. Comparator to decide ratings and make something that sorts them (array that push/pulls).
+DONE Use randomizer to randomize. Comparator to decide ratings and make something that sorts them (array that push/pulls).
 
-- The simulator will also gather statistics over time, like poles, wins and so on.
+DONE The simulator will also gather statistics over time, like poles, wins and so on.
 
-- Results in each race will be based on the array from the sorted ratings, which gives different probabilities for the results. Maybe the console
-  describes events like engine failure, spin and so on.
+DONE Results in each race will be based on the array from the sorted ratings.
 
 
 Further updates:
@@ -50,3 +42,13 @@ Further updates:
 - Add more aspects to the simulation? Money? Team principals? Weather? Pit stops?
 
 - Add fullstats that displays the simulators + real life stats before
+
+- Gives different probabilities for the results. Maybe the console describes events like engine failure, spin and so on.
+
+- Make it possible to create a custom driver/car. If the user chooses to do this the program will ask user to give ratings for different attributes.
+  These attributes then themselves decide the final skill and performance in a TBD calculation. 
+
+- Tweaking of values and calculations for ratings, drivers and teams etc.
+
+- Make a command for game speed, allowing user to simulate race by race stopping for commands between or simulte the whole championship to dive into commands after that.
+  Do this by setting an if bool == true before all thread sleep and input to continue places in the code. The command changes the value of this bool.

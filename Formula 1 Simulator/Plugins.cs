@@ -72,36 +72,35 @@ namespace Plugins
                 Console.ForegroundColor = ConsoleColor.White;
                 if (input.ToLower() == "info")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine(currentteam.name + " is " + currentteam.prefix + " Formula 1 team based in " + currentteam.hq + ".");
                     Console.WriteLine("They have been in the sport for " + currentteam.age + " years.");
                     Console.WriteLine(currentteam.principal + " is currently the team principal of " + currentteam.name + ".");
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
                 else if (input.ToLower() == "ratings" || input.ToLower() == "rating")
                 {
-                    Console.WriteLine(currentteam.name + " uses the " + currentteam.engine + " power unit as their internal combustion engine.");
-                    Console.WriteLine("Ratings:");
-                    Console.WriteLine("              Overall performance:   " + currentteam.performance);
-                    Console.WriteLine("ICE Power:  " + currentteam.power + "     ICE Reliability: " + currentteam.reliability);
-                    Console.WriteLine("Downforce:  " + currentteam.downforce + "     Drag:  " + currentteam.drag);
-                    Console.WriteLine("Traction:  " + currentteam.traction + "     Grip:  " + currentteam.grip);
-                    Console.WriteLine("Tyre degradation:  " + currentteam.degradation);
                     Console.WriteLine();
                     Console.WriteLine();
+                    Console.WriteLine(currentteam.name + " ratings:");
+                    Console.WriteLine();
+                    Console.WriteLine("      Overall performance: " + currentteam.performance);
+                    Console.WriteLine("ICE Power: " + currentteam.power + "     ICE Reliability:  " + currentteam.reliability);
+                    Console.WriteLine("Downforce: " + currentteam.downforce + "     Aerodynamics:    " + currentteam.drag);
+                    Console.WriteLine("Traction:  " + currentteam.traction + "     Tyre degradation: " + currentteam.degradation);
                 }
                 else if (input.ToLower() == "stats")
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine(currentteam.name + " currently has " + currentteam.wins + " wins, " + currentteam.podiums + " podiums, and " + currentteam.points + " points this season.");
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
                 else
                 {
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("'" + input + "'" + " is not a valid command, please try again");
-                    Console.WriteLine();
-                    Console.WriteLine();
                 }
 
             endcmd2:
@@ -178,9 +177,9 @@ namespace Plugins
                     Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " ratings:");
                     Console.WriteLine();
-                    Console.WriteLine("        Overall skill:   " + currentdriver.overall);
-                    Console.WriteLine("Pace:       " + currentdriver.pace + "     Consistency: " + currentdriver.consistency);
-                    Console.WriteLine("Racecraft:  " + currentdriver.racecraft + "     Experience:  " + currentdriver.experience);
+                    Console.WriteLine("       Overall skill: " + currentdriver.overall);
+                    Console.WriteLine("Pace:      " + currentdriver.pace + "     Consistency: " + currentdriver.consistency);
+                    Console.WriteLine("Racecraft: " + currentdriver.racecraft + "     Experience:  " + currentdriver.experience);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else if (input.ToLower() == "stats")
@@ -216,8 +215,6 @@ namespace Plugins
 
             bool loop = true;
 
-            Console.WriteLine();
-            Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
         checkpoint1:
             Console.WriteLine();
@@ -275,29 +272,7 @@ namespace Plugins
             {
                 if (grid == true)
                 {
-                    string[] t = new[]
-                    {
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                        "",
-                    };
+                    string[] t = new string[20];
 
                     for (int i = 0; i < t.Length; i++)
                     {
@@ -429,6 +404,7 @@ namespace Plugins
             else if (input.ToLower() == "clear")
             {
                 Console.Clear();
+                Console.WriteLine("Cleared console");
             }
             else
             {
@@ -436,7 +412,7 @@ namespace Plugins
                 Console.WriteLine("'" + input + "'" + " is not a valid command, please try again");
             }
 
-            endcmd1:
+        endcmd1:
             if (loop == true)
             {
                 CommandMode(eRedBull, eFerrari, eMercedes, eRenault,
