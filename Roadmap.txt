@@ -52,3 +52,5 @@ Further updates:
 
 - Make a command for game speed, allowing user to simulate race by race stopping for commands between or simulte the whole championship to dive into commands after that.
   Do this by setting an if bool == true before all thread sleep and input to continue places in the code. The command changes the value of this bool.
+
+- Further optimize the code.

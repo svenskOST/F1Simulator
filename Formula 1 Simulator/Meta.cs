@@ -73,7 +73,7 @@
         public double overall;
         public double rating;
         public string? color;
-        public Team seat;
+        public Team? seat;
 
         public Driver(string name, int age, string firstname, string lastname, string shortname, string nationality, string prefix, int pace, int consistency, int racecraft, int experience, int wins, int podiums, int points)
         {
@@ -113,14 +113,7 @@
 
     internal class Results
     {
-        public static void Bahrain(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
-            Team RedBull, Team Ferrari, Team Mercedes, Team Alpine, Team Mclaren, Team AlfaRomeo, Team AstonMartin, Team Haas, Team AlphaTauri, Team Williams,
-            Driver ver, Driver per, Driver lec, Driver sai, Driver ham, Driver rus, Driver alo, Driver oco, Driver nor, Driver ric, Driver bot, Driver zho, Driver vet, Driver str, Driver mag, Driver msc, Driver gas, Driver tsu, Driver alb, Driver lat,
-            Driver[] drivers, Driver[] rdrivers,
-            Team car1, Team car2, Team car3, Team car4, Team car5, Team car6, Team car7, Team car8, Team car9, Team car10, Team car11, Team car12, Team car13, Team car14, Team car15, Team car16, Team car17, Team car18, Team car19, Team car20,
-            Driver driver1, Driver driver2, Driver driver3, Driver driver4, Driver driver5, Driver driver6, Driver driver7, Driver driver8, Driver driver9, Driver driver10, Driver driver11, Driver driver12, Driver driver13, Driver driver14, Driver driver15, Driver driver16, Driver driver17, Driver driver18, Driver driver19, Driver driver20,
-            Team[] chosenteams, Driver[] chosendrivers, Team currentteam, Driver currentdriver,
-            bool grid, bool specs)
+        public static void Bahrain(Team[] chosenteams, Driver[] chosendrivers)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -136,10 +129,516 @@
                 }
                 else
                 {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
                     engine = y.power * 0.8;
                 }
                 double car = (engine + y.downforce + y.traction + y.drag * 1.1 + y.degradation) / 5;
-                x.rating = car * (driver / 100);
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Jeddah(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace + x.consistency + x.racecraft * 1.3) / 3;
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.1 + y.traction + y.drag * 1.1 + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Australia(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction + y.drag * 0.8 + y.degradation * 0.9) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Imola(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace + x.consistency * 0.9 + x.racecraft * 0.9) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 0.9 + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Miami(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.2 + x.consistency * 0.8 + x.racecraft * 1.1) / 3;
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Spain(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.1 + y.traction * 1.1 + y.drag + y.degradation * 1.2) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Monaco(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.4 + x.consistency * 1.3 + x.racecraft * 0.5) / 3 + (x.experience / 100 * 4);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.9;
+                }
+                double car = (engine * 0.8 + y.downforce * 1.6 + y.traction * 1.1 + y.drag * 0.5 + y.degradation * 0.6) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Baku(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.2 + x.consistency + x.racecraft) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.1) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Canada(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction * 1.4 + y.drag + y.degradation * 0.9) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Silverstone(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.3 + x.consistency * 0.7 + x.racecraft * 1.5) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.3 + y.traction + y.drag + y.degradation * 1.1) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Austria(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.6 + x.racecraft * 1.2) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction + y.drag + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Paulricard(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft * 1.1) / 3 + (x.experience / 100);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.2) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Hungaroring(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.2 + y.traction * 1.2 + y.drag + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Spa(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.8 + x.racecraft * 1.2) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.1 + y.traction * 1.2 + y.drag * 1.2 + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Zandvoort(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace + x.consistency + x.racecraft) / 3 + (x.experience / 100);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction + y.drag * 0.9 + y.degradation * 0.8) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Monza(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.7 + x.racecraft * 1.3) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.7;
+                }
+                double car = (engine * 1.2 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.7 + y.degradation) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Singapore(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.2 + x.consistency * 1.2 + x.racecraft * 0.8) / 3 + (x.experience / 100);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.4 + y.traction + y.drag * 0.8 + y.degradation * 1.2) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Suzuka(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft * 1.1) / 3 + (x.experience / 100 * 2);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 1.3 + y.traction * 1.2 + y.drag + y.degradation * 0.9) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Cota(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.4 + x.consistency * 0.8 + x.racecraft * 1.2) / 3 + (x.experience / 100);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 1.6) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Mexico(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.6 + x.racecraft * 1.1) / 3 + (x.experience / 100);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.6;
+                }
+                double car = (engine * 1.1 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 0.9) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Interlagos(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.1 + x.consistency * 0.8 + x.racecraft * 1.4) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.7;
+                }
+                double car = (engine * 1.1 + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 0.8) / 5;
+                x.rating = (car + driver) / 2;
+            }
+        }
+
+        public static void Abudhabi(Team[] chosenteams, Driver[] chosendrivers)
+        {
+            for (int i = 0; i < chosendrivers.Length; i++)
+            {
+                var x = chosendrivers[i];
+                var y = chosenteams[i];
+                double driver = (x.pace * 1.2 + x.consistency + x.racecraft * 1.1) / 3 + (x.experience / 100 * 3);
+                Random rand = new();
+                int prob = rand.Next(0, 100);
+                double engine;
+                if (prob < y.reliability)
+                {
+                    engine = y.power;
+                }
+                else
+                {
+                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    engine = y.power * 0.8;
+                }
+                double car = (engine + y.downforce * 0.9 + y.traction * 1.1 + y.drag * 1.3 + y.degradation * 1.1) / 5;
+                x.rating = (car + driver) / 2;
             }
         }
     }
