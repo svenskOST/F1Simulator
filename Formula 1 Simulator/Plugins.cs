@@ -1,9 +1,25 @@
 ﻿using Meta;
+using static Game.Program;
 
 namespace Plugins
 {
     class Program
     {
+        public class DStandingComparer : IComparer<Driver>
+        {
+            public int Compare(Driver x, Driver y)
+            {
+                return y.points.CompareTo(x.points);
+            }
+        }
+        public class TStandingComparer : IComparer<Team>
+        {
+            public int Compare(Team x, Team y)
+            {
+                return y.points.CompareTo(x.points);
+            }
+        }
+
         public static void Help()
         {
             Console.WriteLine();
@@ -355,51 +371,141 @@ namespace Plugins
             }
             else if (input.ToLower() == "driver standings")
             {
-                /*
-                Console.WriteLine("The standings in the F1 Drivers Championship:");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Leader  " + driver + "  " + points);
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("P2  " + driver + "  " + points);
-                Console.WriteLine("P3  " + driver + "  " + points);
-                Console.WriteLine("P4  " + driver + "  " + points);
-                Console.WriteLine("P5  " + driver + "  " + points);
-                Console.WriteLine("P6  " + driver + "  " + points);
-                Console.WriteLine("P7  " + driver + "  " + points);
-                Console.WriteLine("P8  " + driver + "  " + points);
-                Console.WriteLine("P9  " + driver + "  " + points);
-                Console.WriteLine("P10  " + driver + "  " + points);
-                Console.WriteLine("P11  " + driver + "  " + points);
-                Console.WriteLine("P12  " + driver + "  " + points);
-                Console.WriteLine("P13  " + driver + "  " + points);
-                Console.WriteLine("P14  " + driver + "  " + points);
-                Console.WriteLine("P15  " + driver + "  " + points);
-                Console.WriteLine("P16  " + driver + "  " + points);
-                Console.WriteLine("P17  " + driver + "  " + points);
-                Console.WriteLine("P18  " + driver + "  " + points);
-                Console.WriteLine("P19  " + driver + "  " + points);
-                Console.WriteLine("P20  " + driver + "  " + points);
+                Driver[] standingdrivers = new[]
+                {
+                    driver1,
+                    driver2,
+                    driver3,
+                    driver4,
+                    driver5,
+                    driver6,
+                    driver7,
+                    driver8,
+                    driver9,
+                    driver10,
+                    driver11,
+                    driver12,
+                    driver13,
+                    driver14,
+                    driver15,
+                    driver16,
+                    driver17,
+                    driver18,
+                    driver19,
+                    driver20
+                };
+
+                Array.Sort(standingdrivers, new DStandingComparer());
+
+                string[] t = new string[20];
+                string[] u = new string[20];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = " ║ ";
+                    for (int y = 0; y < 16 - standingdrivers[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 3 - standingdrivers[i].points.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("╔═════════════════════════════════╗" +
+                              "\r\n║     F1 Drivers Championship     ║" +
+                              "\r\n╠════════╦══════════════════╦═════╣" +
+                              "\r\n║ Pos.   ║      Driver      ║ Pts ║" +
+                              "\r\n╠════════╬══════════════════╬═════╣" +
+                              "\r\n║ Leader ║ " + standingdrivers[0].color + standingdrivers[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + standingdrivers[0].points + u[0] +
+                              "\r\n║ P2     ║ " + standingdrivers[1].color + standingdrivers[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + standingdrivers[1].points + u[1] +
+                              "\r\n║ P3     ║ " + standingdrivers[2].color + standingdrivers[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + standingdrivers[2].points + u[2] +
+                              "\r\n║ P4     ║ " + standingdrivers[3].color + standingdrivers[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + standingdrivers[3].points + u[3] +
+                              "\r\n║ P5     ║ " + standingdrivers[4].color + standingdrivers[4].name + "\x1b[38;5;" + 15 + "m" + t[4] + standingdrivers[4].points + u[4] +
+                              "\r\n║ P6     ║ " + standingdrivers[5].color + standingdrivers[5].name + "\x1b[38;5;" + 15 + "m" + t[5] + standingdrivers[5].points + u[5] +
+                              "\r\n║ P7     ║ " + standingdrivers[6].color + standingdrivers[6].name + "\x1b[38;5;" + 15 + "m" + t[6] + standingdrivers[6].points + u[6] +
+                              "\r\n║ P8     ║ " + standingdrivers[7].color + standingdrivers[7].name + "\x1b[38;5;" + 15 + "m" + t[7] + standingdrivers[7].points + u[7] +
+                              "\r\n║ P9     ║ " + standingdrivers[8].color + standingdrivers[8].name + "\x1b[38;5;" + 15 + "m" + t[8] + standingdrivers[8].points + u[8] +
+                              "\r\n║ P10    ║ " + standingdrivers[9].color + standingdrivers[9].name + "\x1b[38;5;" + 15 + "m" + t[9] + standingdrivers[9].points + u[9] +
+                              "\r\n║ P11    ║ " + standingdrivers[10].color + standingdrivers[10].name + "\x1b[38;5;" + 15 + "m" + t[10] + standingdrivers[10].points + u[10] +
+                              "\r\n║ P12    ║ " + standingdrivers[11].color + standingdrivers[11].name + "\x1b[38;5;" + 15 + "m" + t[11] + standingdrivers[11].points + u[11] +
+                              "\r\n║ P13    ║ " + standingdrivers[12].color + standingdrivers[12].name + "\x1b[38;5;" + 15 + "m" + t[12] + standingdrivers[12].points + u[12] +
+                              "\r\n║ P14    ║ " + standingdrivers[13].color + standingdrivers[13].name + "\x1b[38;5;" + 15 + "m" + t[13] + standingdrivers[13].points + u[13] +
+                              "\r\n║ P15    ║ " + standingdrivers[14].color + standingdrivers[14].name + "\x1b[38;5;" + 15 + "m" + t[14] + standingdrivers[14].points + u[14] +
+                              "\r\n║ P16    ║ " + standingdrivers[15].color + standingdrivers[15].name + "\x1b[38;5;" + 15 + "m" + t[15] + standingdrivers[15].points + u[15] +
+                              "\r\n║ P17    ║ " + standingdrivers[16].color + standingdrivers[16].name + "\x1b[38;5;" + 15 + "m" + t[16] + standingdrivers[16].points + u[16] +
+                              "\r\n║ P18    ║ " + standingdrivers[17].color + standingdrivers[17].name + "\x1b[38;5;" + 15 + "m" + t[17] + standingdrivers[17].points + u[17] +
+                              "\r\n║ P19    ║ " + standingdrivers[18].color + standingdrivers[18].name + "\x1b[38;5;" + 15 + "m" + t[18] + standingdrivers[18].points + u[18] +
+                              "\r\n║ P20    ║ " + standingdrivers[19].color + standingdrivers[19].name + "\x1b[38;5;" + 15 + "m" + t[19] + standingdrivers[19].points + u[19] +
+                              "\r\n╚════════╩══════════════════╩═════╝");
                 Console.WriteLine();
                 Console.WriteLine();
             }
             else if (input.ToLower() == "team standings")
             {
-                Console.WriteLine("The standings in the F1 Constructors Championship:");
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("Leader  " + team + "  " + points);
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine("P2  " + team + "  " + points);
-                Console.WriteLine("P3  " + team + "  " + points);
-                Console.WriteLine("P4  " + team + "  " + points);
-                Console.WriteLine("P5  " + team + "  " + points);
-                Console.WriteLine("P6  " + team + "  " + points);
-                Console.WriteLine("P7  " + team + "  " + points);
-                Console.WriteLine("P8  " + team + "  " + points);
-                Console.WriteLine("P9  " + team + "  " + points);
-                Console.WriteLine("P10  " + team + "  " + points);
+                Team[] standingteams = new[]
+                {
+                    car1,
+                    car3,
+                    car5,
+                    car7,
+                    car9,
+                    car11,
+                    car13,
+                    car15,
+                    car17,
+                    car19,
+                };
+
+                Array.Sort(standingteams, new TStandingComparer());
+
+                string[] t = new string[10];
+                string[] u = new string[10];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = "  ║ ";
+                    for (int y = 0; y < 12 - standingteams[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 3 - standingteams[i].points.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("╔══════════════════════════════╗" +
+                              "\r\n║ F1 Constructors Championship ║" +
+                              "\r\n╠════════╦═══════════════╦═════╣" +
+                              "\r\n║ Pos.   ║     Team      ║ Pts ║" +
+                              "\r\n╠════════╬═══════════════╬═════╣" +
+                              "\r\n║ Leader ║ " + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + standingteams[0].points + u[0] +
+                              "\r\n║ P2     ║ " + standingteams[1].color + standingteams[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + standingteams[1].points + u[1] +
+                              "\r\n║ P3     ║ " + standingteams[2].color + standingteams[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + standingteams[2].points + u[2] +
+                              "\r\n║ P4     ║ " + standingteams[3].color + standingteams[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + standingteams[3].points + u[3] +
+                              "\r\n║ P5     ║ " + standingteams[4].color + standingteams[4].name + "\x1b[38;5;" + 15 + "m" + t[4] + standingteams[4].points + u[4] +
+                              "\r\n║ P6     ║ " + standingteams[5].color + standingteams[5].name + "\x1b[38;5;" + 15 + "m" + t[5] + standingteams[5].points + u[5] +
+                              "\r\n║ P7     ║ " + standingteams[6].color + standingteams[6].name + "\x1b[38;5;" + 15 + "m" + t[6] + standingteams[6].points + u[6] +
+                              "\r\n║ P8     ║ " + standingteams[7].color + standingteams[7].name + "\x1b[38;5;" + 15 + "m" + t[7] + standingteams[7].points + u[7] +
+                              "\r\n║ P9     ║ " + standingteams[8].color + standingteams[8].name + "\x1b[38;5;" + 15 + "m" + t[8] + standingteams[8].points + u[8] +
+                              "\r\n║ P10    ║ " + standingteams[9].color + standingteams[9].name + "\x1b[38;5;" + 15 + "m" + t[9] + standingteams[9].points + u[9] +
+                              "\r\n╚════════╩═══════════════╩═════╝");
                 Console.WriteLine();
                 Console.WriteLine();
-                */
             }
             else if (input.ToLower() == "clear")
             {

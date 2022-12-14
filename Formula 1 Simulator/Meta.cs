@@ -122,17 +122,12 @@
                 double driver = (x.pace + x.consistency * 0.9 + x.racecraft * 1.1) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction + y.drag * 1.1 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.7;
                 }
-                double car = (engine + y.downforce + y.traction + y.drag * 1.1 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -146,17 +141,12 @@
                 double driver = (x.pace + x.consistency + x.racecraft * 1.3) / 3;
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.1 + y.traction + y.drag * 1.1 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.7;
                 }
-                double car = (engine + y.downforce * 1.1 + y.traction + y.drag * 1.1 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -170,17 +160,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction + y.drag * 0.8 + y.degradation * 0.9) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce + y.traction + y.drag * 0.8 + y.degradation * 0.9) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -194,17 +179,12 @@
                 double driver = (x.pace + x.consistency * 0.9 + x.racecraft * 0.9) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 0.9 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 0.9 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -218,17 +198,12 @@
                 double driver = (x.pace * 1.2 + x.consistency * 0.8 + x.racecraft * 1.1) / 3;
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.7;
                 }
-                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -242,17 +217,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.1 + y.traction * 1.1 + y.drag + y.degradation * 1.2) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.1 + y.traction * 1.1 + y.drag + y.degradation * 1.2) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -266,17 +236,12 @@
                 double driver = (x.pace * 1.4 + x.consistency * 1.3 + x.racecraft * 0.5) / 3 + (x.experience / 100 * 4);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power * 0.8 + y.downforce * 1.6 + y.traction * 1.1 + y.drag * 0.5 + y.degradation * 0.6) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.9;
+                    car *= 0.9;
                 }
-                double car = (engine * 0.8 + y.downforce * 1.6 + y.traction * 1.1 + y.drag * 0.5 + y.degradation * 0.6) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -290,17 +255,12 @@
                 double driver = (x.pace * 1.2 + x.consistency + x.racecraft) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.1) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.7;
                 }
-                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.1) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -314,17 +274,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction * 1.4 + y.drag + y.degradation * 0.9) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce + y.traction * 1.4 + y.drag + y.degradation * 0.9) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -338,17 +293,12 @@
                 double driver = (x.pace * 1.3 + x.consistency * 0.7 + x.racecraft * 1.5) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.3 + y.traction + y.drag + y.degradation * 1.1) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.3 + y.traction + y.drag + y.degradation * 1.1) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -362,17 +312,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.6 + x.racecraft * 1.2) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction + y.drag + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce + y.traction + y.drag + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -386,17 +331,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft * 1.1) / 3 + (x.experience / 100);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.2) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.7;
                 }
-                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.2) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -410,17 +350,12 @@
                 double driver = (x.pace + x.consistency * 0.9 + x.racecraft) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.2 + y.traction * 1.2 + y.drag + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.2 + y.traction * 1.2 + y.drag + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -434,17 +369,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.8 + x.racecraft * 1.2) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.1 + y.traction * 1.2 + y.drag * 1.2 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.1 + y.traction * 1.2 + y.drag * 1.2 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -458,17 +388,12 @@
                 double driver = (x.pace + x.consistency + x.racecraft) / 3 + (x.experience / 100);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction + y.drag * 0.9 + y.degradation * 0.8) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce + y.traction + y.drag * 0.9 + y.degradation * 0.8) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -482,17 +407,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.7 + x.racecraft * 1.3) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power * 1.2 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.7 + y.degradation) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.7;
+                    car *= 0.6;
                 }
-                double car = (engine * 1.2 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.7 + y.degradation) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -506,17 +426,12 @@
                 double driver = (x.pace * 1.2 + x.consistency * 1.2 + x.racecraft * 0.8) / 3 + (x.experience / 100);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.4 + y.traction + y.drag * 0.8 + y.degradation * 1.2) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.9;
                 }
-                double car = (engine + y.downforce * 1.4 + y.traction + y.drag * 0.8 + y.degradation * 1.2) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -530,17 +445,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.9 + x.racecraft * 1.1) / 3 + (x.experience / 100 * 2);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce * 1.3 + y.traction * 1.2 + y.drag + y.degradation * 0.9) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 1.3 + y.traction * 1.2 + y.drag + y.degradation * 0.9) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -554,17 +464,12 @@
                 double driver = (x.pace * 1.4 + x.consistency * 0.8 + x.racecraft * 1.2) / 3 + (x.experience / 100);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 1.6) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 1.6) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -578,18 +483,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.6 + x.racecraft * 1.1) / 3 + (x.experience / 100);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
+                double car = (y.power * 1.1 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 0.9) / 5;
+                if (prob > y.reliability)
                 {
-                    engine = y.power;
-                }
-                else
-                {
-
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.6;
+                    car *= 0.7;
                 }
-                double car = (engine * 1.1 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 0.9) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -603,17 +502,12 @@
                 double driver = (x.pace * 1.1 + x.consistency * 0.8 + x.racecraft * 1.4) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
-                if (prob < y.reliability)
-                {
-                    engine = y.power;
-                }
-                else
+                double car = (y.power * 1.1 + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 0.8) / 5;
+                if (prob > y.reliability)
                 {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.7;
+                    car *= 0.8;
                 }
-                double car = (engine * 1.1 + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 0.8) / 5;
                 x.rating = (car + driver) / 2;
             }
         }
@@ -627,17 +521,12 @@
                 double driver = (x.pace * 1.2 + x.consistency + x.racecraft * 1.1) / 3 + (x.experience / 100 * 3);
                 Random rand = new();
                 int prob = rand.Next(0, 100);
-                double engine;
+                double car = (y.power + y.downforce * 0.9 + y.traction * 1.1 + y.drag * 1.3 + y.degradation * 1.1) / 5;
                 if (prob < y.reliability)
                 {
-                    engine = y.power;
-                }
-                else
-                {
                     Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
-                    engine = y.power * 0.8;
+                    car *= 0.8;
                 }
-                double car = (engine + y.downforce * 0.9 + y.traction * 1.1 + y.drag * 1.3 + y.degradation * 1.1) / 5;
                 x.rating = (car + driver) / 2;
             }
         }

@@ -1243,7 +1243,7 @@ namespace Game
                 driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                 bahrain, jeddah, australia, imola, miami, spain, monaco, baku, canada, silverstone, austria, paulricard, hungaroring, spa, zandvoort, monza, singapore, suzuka, cota, mexico, interlagos, abudhabi);
 
-            racestart = "Not many circuits can compare with the narrow streets of Monaco. " + singapore.name + "however, might be one of them." ;
+            racestart = "Not many circuits can compare with the narrow streets of Monaco. " + singapore.name + " however, might be one of them." ;
             currentrace = "       SINGAPORE GRAND PRIX RACE RESULTS      ";
             CurrentRace = "Singapore";
 
