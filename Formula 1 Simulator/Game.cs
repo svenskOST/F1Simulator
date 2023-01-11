@@ -322,7 +322,7 @@ namespace Game
                     Results.Canada(chosenteams, chosendrivers);
                     currentgp = canada.gp;
                     break;
-                case "Silverstine":
+                case "Silverstone":
                     Results.Silverstone(chosenteams, chosendrivers);
                     currentgp = silverstone.gp;
                     break;
