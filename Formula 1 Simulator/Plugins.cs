@@ -32,6 +32,7 @@ namespace Plugins
             Console.WriteLine("'team standings'");
             Console.WriteLine("'(driver)' or '(team)' to find stats and info on a certain driver or team");
             Console.WriteLine("'clear' - clears up the console so you can stay focused on the present!");
+            Console.Write("'autorun' - let the simulation run continuosly, press 'Ctrl' + 'C' to stop");
         }
 
         public static void CommandMode(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
@@ -41,7 +42,7 @@ namespace Plugins
             Team car1, Team car2, Team car3, Team car4, Team car5, Team car6, Team car7, Team car8, Team car9, Team car10, Team car11, Team car12, Team car13, Team car14, Team car15, Team car16, Team car17, Team car18, Team car19, Team car20,
             Driver driver1, Driver driver2, Driver driver3, Driver driver4, Driver driver5, Driver driver6, Driver driver7, Driver driver8, Driver driver9, Driver driver10, Driver driver11, Driver driver12, Driver driver13, Driver driver14, Driver driver15, Driver driver16, Driver driver17, Driver driver18, Driver driver19, Driver driver20,
             Team[] chosenteams, Driver[] chosendrivers, Team currentteam, Driver currentdriver,
-            bool grid, bool specs)
+            bool grid, bool specs, bool Autorun)
         {
             static void TeamMode(Engine eRedBull, Engine eFerrari, Engine eMercedes, Engine eRenault,
                 Team RedBull, Team Ferrari, Team Mercedes, Team Alpine, Team Mclaren, Team AlfaRomeo, Team AstonMartin, Team Haas, Team AlphaTauri, Team Williams,
@@ -284,7 +285,16 @@ namespace Plugins
                     goto checkpoint1;
                 }
             }
-            if (input.ToLower() == "grid")
+            if (input.ToLower() == "autorun")
+            {
+                Console.WriteLine("The game will now run automatically, press 'Ctrl' + 'C' to stop");
+                Autorun = true;
+            }
+            else if (input == "test")
+            {
+                Console.WriteLine(Autorun.ToString());
+            }
+            else if (input.ToLower() == "grid")
             {
                 if (grid == true)
                 {
@@ -528,7 +538,7 @@ namespace Plugins
                     car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                     driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                     chosenteams, chosendrivers, currentteam, currentdriver,
-                    grid, specs);
+                    grid, specs, Autorun);
             }
             else
             {

@@ -5,6 +5,8 @@ namespace Game
 {
     class Program
     {
+        static bool Autorun = false;
+
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
         [DllImport("kernel32.dll", SetLastError = true)]
@@ -47,15 +49,26 @@ namespace Game
             }
             for (int i = 0; i < 3; i++)
             {
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(200);
-                Console.SetCursorPosition(x, Console.CursorTop);
-                ClearCurrentConsoleLine(x);
-                Thread.Sleep(200);
+                if (Autorun == false)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                }
             }
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
@@ -73,15 +86,26 @@ namespace Game
             }
             for (int i = 0; i < 4; i++)
             {
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(200);
-                Console.SetCursorPosition(x, Console.CursorTop);
-                ClearCurrentConsoleLine(x);
-                Thread.Sleep(200);
+                if (Autorun == false)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                }
             }
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
@@ -99,15 +123,26 @@ namespace Game
             }
             for (int i = 0; i < 4; i++)
             {
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(200);
-                Console.SetCursorPosition(x, Console.CursorTop);
-                ClearCurrentConsoleLine(x);
-                Thread.Sleep(200);
+                if (Autorun == false)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                }
             }
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
@@ -125,24 +160,33 @@ namespace Game
             }
             for (int i = 0; i < 3; i++)
             {
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(200);
-                Console.SetCursorPosition(x, Console.CursorTop);
-                ClearCurrentConsoleLine(x);
-                Thread.Sleep(200);
+                if (Autorun == false)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.Write(" .");
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine(x);
+                }
             }
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine(x);
         }
 
-        public static void Result(Driver[] resultdrivers, string resulttitle, string currentgp,
-            Track bahrain, Track jeddah, Track australia, Track imola, Track miami, Track spain, Track monaco, Track baku, Track canada, Track silverstone, Track austria, Track paulricard,
-            Track hungaroring, Track spa, Track zandvoort, Track monza, Track singapore, Track suzuka, Track cota, Track mexico, Track interlagos, Track abudhabi)
+        public static void Result(Driver[] resultdrivers, string resulttitle, string currentgp)
         {
             Array.Sort(resultdrivers, new DriverComparer());
 
@@ -271,6 +315,10 @@ namespace Game
             Console.WriteLine(racestart);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(startornext);
+            if (Autorun == true)
+            {
+                goto checkpoint;
+            }
         fallback:
             ConsoleKeyInfo advance = Console.ReadKey(true);
             if (advance.Key == ConsoleKey.Enter)
@@ -402,13 +450,19 @@ namespace Game
 
             string resulttitle = currentrace;
 
-            Result(resultdrivers, resulttitle, currentgp,
-                bahrain, jeddah, australia, imola, miami, spain, monaco, baku, canada, silverstone, austria, paulricard, hungaroring, spa, zandvoort, monza, singapore, suzuka, cota, mexico, interlagos, abudhabi);
+            Result(resultdrivers, resulttitle, currentgp);
 
-            Thread.Sleep(2000);
+            if (Autorun == false)
+            {
+                Thread.Sleep(2000);
+            }
         checkpoint2:
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Use commands or press 'Enter' to exit race weekend.");
+            if (Autorun == true)
+            {
+                goto endresults;
+            }
         fallback2:
             ConsoleKeyInfo advance2 = Console.ReadKey(true);
             if (advance2.Key == ConsoleKey.H)
@@ -429,7 +483,7 @@ namespace Game
                     car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                     driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                     chosenteams, chosendrivers, currentteam, currentdriver,
-                    grid, specs);
+                    grid, specs, Autorun);
                 goto checkpoint2;
             }
             else if (advance2.Key == ConsoleKey.Enter)
@@ -443,9 +497,17 @@ namespace Game
             ClearCurrentConsoleLine(x);
         }
 
+        public static void StopAutorun(object? sender, ConsoleCancelEventArgs args)
+        {
+            Console.WriteLine("Stopped");
+            Autorun = false;
+        }
+
         static void Main()
         {
             Console.Title = "Formula 1 Simulator";
+
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(StopAutorun);
 
             Engine eRedBull = new(90, 92);
             Engine eFerrari = new(95, 85);
@@ -741,7 +803,7 @@ namespace Game
                     car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                     driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                     chosenteams, chosendrivers, currentteam, currentdriver,
-                    grid, specs);
+                    grid, specs, Autorun);
                 goto checkpoint1;
             }
             else if (advance.Key == ConsoleKey.Enter)
@@ -772,15 +834,28 @@ namespace Game
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine(x);
-            Thread.Sleep(200);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
-            Thread.Sleep(400);
-            Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
-            Thread.Sleep(400);
+            if (Autorun == false)
+            {
+                Thread.Sleep(200);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
+                Thread.Sleep(400);
+                Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
+                Thread.Sleep(400);
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
+                Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
+            }
         checkpoint2:
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Go trough new grid...");
+            if (Autorun == true)
+            {
+                goto grid1;
+            }
         fallback2:
             ConsoleKeyInfo advance2 = Console.ReadKey(true);
             if (advance2.Key == ConsoleKey.H)
@@ -801,7 +876,7 @@ namespace Game
                     car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                     driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                     chosenteams, chosendrivers, currentteam, currentdriver,
-                    grid, specs);
+                    grid, specs, Autorun);
                 goto checkpoint2;
             }
             else if (advance2.Key == ConsoleKey.Enter)
@@ -830,6 +905,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" for the upcoming season.");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid2;
+            }
         fallback3:
             ConsoleKeyInfo advance3 = Console.ReadKey(true);
             if (advance3.Key == ConsoleKey.Enter)
@@ -851,6 +930,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(", says " + driver4.lastname + " in an interview.");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid3;
+            }
         fallback4:
             ConsoleKeyInfo advance4 = Console.ReadKey(true);
             if (advance4.Key == ConsoleKey.Enter)
@@ -870,6 +953,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid4;
+            }
         fallback5:
             ConsoleKeyInfo advance5 = Console.ReadKey(true);
             if (advance5.Key == ConsoleKey.Enter)
@@ -890,6 +977,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid5;
+            }
         fallback6:
             ConsoleKeyInfo advance6 = Console.ReadKey(true);
             if (advance6.Key == ConsoleKey.Enter)
@@ -909,6 +1000,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid6;
+            }
         fallback7:
             ConsoleKeyInfo advance7 = Console.ReadKey(true);
             if (advance7.Key == ConsoleKey.Enter)
@@ -928,6 +1023,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid7;
+            }
         fallback8:
             ConsoleKeyInfo advance8 = Console.ReadKey(true);
             if (advance8.Key == ConsoleKey.Enter)
@@ -947,6 +1046,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" for their lineup.");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid8;
+            }
         fallback9:
             ConsoleKeyInfo advance9 = Console.ReadKey(true);
             if (advance9.Key == ConsoleKey.Enter)
@@ -968,6 +1071,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid9;
+            }
         fallback10:
             ConsoleKeyInfo advance10 = Console.ReadKey(true);
             if (advance10.Key == ConsoleKey.Enter)
@@ -987,6 +1094,10 @@ namespace Game
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(".");
             Console.WriteLine();
+            if (Autorun == true)
+            {
+                goto grid10;
+            }
         fallback11:
             ConsoleKeyInfo advance11 = Console.ReadKey(true);
             if (advance11.Key == ConsoleKey.Enter)
@@ -1006,7 +1117,10 @@ namespace Game
             Console.Write("\x1b[38;5;" + 26 + "m" + driver20.name);
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(" in this years lineup.");
-            Thread.Sleep(1000);
+            if (Autorun == false)
+            {
+                Thread.Sleep(1000);
+            }
 
             grid = true;
             specs = true;
@@ -1017,6 +1131,10 @@ namespace Game
         checkpoint3:
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Go to first race...");
+            if (Autorun == true)
+            {
+                goto races;
+            }
         fallback12:
             ConsoleKeyInfo advance12 = Console.ReadKey(true);
             if (advance12.Key == ConsoleKey.H)
@@ -1026,7 +1144,7 @@ namespace Game
                 Plugins.Program.Help();
                 goto checkpoint3;
             }
-            else if (advance2.Key == ConsoleKey.C)
+            else if (advance12.Key == ConsoleKey.C)
             {
                 Console.SetCursorPosition(x, Console.CursorTop - 1);
                 ClearCurrentConsoleLine(x);
@@ -1037,17 +1155,16 @@ namespace Game
                     car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20,
                     driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                     chosenteams, chosendrivers, currentteam, currentdriver,
-                    grid, specs);
+                    grid, specs, Autorun);
                 goto checkpoint3;
             }
-            else if (advance2.Key == ConsoleKey.Enter)
+            else if (advance12.Key == ConsoleKey.Enter)
             {
                 Console.SetCursorPosition(x, Console.CursorTop - 1);
                 ClearCurrentConsoleLine(x);
                 goto races;
             }
             goto fallback12;
-
         races:
             string racestart = "Round 1 of 22 begins with the " + bahrain.gp + ".";
             string startornext = "Start race...";
@@ -1314,6 +1431,11 @@ namespace Game
                 racestart, startornext, currentrace, CurrentRace, x, grid, specs, chosenteams, chosendrivers, currentteam, currentdriver, drivers, rdrivers,
                 driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20,
                 bahrain, jeddah, australia, imola, miami, spain, monaco, baku, canada, silverstone, austria, paulricard, hungaroring, spa, zandvoort, monza, singapore, suzuka, cota, mexico, interlagos, abudhabi);
+
+            Thread.Sleep(2000);
+            Console.WriteLine();
+            Console.WriteLine("Season finished!");
+            Console.ReadLine();
         }
     }
 }
