@@ -22,6 +22,7 @@ namespace Game
         static string? resulttitle;
 
         static int x = 0;
+        readonly static int gameSpeed = 200;
 
         static bool autorun = false;
         static bool grid = false;
@@ -177,6 +178,33 @@ namespace Game
             Console.SetCursorPosition(x, Console.CursorTop);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(x, currentLineCursor);
+        }
+
+        public static void DotAnimation()
+        {
+            if (autorun == false)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine();
+                    Thread.Sleep(200);
+                }
+            }
+            else
+            {
+                Console.Write(" .");
+                Console.Write(" .");
+                Console.Write(" .");
+                Console.SetCursorPosition(x, Console.CursorTop);
+                ClearCurrentConsoleLine();
+            }
         }
 
         public static void StopAutorun(object? sender, ConsoleCancelEventArgs args)
@@ -386,21 +414,25 @@ namespace Game
 
             Console.Write(">");
             string input = Console.ReadLine()!;
-            for (int i = 0; i < 20; i++)
+            if (chosendrivers != null)
             {
-                if (input.ToLower() == chosendrivers![i].name.ToString().ToLower() || input.ToLower() == chosendrivers[i].firstname.ToString().ToLower() || input.ToLower() == chosendrivers[i].lastname.ToString().ToLower() || input.ToLower() == chosendrivers[i].shortname.ToString().ToLower())
+                for (int i = 0; i < 20; i++)
                 {
-                    currentdriver = chosendrivers[i];
-                    DriverMode();
-                    goto checkpoint;
-                }
-                else if (input.ToLower() == chosenteams[i].name.ToString().ToLower())
-                {
-                    currentteam = chosenteams[i];
-                    TeamMode();
-                    goto checkpoint;
+                    if (input.ToLower() == chosendrivers![i].name.ToString().ToLower() || input.ToLower() == chosendrivers[i].firstname.ToString().ToLower() || input.ToLower() == chosendrivers[i].lastname.ToString().ToLower() || input.ToLower() == chosendrivers[i].shortname.ToString().ToLower())
+                    {
+                        currentdriver = chosendrivers[i];
+                        DriverMode();
+                        goto checkpoint;
+                    }
+                    else if (input.ToLower() == chosenteams[i].name.ToString().ToLower())
+                    {
+                        currentteam = chosenteams[i];
+                        TeamMode();
+                        goto checkpoint;
+                    }
                 }
             }
+
             if (input.ToLower() == "autorun")
             {
                 Console.WriteLine("The game will now run automatically, press 'Ctrl' + 'C' to stop");
@@ -701,12 +733,16 @@ namespace Game
                     goto fallback;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
 
             Console.WriteLine();
             Console.WriteLine();
             Console.Write("Initializing new season");
             x = 23;
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
                 Console.Write(" .");
                 Thread.Sleep(100);
@@ -833,9 +869,12 @@ namespace Game
             }
             else
             {
+                Thread.Sleep(gameSpeed / 2);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
+                Thread.Sleep(gameSpeed / 2);
                 Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
+                Thread.Sleep(gameSpeed / 2);
             }
         checkpoint:
             Console.ForegroundColor = ConsoleColor.Green;
@@ -868,6 +907,10 @@ namespace Game
                     goto fallback;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
 
             var handle = GetStdHandle(-11);
             GetConsoleMode(handle, out int mode);
@@ -895,6 +938,10 @@ namespace Game
                     goto fallback2;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("Meanwhile, " + car3.principal + " has chosen ");
             Console.Write("\x1b[38;5;" + 196 + "m" + driver3!.name);
@@ -917,6 +964,10 @@ namespace Game
                     goto fallback3;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("\x1b[38;5;" + 50 + "m" + driver5!.name);
             Console.ForegroundColor = ConsoleColor.White;
@@ -936,6 +987,10 @@ namespace Game
                 {
                     goto fallback4;
                 }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
             }
 
             Console.Write("\x1b[38;5;" + 39 + "m" + car7.name);
@@ -958,6 +1013,10 @@ namespace Game
                     goto fallback5;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("\x1b[38;5;" + 208 + "m" + car9.name);
             Console.ForegroundColor = ConsoleColor.White;
@@ -977,6 +1036,10 @@ namespace Game
                 {
                     goto fallback6;
                 }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
             }
 
             Console.Write("\x1b[38;5;" + 124 + "m" + driver11!.name);
@@ -998,6 +1061,10 @@ namespace Game
                     goto fallback7;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("\x1b[38;5;" + 30 + "m" + car13.name);
             Console.ForegroundColor = ConsoleColor.White;
@@ -1017,6 +1084,10 @@ namespace Game
                 {
                     goto fallback8;
                 }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
             }
 
             Console.Write("Initial reports suggested that " + driver5.name + " would drive for ");
@@ -1040,6 +1111,10 @@ namespace Game
                     goto fallback9;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("\x1b[38;5;" + 240 + "m" + car17.name);
             Console.ForegroundColor = ConsoleColor.White;
@@ -1060,6 +1135,10 @@ namespace Game
                     goto fallback10;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
+            }
 
             Console.Write("And finally, ");
             Console.Write("\x1b[38;5;" + 26 + "m" + car19.name);
@@ -1074,6 +1153,10 @@ namespace Game
             if (autorun == false)
             {
                 Thread.Sleep(1000);
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
             }
 
             grid = true;
@@ -1116,6 +1199,10 @@ namespace Game
                 {
                     goto fallback;
                 }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed);
             }
         }
 
@@ -1261,6 +1348,10 @@ namespace Game
                     goto fallback;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
 
             Racing();
 
@@ -1362,7 +1453,11 @@ namespace Game
 
             if (autorun == false)
             {
-                Thread.Sleep(2000);
+                Thread.Sleep(1000);
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed / 2);
             }
         checkpoint:
             Console.ForegroundColor = ConsoleColor.Green;
@@ -1390,6 +1485,10 @@ namespace Game
                     goto fallback2;
                 }
             }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
 
             Console.SetCursorPosition(x, Console.CursorTop - 1);
             ClearCurrentConsoleLine();
@@ -1411,29 +1510,8 @@ namespace Game
                 Console.Write("It's lights out and away we go!");
                 x = 31;
             }
-            for (int i = 0; i < 3; i++)
-            {
-                if (autorun == false)
-                {
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(200);
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                    Thread.Sleep(200);
-                }
-                else
-                {
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                }
-            }
+            DotAnimation();
+
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine();
@@ -1448,29 +1526,8 @@ namespace Game
                 Console.Write("Pacing");
                 x = 6;
             }
-            for (int i = 0; i < 4; i++)
-            {
-                if (autorun == false)
-                {
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(200);
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                    Thread.Sleep(200);
-                }
-                else
-                {
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                }
-            }
+            DotAnimation();
+
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine();
@@ -1485,29 +1542,8 @@ namespace Game
                 Console.Write("Box box, box box");
                 x = 16;
             }
-            for (int i = 0; i < 4; i++)
-            {
-                if (autorun == false)
-                {
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(200);
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                    Thread.Sleep(200);
-                }
-                else
-                {
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                }
-            }
+            DotAnimation();
+
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine();
@@ -1522,29 +1558,8 @@ namespace Game
                 Console.Write("Racing wheel to wheel");
                 x = 21;
             }
-            for (int i = 0; i < 3; i++)
-            {
-                if (autorun == false)
-                {
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(100);
-                    Console.Write(" .");
-                    Thread.Sleep(200);
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                    Thread.Sleep(200);
-                }
-                else
-                {
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.Write(" .");
-                    Console.SetCursorPosition(x, Console.CursorTop);
-                    ClearCurrentConsoleLine();
-                }
-            }
+            DotAnimation();
+
             x = 0;
             Console.SetCursorPosition(x, Console.CursorTop);
             ClearCurrentConsoleLine();
@@ -1706,13 +1721,11 @@ namespace Game
     }
 }
 
-//fixa autorun så det fortfarande använder Thread.Sleep(variabel) så ja snabbt kan ändra hur snabbt den ska köra
+//göra klart slutet av en säsong - visa chamionship standings för team och drivers och säga vem som blev crowned champion
 
 //lägga till så man kan simulera en hel säsong i ett snäpp, ungefär som autorun utan Thread.Sleep men också utan att skriva nånting från racen
 
-//göra klart slutet av en säsong - visa chamionship standings för team och drivers och säga vem som blev crowned champion
-
-//göra så den kör flera säsonger med gameloop korrekt - fixa så stats uppdateras/nollställs osv.,
-//ska finnas stats för säsong samt total/career stats (ta med irl innan 2023),
-//ha så man kan exita spelet efter säsongen med input,
-//fixa variabel för säsong år...
+/*göra så den kör flera säsonger med gameloop korrekt - fixa så stats uppdateras/nollställs osv.,
+  ska finnas stats för säsong samt total/career stats (ta med irl innan 2023),
+  ha så man kan exita spelet efter säsongen med input,
+  fixa variabel för säsong år...*/
