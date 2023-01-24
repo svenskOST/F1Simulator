@@ -138,7 +138,7 @@
 
     internal class Results
     {
-        public static void Bahrain(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Bahrain(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -150,14 +150,17 @@
                 double car = (y.power + y.downforce + y.traction + y.drag * 1.1 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Jeddah(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Jeddah(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -169,14 +172,17 @@
                 double car = (y.power + y.downforce * 1.1 + y.traction + y.drag * 1.1 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Australia(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Australia(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -188,14 +194,17 @@
                 double car = (y.power + y.downforce + y.traction + y.drag * 0.8 + y.degradation * 0.9) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Imola(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Imola(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -207,14 +216,17 @@
                 double car = (y.power + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 0.9 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Miami(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Miami(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -226,14 +238,17 @@
                 double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Spain(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Spain(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -245,14 +260,17 @@
                 double car = (y.power + y.downforce * 1.1 + y.traction * 1.1 + y.drag + y.degradation * 1.2) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Monaco(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Monaco(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -264,14 +282,17 @@
                 double car = (y.power * 0.8 + y.downforce * 1.6 + y.traction * 1.1 + y.drag * 0.5 + y.degradation * 0.6) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.9;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Baku(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Baku(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -283,14 +304,17 @@
                 double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.1) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Canada(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Canada(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -302,14 +326,17 @@
                 double car = (y.power + y.downforce + y.traction * 1.4 + y.drag + y.degradation * 0.9) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Silverstone(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Silverstone(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -321,14 +348,17 @@
                 double car = (y.power + y.downforce * 1.3 + y.traction + y.drag + y.degradation * 1.1) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Austria(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Austria(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -340,14 +370,17 @@
                 double car = (y.power + y.downforce + y.traction + y.drag + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Paulricard(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Paulricard(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -359,14 +392,17 @@
                 double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 1.2) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Hungaroring(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Hungaroring(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -378,14 +414,17 @@
                 double car = (y.power + y.downforce * 1.2 + y.traction * 1.2 + y.drag + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Spa(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Spa(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -397,14 +436,17 @@
                 double car = (y.power + y.downforce * 1.1 + y.traction * 1.2 + y.drag * 1.2 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Zandvoort(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Zandvoort(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -416,14 +458,17 @@
                 double car = (y.power + y.downforce + y.traction + y.drag * 0.9 + y.degradation * 0.8) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Monza(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Monza(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -435,14 +480,17 @@
                 double car = (y.power * 1.2 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.7 + y.degradation) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.6;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Singapore(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Singapore(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -454,14 +502,17 @@
                 double car = (y.power + y.downforce * 1.4 + y.traction + y.drag * 0.8 + y.degradation * 1.2) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.9;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Suzuka(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Suzuka(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -473,14 +524,17 @@
                 double car = (y.power + y.downforce * 1.3 + y.traction * 1.2 + y.drag + y.degradation * 0.9) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Cota(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Cota(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -492,14 +546,17 @@
                 double car = (y.power + y.downforce + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 1.6) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Mexico(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Mexico(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -511,14 +568,17 @@
                 double car = (y.power * 1.1 + y.downforce * 0.8 + y.traction * 1.1 + y.drag * 1.1 + y.degradation * 0.9) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.7;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Interlagos(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Interlagos(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -530,14 +590,17 @@
                 double car = (y.power * 1.1 + y.downforce * 1.1 + y.traction * 1.1 + y.drag * 1.2 + y.degradation * 0.8) / 5;
                 if (prob > y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;
             }
         }
 
-        public static void Abudhabi(Team[] chosenteams, Driver[] chosendrivers)
+        public static void Abudhabi(Team[] chosenteams, Driver[] chosendrivers, bool seasonSim)
         {
             for (int i = 0; i < chosendrivers.Length; i++)
             {
@@ -549,7 +612,10 @@
                 double car = (y.power + y.downforce * 0.9 + y.traction * 1.1 + y.drag * 1.3 + y.degradation * 1.1) / 5;
                 if (prob < y.reliability)
                 {
-                    Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    if (seasonSim == false)
+                    {
+                        Console.WriteLine(chosendrivers[i].color + chosendrivers[i].name + "\x1b[38;5;" + 15 + "m" + " seems to be having engine issues. He'll be vulnerable!");
+                    }
                     car *= 0.8;
                 }
                 x.rating = (car + driver) / 2;

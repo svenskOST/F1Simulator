@@ -29,6 +29,7 @@ namespace Game
         readonly static int gameSpeed = 200;
 
         static bool autorun = false;
+        static bool seasonSim = false;
         static bool grid = false;
         static bool specs = false;
         static bool gameFinished = false;
@@ -342,7 +343,8 @@ namespace Game
             Console.WriteLine("'team standings'");
             Console.WriteLine("'(driver)' or '(team)' to find stats and info on a certain driver or team");
             Console.WriteLine("'clear' - clears up the console so you can stay focused on the present!");
-            Console.Write("'autorun' - let the simulation run continuosly, press 'Ctrl' + 'C' to stop");
+            Console.WriteLine("'autorun' - let the simulation run continuosly, press 'Ctrl' + 'C' to stop");
+            Console.WriteLine("'simulate season' and 'simulate races' to switch between modes");
         }
 
         public static void CommandMode()
@@ -549,7 +551,17 @@ namespace Game
                 }
             }
 
-            if (input.ToLower() == "autorun")
+            if (input.ToLower() == "simulate season")
+            {
+                Console.WriteLine("Now simulating whole championship, enter command 'simulate races' to revert");
+                seasonSim = true;
+            }
+            else if (input.ToLower() == "simulate races" && seasonSim == true)
+            {
+                Console.WriteLine("Reverted to race simulation");
+                seasonSim = false;
+            }
+            else if (input.ToLower() == "autorun")
             {
                 Console.WriteLine("The game will now run automatically, press 'Ctrl' + 'C' to stop");
                 autorun = true;
@@ -672,25 +684,32 @@ namespace Game
         public static void GameLoop()
         {
             NewSeason();
-            if (gameFinished == true)
+            if (gameFinished == false)
             {
-                goto finishGame;
+                Randomizer();
+                if (seasonSim == true)
+                {
+                    grid = true;
+                    specs = true;
+                }
+                else
+                {
+                    GridReveal();
+                }
+                if (seasonSim == false)
+                {
+                    StartSeason();
+                }
+                SimulateRaces();
+                EndSeason();
+                GameLoop();
             }
-            Randomizer();
-            GridReveal();
-            StartSeason();
-            SimulateRaces();
-            EndSeason();
-            GameLoop();
-        finishGame:
-            Console.WriteLine("Thank you for playing Formula 1 Simulator!");
         }
 
         public static void NewSeason()
         {
-            //start new season or exit game, om man startar reseta relevanta variablar etc.
         checkpoint:
-            Console.WriteLine("Start new season...");
+            Console.WriteLine("Start new season or press 'E' to exit game...");
         fallback:
             if (autorun == false)
             {
@@ -714,6 +733,13 @@ namespace Game
                     Console.SetCursorPosition(x, Console.CursorTop - 1);
                     ClearCurrentConsoleLine();
                 }
+                else if (advance.Key == ConsoleKey.E)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    gameFinished = true;
+                    Console.WriteLine("Thank you for playing Formula 1 Simulator!");
+                }
                 else
                 {
                     goto fallback;
@@ -731,23 +757,28 @@ namespace Game
 
             Console.WriteLine();
             Console.WriteLine();
-            Console.Write("Initializing new season");
-            x = 23;
-            for (int i = 0; i < 5; i++)
+            if (gameFinished == false)
             {
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(100);
-                Console.Write(" .");
-                Thread.Sleep(200);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Initializing new season");
+                x = 23;
+                for (int i = 0; i < 5; i++)
+                {
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(100);
+                    Console.Write(" .");
+                    Thread.Sleep(200);
+                    Console.SetCursorPosition(x, Console.CursorTop);
+                    ClearCurrentConsoleLine();
+                    Thread.Sleep(200);
+                }
+                x = 0;
                 Console.SetCursorPosition(x, Console.CursorTop);
                 ClearCurrentConsoleLine();
-                Thread.Sleep(200);
+                Console.ForegroundColor = ConsoleColor.White;
             }
-            x = 0;
-            Console.SetCursorPosition(x, Console.CursorTop);
-            ClearCurrentConsoleLine();
         }
 
         public static void Randomizer()
@@ -852,8 +883,7 @@ namespace Game
             {
                 Thread.Sleep(200);
                 Console.ForegroundColor = ConsoleColor.White;
-                //år variabel
-                Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
+                Console.WriteLine("Winter break is over and the first round of the Formula 1 " + season + " season is just around the corner.");
                 Thread.Sleep(400);
                 Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
                 Thread.Sleep(400);
@@ -1339,121 +1369,124 @@ namespace Game
 
         public static void Race()
         {
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine(racestart);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(startornext);
-        fallback:
-            if (autorun == false)
+            if (seasonSim == false)
             {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key == ConsoleKey.Enter)
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine(racestart);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(startornext);
+            fallback:
+                if (autorun == false)
                 {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
+                    ConsoleKeyInfo advance = Console.ReadKey(true);
+                    if (advance.Key == ConsoleKey.Enter)
+                    {
+                        Console.SetCursorPosition(x, Console.CursorTop - 1);
+                        ClearCurrentConsoleLine();
+                    }
+                    else
+                    {
+                        goto fallback;
+                    }
                 }
                 else
                 {
-                    goto fallback;
+                    Thread.Sleep(gameSpeed);
                 }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed);
-            }
 
-            Racing();
+                Racing();
+            }
 
             switch (CurrentRace)
             {
                 case "Bahrain":
-                    Results.Bahrain(chosenteams, chosendrivers!);
+                    Results.Bahrain(chosenteams, chosendrivers!, seasonSim);
                     currentgp = bahrain.gp;
                     break;
                 case "Jeddah":
-                    Results.Jeddah(chosenteams, chosendrivers!);
+                    Results.Jeddah(chosenteams, chosendrivers!, seasonSim);
                     currentgp = jeddah.gp;
                     break;
                 case "Australia":
-                    Results.Australia(chosenteams, chosendrivers!);
+                    Results.Australia(chosenteams, chosendrivers!, seasonSim);
                     currentgp = australia.gp;
                     break;
                 case "Imola":
-                    Results.Imola(chosenteams, chosendrivers!);
+                    Results.Imola(chosenteams, chosendrivers!, seasonSim);
                     currentgp = imola.gp;
                     break;
                 case "Miami":
-                    Results.Miami(chosenteams, chosendrivers!);
+                    Results.Miami(chosenteams, chosendrivers!, seasonSim);
                     currentgp = miami.gp;
                     break;
                 case "Spain":
-                    Results.Spain(chosenteams, chosendrivers!);
+                    Results.Spain(chosenteams, chosendrivers!, seasonSim);
                     currentgp = spain.gp;
                     break;
                 case "Monaco":
-                    Results.Monaco(chosenteams, chosendrivers!);
+                    Results.Monaco(chosenteams, chosendrivers!, seasonSim);
                     currentgp = monaco.gp;
                     break;
                 case "Baku":
-                    Results.Baku(chosenteams, chosendrivers!);
+                    Results.Baku(chosenteams, chosendrivers!, seasonSim);
                     currentgp = baku.gp;
                     break;
                 case "Canada":
-                    Results.Canada(chosenteams, chosendrivers!);
+                    Results.Canada(chosenteams, chosendrivers!, seasonSim);
                     currentgp = canada.gp;
                     break;
                 case "Silverstone":
-                    Results.Silverstone(chosenteams, chosendrivers!);
+                    Results.Silverstone(chosenteams, chosendrivers!, seasonSim);
                     currentgp = silverstone.gp;
                     break;
                 case "Austria":
-                    Results.Austria(chosenteams, chosendrivers!);
+                    Results.Austria(chosenteams, chosendrivers!, seasonSim);
                     currentgp = austria.gp;
                     break;
                 case "Paulricard":
-                    Results.Paulricard(chosenteams, chosendrivers!);
+                    Results.Paulricard(chosenteams, chosendrivers!, seasonSim);
                     currentgp = paulricard.gp;
                     break;
                 case "Hungaroring":
-                    Results.Hungaroring(chosenteams, chosendrivers!);
+                    Results.Hungaroring(chosenteams, chosendrivers!, seasonSim);
                     currentgp = hungaroring.gp;
                     break;
                 case "Spa":
-                    Results.Spa(chosenteams, chosendrivers!);
+                    Results.Spa(chosenteams, chosendrivers!, seasonSim);
                     currentgp = spa.gp;
                     break;
                 case "Zandvoort":
-                    Results.Zandvoort(chosenteams, chosendrivers!);
+                    Results.Zandvoort(chosenteams, chosendrivers!, seasonSim);
                     currentgp = zandvoort.gp;
                     break;
                 case "Monza":
-                    Results.Monza(chosenteams, chosendrivers!);
+                    Results.Monza(chosenteams, chosendrivers!, seasonSim);
                     currentgp = monza.gp;
                     break;
                 case "Singapore":
-                    Results.Singapore(chosenteams, chosendrivers!);
+                    Results.Singapore(chosenteams, chosendrivers!, seasonSim);
                     currentgp = singapore.gp;
                     break;
                 case "Suzuka":
-                    Results.Suzuka(chosenteams, chosendrivers!);
+                    Results.Suzuka(chosenteams, chosendrivers!, seasonSim);
                     currentgp = suzuka.gp;
                     break;
                 case "Cota":
-                    Results.Cota(chosenteams, chosendrivers!);
+                    Results.Cota(chosenteams, chosendrivers!, seasonSim);
                     currentgp = cota.gp;
                     break;
                 case "Mexico":
-                    Results.Mexico(chosenteams, chosendrivers!);
+                    Results.Mexico(chosenteams, chosendrivers!, seasonSim);
                     currentgp = mexico.gp;
                     break;
                 case "Interlagos":
-                    Results.Interlagos(chosenteams, chosendrivers!);
+                    Results.Interlagos(chosenteams, chosendrivers!, seasonSim);
                     currentgp = interlagos.gp;
                     break;
                 case "Abudhabi":
-                    Results.Abudhabi(chosenteams, chosendrivers!);
+                    Results.Abudhabi(chosenteams, chosendrivers!, seasonSim);
                     currentgp = abudhabi.gp;
                     break;
             }
@@ -1462,47 +1495,50 @@ namespace Game
 
             Result();
 
-            if (autorun == false)
+            if (seasonSim == false)
             {
-                Thread.Sleep(1000);
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-        checkpoint:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Use commands or press 'Enter' to exit race weekend.");
-        fallback2:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key == ConsoleKey.H)
+                if (autorun == false)
                 {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    Help();
-                    goto checkpoint;
+                    Thread.Sleep(1000);
                 }
-                else if (advance.Key == ConsoleKey.C)
+                else
                 {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    CommandMode();
-                    goto checkpoint;
+                    Thread.Sleep(gameSpeed / 2);
                 }
-                else if (advance.Key != ConsoleKey.Enter)
+            checkpoint:
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Use commands or press 'Enter' to exit race weekend.");
+            fallback2:
+                if (autorun == false)
                 {
-                    goto fallback2;
+                    ConsoleKeyInfo advance = Console.ReadKey(true);
+                    if (advance.Key == ConsoleKey.H)
+                    {
+                        Console.SetCursorPosition(x, Console.CursorTop - 1);
+                        ClearCurrentConsoleLine();
+                        Help();
+                        goto checkpoint;
+                    }
+                    else if (advance.Key == ConsoleKey.C)
+                    {
+                        Console.SetCursorPosition(x, Console.CursorTop - 1);
+                        ClearCurrentConsoleLine();
+                        CommandMode();
+                        goto checkpoint;
+                    }
+                    else if (advance.Key != ConsoleKey.Enter)
+                    {
+                        goto fallback2;
+                    }
                 }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed);
-            }
+                else
+                {
+                    Thread.Sleep(gameSpeed);
+                }
 
-            Console.SetCursorPosition(x, Console.CursorTop - 1);
-            ClearCurrentConsoleLine();
+                Console.SetCursorPosition(x, Console.CursorTop - 1);
+                ClearCurrentConsoleLine();
+            }
         }
 
         public static void Racing()
@@ -1643,57 +1679,60 @@ namespace Game
             resultdrivers[8]!.points = resultdrivers[8]!.points + 2;
             resultdrivers[9]!.points = resultdrivers[9]!.points + 1;
 
-            string[] t = new string[20];
-            string[] u = new string[20];
-
-            for (int i = 0; i < t.Length; i++)
+            if (seasonSim == false)
             {
-                t[i] = " ║ ";
-                for (int y = 0; y < 16 - resultdrivers[i]!.name.Length; y++)
-                {
-                    t[i] = " " + t[i];
-                }
-            }
+                string[] t = new string[20];
+                string[] u = new string[20];
 
-            for (int i = 0; i < t.Length; i++)
-            {
-                u[i] = " ║ ";
-                for (int y = 0; y < 12 - resultteams[i].name.Length; y++)
+                for (int i = 0; i < t.Length; i++)
                 {
-                    u[i] = " " + u[i];
+                    t[i] = " ║ ";
+                    for (int y = 0; y < 16 - resultdrivers[i]!.name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
                 }
-            }
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine(resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + " wins the " + currentgp + "!");
-            Console.WriteLine();
-            Console.WriteLine("╔══════════════════════════════════════════════╗" +
-                          "\r\n║" + resulttitle + "║" +
-                          "\r\n╠══════╦══════════════════╦══════════════╦═════╣" +
-                          "\r\n║ Pos. ║      Driver      ║     Team     ║ Pts ║" +
-                          "\r\n╠══════╬══════════════════╬══════════════╬═════╣" +
-                          "\r\n║ P1   ║ " + resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + resultteams[0].color + resultteams[0].name + "\x1b[38;5;" + 15 + "m" + u[0] + "25  ║" +
-                          "\r\n║ P2   ║ " + resultdrivers[1]!.color + resultdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + resultteams[1].color + resultteams[1].name + "\x1b[38;5;" + 15 + "m" + u[1] + "18  ║" +
-                          "\r\n║ P3   ║ " + resultdrivers[2]!.color + resultdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + resultteams[2].color + resultteams[2].name + "\x1b[38;5;" + 15 + "m" + u[2] + "15  ║" +
-                          "\r\n║ P4   ║ " + resultdrivers[3]!.color + resultdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + resultteams[3].color + resultteams[3].name + "\x1b[38;5;" + 15 + "m" + u[3] + "12  ║" +
-                          "\r\n║ P5   ║ " + resultdrivers[4]!.color + resultdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + resultteams[4].color + resultteams[4].name + "\x1b[38;5;" + 15 + "m" + u[4] + "10  ║" +
-                          "\r\n║ P6   ║ " + resultdrivers[5]!.color + resultdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + resultteams[5].color + resultteams[5].name + "\x1b[38;5;" + 15 + "m" + u[5] + "8   ║" +
-                          "\r\n║ P7   ║ " + resultdrivers[6]!.color + resultdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + resultteams[6].color + resultteams[6].name + "\x1b[38;5;" + 15 + "m" + u[6] + "6   ║" +
-                          "\r\n║ P8   ║ " + resultdrivers[7]!.color + resultdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + resultteams[7].color + resultteams[7].name + "\x1b[38;5;" + 15 + "m" + u[7] + "4   ║" +
-                          "\r\n║ P9   ║ " + resultdrivers[8]!.color + resultdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + resultteams[8].color + resultteams[8].name + "\x1b[38;5;" + 15 + "m" + u[8] + "2   ║" +
-                          "\r\n║ P10  ║ " + resultdrivers[9]!.color + resultdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + resultteams[9].color + resultteams[9].name + "\x1b[38;5;" + 15 + "m" + u[9] + "1   ║" +
-                          "\r\n║ P11  ║ " + resultdrivers[10]!.color + resultdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + resultteams[10].color + resultteams[10].name + "\x1b[38;5;" + 15 + "m" + u[10] + "0   ║" +
-                          "\r\n║ P12  ║ " + resultdrivers[11]!.color + resultdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + resultteams[11].color + resultteams[11].name + "\x1b[38;5;" + 15 + "m" + u[11] + "0   ║" +
-                          "\r\n║ P13  ║ " + resultdrivers[12]!.color + resultdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + resultteams[12].color + resultteams[12].name + "\x1b[38;5;" + 15 + "m" + u[12] + "0   ║" +
-                          "\r\n║ P14  ║ " + resultdrivers[13]!.color + resultdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + resultteams[13].color + resultteams[13].name + "\x1b[38;5;" + 15 + "m" + u[13] + "0   ║" +
-                          "\r\n║ P15  ║ " + resultdrivers[14]!.color + resultdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + resultteams[14].color + resultteams[14].name + "\x1b[38;5;" + 15 + "m" + u[14] + "0   ║" +
-                          "\r\n║ P16  ║ " + resultdrivers[15]!.color + resultdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + resultteams[15].color + resultteams[15].name + "\x1b[38;5;" + 15 + "m" + u[15] + "0   ║" +
-                          "\r\n║ P17  ║ " + resultdrivers[16]!.color + resultdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + resultteams[16].color + resultteams[16].name + "\x1b[38;5;" + 15 + "m" + u[16] + "0   ║" +
-                          "\r\n║ P18  ║ " + resultdrivers[17]!.color + resultdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + resultteams[17].color + resultteams[17].name + "\x1b[38;5;" + 15 + "m" + u[17] + "0   ║" +
-                          "\r\n║ P19  ║ " + resultdrivers[18]!.color + resultdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + resultteams[18].color + resultteams[18].name + "\x1b[38;5;" + 15 + "m" + u[18] + "0   ║" +
-                          "\r\n║ P20  ║ " + resultdrivers[19]!.color + resultdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + resultteams[19].color + resultteams[19].name + "\x1b[38;5;" + 15 + "m" + u[19] + "0   ║" +
-                          "\r\n╚══════╩══════════════════╩══════════════╩═════╝");
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 12 - resultteams[i].name.Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine();
+                Console.WriteLine(resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + " wins the " + currentgp + "!");
+                Console.WriteLine();
+                Console.WriteLine("╔══════════════════════════════════════════════╗" +
+                              "\r\n║" + resulttitle + "║" +
+                              "\r\n╠══════╦══════════════════╦══════════════╦═════╣" +
+                              "\r\n║ Pos. ║      Driver      ║     Team     ║ Pts ║" +
+                              "\r\n╠══════╬══════════════════╬══════════════╬═════╣" +
+                              "\r\n║ P1   ║ " + resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + resultteams[0].color + resultteams[0].name + "\x1b[38;5;" + 15 + "m" + u[0] + "25  ║" +
+                              "\r\n║ P2   ║ " + resultdrivers[1]!.color + resultdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + resultteams[1].color + resultteams[1].name + "\x1b[38;5;" + 15 + "m" + u[1] + "18  ║" +
+                              "\r\n║ P3   ║ " + resultdrivers[2]!.color + resultdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + resultteams[2].color + resultteams[2].name + "\x1b[38;5;" + 15 + "m" + u[2] + "15  ║" +
+                              "\r\n║ P4   ║ " + resultdrivers[3]!.color + resultdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + resultteams[3].color + resultteams[3].name + "\x1b[38;5;" + 15 + "m" + u[3] + "12  ║" +
+                              "\r\n║ P5   ║ " + resultdrivers[4]!.color + resultdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + resultteams[4].color + resultteams[4].name + "\x1b[38;5;" + 15 + "m" + u[4] + "10  ║" +
+                              "\r\n║ P6   ║ " + resultdrivers[5]!.color + resultdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + resultteams[5].color + resultteams[5].name + "\x1b[38;5;" + 15 + "m" + u[5] + "8   ║" +
+                              "\r\n║ P7   ║ " + resultdrivers[6]!.color + resultdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + resultteams[6].color + resultteams[6].name + "\x1b[38;5;" + 15 + "m" + u[6] + "6   ║" +
+                              "\r\n║ P8   ║ " + resultdrivers[7]!.color + resultdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + resultteams[7].color + resultteams[7].name + "\x1b[38;5;" + 15 + "m" + u[7] + "4   ║" +
+                              "\r\n║ P9   ║ " + resultdrivers[8]!.color + resultdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + resultteams[8].color + resultteams[8].name + "\x1b[38;5;" + 15 + "m" + u[8] + "2   ║" +
+                              "\r\n║ P10  ║ " + resultdrivers[9]!.color + resultdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + resultteams[9].color + resultteams[9].name + "\x1b[38;5;" + 15 + "m" + u[9] + "1   ║" +
+                              "\r\n║ P11  ║ " + resultdrivers[10]!.color + resultdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + resultteams[10].color + resultteams[10].name + "\x1b[38;5;" + 15 + "m" + u[10] + "0   ║" +
+                              "\r\n║ P12  ║ " + resultdrivers[11]!.color + resultdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + resultteams[11].color + resultteams[11].name + "\x1b[38;5;" + 15 + "m" + u[11] + "0   ║" +
+                              "\r\n║ P13  ║ " + resultdrivers[12]!.color + resultdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + resultteams[12].color + resultteams[12].name + "\x1b[38;5;" + 15 + "m" + u[12] + "0   ║" +
+                              "\r\n║ P14  ║ " + resultdrivers[13]!.color + resultdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + resultteams[13].color + resultteams[13].name + "\x1b[38;5;" + 15 + "m" + u[13] + "0   ║" +
+                              "\r\n║ P15  ║ " + resultdrivers[14]!.color + resultdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + resultteams[14].color + resultteams[14].name + "\x1b[38;5;" + 15 + "m" + u[14] + "0   ║" +
+                              "\r\n║ P16  ║ " + resultdrivers[15]!.color + resultdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + resultteams[15].color + resultteams[15].name + "\x1b[38;5;" + 15 + "m" + u[15] + "0   ║" +
+                              "\r\n║ P17  ║ " + resultdrivers[16]!.color + resultdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + resultteams[16].color + resultteams[16].name + "\x1b[38;5;" + 15 + "m" + u[16] + "0   ║" +
+                              "\r\n║ P18  ║ " + resultdrivers[17]!.color + resultdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + resultteams[17].color + resultteams[17].name + "\x1b[38;5;" + 15 + "m" + u[17] + "0   ║" +
+                              "\r\n║ P19  ║ " + resultdrivers[18]!.color + resultdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + resultteams[18].color + resultteams[18].name + "\x1b[38;5;" + 15 + "m" + u[18] + "0   ║" +
+                              "\r\n║ P20  ║ " + resultdrivers[19]!.color + resultdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + resultteams[19].color + resultteams[19].name + "\x1b[38;5;" + 15 + "m" + u[19] + "0   ║" +
+                              "\r\n╚══════╩══════════════════╩══════════════╩═════╝");
+            }
         }
 
         static void Main()
@@ -1731,8 +1770,6 @@ namespace Game
         }
     }
 }
-
-//lägga till så man kan simulera en hel säsong i ett snäpp, ungefär som autorun utan Thread.Sleep men också utan att skriva nånting från racen
 
 /*göra så den kör flera säsonger med gameloop korrekt - fixa så stats uppdateras/nollställs osv.,
   ska finnas stats för säsong samt total/career stats (ta med irl innan 2023),
