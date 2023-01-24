@@ -99,6 +99,11 @@ namespace Game
         readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0);
         readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0);
 
+        readonly static Driver[] driverarray = new[]
+        {
+            ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
+        };
+
         readonly static Track bahrain = new("Bahrain International Circuit", "BAHRAIN GRAND PRIX", "Sakhir, Bahrain", "Bahrain");
         readonly static Track jeddah = new("Jeddah Corniche Circuit", "SAUDI ARABIAN GRAND PRIX", "Jeddah, Saudi Arabia", "Jeddah");
         readonly static Track australia = new("Albert Park Circuit", "AUSTRALIAN GRAND PRIX", "Melbourne, Australia", "Australia");
@@ -686,6 +691,7 @@ namespace Game
             NewSeason();
             if (gameFinished == false)
             {
+                Reset();
                 Randomizer();
                 if (seasonSim == true)
                 {
@@ -738,7 +744,6 @@ namespace Game
                     Console.SetCursorPosition(x, Console.CursorTop - 1);
                     ClearCurrentConsoleLine();
                     gameFinished = true;
-                    Console.WriteLine("Thank you for playing Formula 1 Simulator!");
                 }
                 else
                 {
@@ -778,6 +783,29 @@ namespace Game
                 Console.SetCursorPosition(x, Console.CursorTop);
                 ClearCurrentConsoleLine();
                 Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
+
+        public static void Reset()
+        {
+            x = 0;
+            grid = false;
+            specs = false;
+            gameFinished = false;
+
+            for (int i = 0; i < 20; i++)
+            {
+                chosenteams[i].age += 1;
+                chosenteams[i].points = 0;
+                chosenteams[i].wins = 0;
+                chosenteams[i].podiums = 0;
+            }
+            for (int i = 0; i < 20; i++)
+            {
+                driverarray[i].age += 1;
+                driverarray[i].points = 0;
+                driverarray[i].wins = 0;
+                driverarray[i].podiums = 0;
             }
         }
 
@@ -1767,13 +1795,20 @@ namespace Game
             Thread.Sleep(400);
 
             GameLoop();
+
+            Console.WriteLine("Thank you for playing Formula 1 Simulator!");
         }
     }
 }
 
-/*göra så den kör flera säsonger med gameloop korrekt - fixa så stats uppdateras/nollställs osv.,
-  ska finnas stats för säsong samt total/career stats (ta med irl innan 2023),
-  ha så man kan exita spelet efter säsongen med input,
-  fixa variabel för säsong år...*/
+//ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
+
+//fixa så autorun vet vart den ska återuppta, med variablar/checkpoints/labels nåt sånt
 
 //fixa buggen där typ alla får engine issues i sista racet
+
+//göra så de kan dö av ålder???
+
+//skapa custom drivers?
+
+//göra så främst stallens och lite förarnas egenskaper ändras lite randomly (+= random, -= random osv.)
