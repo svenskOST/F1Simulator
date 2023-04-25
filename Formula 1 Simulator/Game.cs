@@ -25,7 +25,7 @@ namespace Game
         static string? leaderOrC;
 
         static int x = 0;
-        static int season = 2022;
+        static int season = 2021;
         readonly static int gameSpeed = 200;
 
         static bool autorun = false;
@@ -39,16 +39,16 @@ namespace Game
         readonly static Engine eMercedes = new(85, 96);
         readonly static Engine eRenault = new(85, 85);
 
-        readonly static Team RedBull = new("Red Bull", "Milton Keynes", 18, "Red Bull Powertrains", "an austrian", "Christian Horner", eRedBull.power, eRedBull.reliability, 93, 90, 95, 91, 0, 0, 0, "\x1b[38;5;" + 4 + "m");
-        readonly static Team Ferrari = new("Ferrari", "Maranello", 93, "Ferrari", "an italian", "Mattia Binotto", eFerrari.power, eFerrari.reliability, 97, 95, 90, 88, 0, 0, 0, "\x1b[38;5;" + 196 + "m");
-        readonly static Team Mercedes = new("Mercedes", "Brackley", 14, "Mercedes", "a german", "Toto Wolff", eMercedes.power, eMercedes.reliability, 89, 90, 86, 90, 0, 0, 0, "\x1b[38;5;" + 50 + "m");
-        readonly static Team Alpine = new("Alpine", "Enstone", 26, "Renault", "a french", "Otmar Szafnauer", eRenault.power, eRenault.reliability, 86, 89, 87, 88, 0, 0, 0, "\x1b[38;5;" + 39 + "m");
-        readonly static Team Mclaren = new("McLaren", "Woking", 56, "Mercedes", "a british", "Zak Brown", eMercedes.power, eMercedes.reliability, 80, 79, 83, 85, 0, 0, 0, "\x1b[38;5;" + 208 + "m");
-        readonly static Team AlfaRomeo = new("Alfa Romeo", "Hinwil", 44, "Ferrari", "a swiss", "Frédéric Vasseur", eFerrari.power - 9, eFerrari.reliability, 78, 81, 75, 82, 0, 0, 0, "\x1b[38;5;" + 124 + "m");
-        readonly static Team AstonMartin = new("Aston Martin", "Silverstone", 4, "Mercedes", "a british", "Mike Krack", eMercedes.power, eMercedes.reliability, 78, 80, 76, 78, 0, 0, 0, "\x1b[38;5;" + 30 + "m");
-        readonly static Team Haas = new("Haas", "Kannapolis", 7, "Ferrari", "an american", "Günther Steiner", eFerrari.power - 9, eFerrari.reliability, 77, 76, 79, 85, 0, 0, 0, "\x1b[38;5;" + 11 + "m");
-        readonly static Team AlphaTauri = new("AlphaTauri", "Faenza", 37, "Ferrari", "an italian", "Franz Tost", eRedBull.power - 9, eRedBull.reliability, 75, 74, 79, 78, 0, 0, 0, "\x1b[38;5;" + 240 + "m");
-        readonly static Team Williams = new("Williams", "Wantage", 53, "Mercedes", "a british", "Jost Capito", eMercedes.power - 3, eMercedes.reliability, 68, 72, 98, 75, 0, 0, 0, "\x1b[38;5;" + 26 + "m");
+        readonly static Team RedBull = new("Red Bull", "Milton Keynes", 18, "Red Bull Powertrains", "an austrian", "Christian Horner", eRedBull.power, eRedBull.reliability, 93, 90, 95, 91, 0, 0, 0, 85, 206, 5619, 4, 5, "\x1b[38;5;" + 4 + "m");
+        readonly static Team Ferrari = new("Ferrari", "Maranello", 93, "Ferrari", "an italian", "Mattia Binotto", eFerrari.power, eFerrari.reliability, 97, 95, 90, 88, 0, 0, 0, 238, 778, 8712, 16, 15, "\x1b[38;5;" + 196 + "m");
+        readonly static Team Mercedes = new("Mercedes", "Brackley", 14, "Mercedes", "a german", "Toto Wolff", eMercedes.power, eMercedes.reliability, 89, 90, 86, 90, 0, 0, 0, 124, 265, 6299, 8, 9, "\x1b[38;5;" + 50 + "m");
+        readonly static Team Alpine = new("Alpine", "Enstone", 26, "Renault", "a french", "Otmar Szafnauer", eRenault.power, eRenault.reliability, 86, 89, 87, 88, 0, 0, 0, 1, 2, 155, 0, 0, "\x1b[38;5;" + 39 + "m");
+        readonly static Team Mclaren = new("McLaren", "Woking", 56, "Mercedes", "a british", "Zak Brown", eMercedes.power, eMercedes.reliability, 80, 79, 83, 85, 0, 0, 0, 183, 493, 5831, 8, 12, "\x1b[38;5;" + 208 + "m");
+        readonly static Team AlfaRomeo = new("Alfa Romeo", "Hinwil", 44, "Ferrari", "a swiss", "Frédéric Vasseur", eFerrari.power - 9, eFerrari.reliability, 78, 81, 75, 82, 0, 0, 0, 10, 26, 128, 0, 2, "\x1b[38;5;" + 124 + "m");
+        readonly static Team AstonMartin = new("Aston Martin", "Silverstone", 4, "Mercedes", "a british", "Mike Krack", eMercedes.power, eMercedes.reliability, 78, 80, 76, 78, 0, 0, 0, 0, 1, 61, 0, 0, "\x1b[38;5;" + 30 + "m");
+        readonly static Team Haas = new("Haas", "Kannapolis", 7, "Ferrari", "an american", "Günther Steiner", eFerrari.power - 9, eFerrari.reliability, 77, 76, 79, 85, 0, 0, 0, 0, 0, 200, 0, 0, "\x1b[38;5;" + 11 + "m");
+        readonly static Team AlphaTauri = new("AlphaTauri", "Faenza", 37, "Ferrari", "an italian", "Franz Tost", eRedBull.power - 9, eRedBull.reliability, 75, 74, 79, 78, 0, 0, 0, 1, 2, 249, 0, 0, "\x1b[38;5;" + 240 + "m");
+        readonly static Team Williams = new("Williams", "Wantage", 53, "Mercedes", "a british", "Jost Capito", eMercedes.power - 3, eMercedes.reliability, 68, 72, 98, 75, 0, 0, 0, 114, 313, 3584, 9, 7, "\x1b[38;5;" + 26 + "m");
 
         readonly static Team car1 = RedBull;
         readonly static Team car2 = RedBull;
@@ -78,26 +78,26 @@ namespace Game
 
         static Team? currentteam;
 
-        readonly static Driver ver = new("Max Verstappen", 24, "Max", "Verstappen", "VER", "the Netherlands", "dutch", 97, 92, 90, 78, 0, 0, 0);
-        readonly static Driver per = new("Sergio Perez", 32, "Sergio", "Perez", "PER", "Mexicó", "mexican", 86, 89, 93, 88, 0, 0, 0);
-        readonly static Driver lec = new("Charles Leclerc", 24, "Charles", "Leclerc", "LEC", "Monaco", "monegasque", 94, 85, 97, 71, 0, 0, 0);
-        readonly static Driver sai = new("Carlos Sainz", 27, "Carlos", "Sainz", "SAI", "Spain", "spanish", 90, 83, 90, 79, 0, 0, 0);
-        readonly static Driver ham = new("Lewis Hamilton", 37, "Lewis", "Hamilton", "HAM", "Great Britain", "british", 85, 92, 94, 95, 0, 0, 0);
-        readonly static Driver rus = new("George Russell", 24, "George", "Russell", "RUS", "Great Britain", "british", 90, 90, 88, 66, 0, 0, 0);
-        readonly static Driver alo = new("Fernando Alonso", 40, "Fernando", "Alonso", "ALO", "Spain", "spanish", 85, 91, 91, 99, 0, 0, 0);
-        readonly static Driver oco = new("Esteban Ocon", 25, "Esteban", "Ocon", "OCO", "France", "french", 81, 84, 80, 65, 0, 0, 0);
-        readonly static Driver nor = new("Lando Norris", 22, "Lando", "Norris", "NOR", "Great Britain", "british", 88, 82, 88, 67, 0, 0, 0);
-        readonly static Driver ric = new("Daniel Ricciardo", 32, "Daniel", "Ricciardo", "RIC", "Australia", "australian", 78, 80, 89, 90, 0, 0, 0);
-        readonly static Driver bot = new("Valterri Bottas", 32, "Valterri", "Bottas", "BOT", "Finland", "finnish", 83, 91, 75, 88, 0, 0, 0);
-        readonly static Driver zho = new("Zhou Guanyu", 22, "Zhou", "Guanyu", "ZHO", "China", "chinese", 78, 84, 78, 52, 0, 0, 0);
-        readonly static Driver vet = new("Sebastian Vettel", 34, "Sebastian", "Vettel", "VET", "Germany", "german", 82, 85, 82, 99, 0, 0, 0);
-        readonly static Driver str = new("Lance Stroll", 23, "Lance", "Stroll", "STR", "Canada", "canadian", 81, 83, 75, 62, 0, 0, 0);
-        readonly static Driver mag = new("Kevin Magnussen", 29, "Kevin", "Magnussen", "MAG", "Denmark", "danish", 80, 83, 82, 84, 0, 0, 0);
-        readonly static Driver msc = new("Mick Schumacher", 23, "Mick", "Schumacher", "MSC", "Germany", "german", 78, 72, 80, 60, 0, 0, 0);
-        readonly static Driver gas = new("Pierre Gasly", 26, "Pierre", "Gasly", "GAS", "France", "french", 72, 83, 80, 65, 0, 0, 0);
-        readonly static Driver tsu = new("Yuki Tsunoda", 21, "Yuki", "Tsunoda", "TSU", "Japan", "japanese", 80, 79, 80, 55, 0, 0, 0);
-        readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0);
-        readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0);
+        readonly static Driver ver = new("Max Verstappen", 24, "Max", "Verstappen", "VER", "the Netherlands", "dutch", 97, 92, 90, 78, 0, 0, 0, 20, 60, 1558, 1);
+        readonly static Driver per = new("Sergio Perez", 32, "Sergio", "Perez", "PER", "Mexicó", "mexican", 86, 89, 93, 88, 0, 0, 0, 2, 14, 893, 0);
+        readonly static Driver lec = new("Charles Leclerc", 24, "Charles", "Leclerc", "LEC", "Monaco", "monegasque", 94, 85, 97, 71, 0, 0, 0, 2, 13, 560, 0);
+        readonly static Driver sai = new("Carlos Sainz", 27, "Carlos", "Sainz", "SAI", "Spain", "spanish", 90, 83, 90, 79, 0, 0, 0, 0, 6, 537, 0);
+        readonly static Driver ham = new("Lewis Hamilton", 37, "Lewis", "Hamilton", "HAM", "Great Britain", "british", 85, 92, 94, 95, 0, 0, 0, 103, 183, 4164, 7);
+        readonly static Driver rus = new("George Russell", 24, "George", "Russell", "RUS", "Great Britain", "british", 90, 90, 88, 66, 0, 0, 0, 0, 1, 19, 0);
+        readonly static Driver alo = new("Fernando Alonso", 40, "Fernando", "Alonso", "ALO", "Spain", "spanish", 85, 91, 91, 99, 0, 0, 0, 32, 98, 1785, 2);
+        readonly static Driver oco = new("Esteban Ocon", 25, "Esteban", "Ocon", "OCO", "France", "french", 81, 84, 80, 65, 0, 0, 0, 1, 2, 272, 0);
+        readonly static Driver nor = new("Lando Norris", 22, "Lando", "Norris", "NOR", "Great Britain", "british", 88, 82, 88, 67, 0, 0, 0, 0, 5, 316, 0);
+        readonly static Driver ric = new("Daniel Ricciardo", 32, "Daniel", "Ricciardo", "RIC", "Australia", "australian", 78, 80, 89, 90, 0, 0, 0, 8, 32, 1274, 0);
+        readonly static Driver bot = new("Valterri Bottas", 32, "Valterri", "Bottas", "BOT", "Finland", "finnish", 83, 91, 75, 88, 0, 0, 0, 10, 67, 1748, 0);
+        readonly static Driver zho = new("Zhou Guanyu", 22, "Zhou", "Guanyu", "ZHO", "China", "chinese", 78, 84, 78, 52, 0, 0, 0, 0, 0, 0, 0);
+        readonly static Driver vet = new("Sebastian Vettel", 34, "Sebastian", "Vettel", "VET", "Germany", "german", 82, 85, 82, 99, 0, 0, 0, 53, 122, 3061, 4);
+        readonly static Driver str = new("Lance Stroll", 23, "Lance", "Stroll", "STR", "Canada", "canadian", 81, 83, 75, 62, 0, 0, 0, 0, 3, 196, 0);
+        readonly static Driver mag = new("Kevin Magnussen", 29, "Kevin", "Magnussen", "MAG", "Denmark", "danish", 80, 83, 82, 84, 0, 0, 0, 0, 1, 161, 0);
+        readonly static Driver msc = new("Mick Schumacher", 23, "Mick", "Schumacher", "MSC", "Germany", "german", 78, 72, 80, 60, 0, 0, 0, 0, 0, 0, 0);
+        readonly static Driver gas = new("Pierre Gasly", 26, "Pierre", "Gasly", "GAS", "France", "french", 72, 83, 80, 65, 0, 0, 0, 1, 3, 313, 0);
+        readonly static Driver tsu = new("Yuki Tsunoda", 21, "Yuki", "Tsunoda", "TSU", "Japan", "japanese", 80, 79, 80, 55, 0, 0, 0, 0, 0, 33, 0);
+        readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0, 0, 2, 198, 0);
+        readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0, 0, 0, 7, 0);
 
         readonly static Driver[] driverarray = new[]
         {
@@ -182,6 +182,22 @@ namespace Game
             }
         }
 
+        public class DAllTimeStandingComparer : IComparer<Driver>
+        {
+            public int Compare(Driver? x, Driver? y)
+            {
+                return y!.totChampionships.CompareTo(x!.totChampionships);
+            }
+        }
+
+        public class TAllTimeStandingComparer : IComparer<Team>
+        {
+            public int Compare(Team? x, Team? y)
+            {
+                return y!.totChampionships.CompareTo(x!.totChampionships);
+            }
+        }
+
         public static void TeamStandings()
         {
             Team[] standingteams = new[]
@@ -214,11 +230,11 @@ namespace Game
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("╔══════════════════════════════╗" +
-                          tTitle +
+                                             tTitle +
                           "\r\n╠════════╦═══════════════╦═════╣" +
                           "\r\n║ Pos.   ║     Team      ║ Pts ║" +
                           "\r\n╠════════╬═══════════════╬═════╣" +
-                          leaderOrC + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + standingteams[0].points + u[0] +
+                                  leaderOrC + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + standingteams[0].points + u[0] +
                           "\r\n║ P2     ║ " + standingteams[1].color + standingteams[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + standingteams[1].points + u[1] +
                           "\r\n║ P3     ║ " + standingteams[2].color + standingteams[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + standingteams[2].points + u[2] +
                           "\r\n║ P4     ║ " + standingteams[3].color + standingteams[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + standingteams[3].points + u[3] +
@@ -265,11 +281,11 @@ namespace Game
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("╔═════════════════════════════════╗" +
-                          dTitle +
+                                              dTitle +
                           "\r\n╠════════╦══════════════════╦═════╣" +
                           "\r\n║ Pos.   ║      Driver      ║ Pts ║" +
                           "\r\n╠════════╬══════════════════╬═════╣" +
-                          leaderOrC + standingdrivers[0]!.color + standingdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + standingdrivers[0]!.points + u[0] +
+                                  leaderOrC + standingdrivers[0]!.color + standingdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + standingdrivers[0]!.points + u[0] +
                           "\r\n║ P2     ║ " + standingdrivers[1]!.color + standingdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + standingdrivers[1]!.points + u[1] +
                           "\r\n║ P3     ║ " + standingdrivers[2]!.color + standingdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + standingdrivers[2]!.points + u[2] +
                           "\r\n║ P4     ║ " + standingdrivers[3]!.color + standingdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + standingdrivers[3]!.points + u[3] +
@@ -290,6 +306,178 @@ namespace Game
                           "\r\n║ P19    ║ " + standingdrivers[18]!.color + standingdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + standingdrivers[18]!.points + u[18] +
                           "\r\n║ P20    ║ " + standingdrivers[19]!.color + standingdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + standingdrivers[19]!.points + u[19] +
                           "\r\n╚════════╩══════════════════╩═════╝");
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void AllTimeTStandings()
+        {
+            Team[] standingteams = new[]
+            {
+                car1, car3, car5, car7, car9, car11, car13, car15, car17, car19,
+            };
+
+            Array.Sort(standingteams, new TAllTimeStandingComparer());
+
+            string[] t = new string[10];
+            string[] u = new string[10];
+            string[] w = new string[10];
+            string[] p = new string[10];
+            string[] s = new string[10];
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                t[i] = "  ║ ";
+                for (int y = 0; y < 12 - standingteams[i].name.Length; y++)
+                {
+                    t[i] = " " + t[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                u[i] = "         ║ ";
+                for (int y = 0; y < 4 - standingteams[i].totChampionships.ToString().Length - standingteams[i].totDChampionships.ToString().Length; y++)
+                {
+                    u[i] = " " + u[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                w[i] = " ║ ";
+                for (int y = 0; y < 4 - standingteams[i].totWins.ToString().Length; y++)
+                {
+                    w[i] = " " + w[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                p[i] = " ║ ";
+                for (int y = 0; y < 7 - standingteams[i].totPodiums.ToString().Length; y++)
+                {
+                    p[i] = " " + p[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                s[i] = " ║ ";
+                for (int y = 0; y < 6 - standingteams[i].totPoints.ToString().Length; y++)
+                {
+                    s[i] = " " + s[i];
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════╗" +
+                          "\r\n║                           All-Time Constructors                          ║" +
+                          "\r\n╠══════╦═══════════════╦═════════════════════════╦══════╦═════════╦════════╣" +
+                          "\r\n║ Pos. ║     Team      ║ Championships (Drivers) ║ Wins ║ Podiums ║ Points ║" +
+                          "\r\n╠══════╬═══════════════╬═════════════════════════╬══════╬═════════╬════════╣" +
+                          "\r\n║ " + "\x1b[38;5;" + 178 + "m" + "Best" + "\x1b[38;5;" + 15 + "m" + " ║ " + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + "        " + standingteams[0].totChampionships + " (" + standingteams[0].totDChampionships + ")" + u[0] + standingteams[0].totWins + w[0] + standingteams[0].totPodiums + p[0] + standingteams[0].totPoints + s[0] +
+                          "\r\n║ P2   ║ " + standingteams[1].color + standingteams[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + "        " + standingteams[1].totChampionships + " (" + standingteams[1].totDChampionships + ")" + u[1] + standingteams[1].totWins + w[1] + standingteams[1].totPodiums + p[1] + standingteams[1].totPoints + s[1] +
+                          "\r\n║ P3   ║ " + standingteams[2].color + standingteams[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + "        " + standingteams[2].totChampionships + " (" + standingteams[2].totDChampionships + ")" + u[2] + standingteams[2].totWins + w[2] + standingteams[2].totPodiums + p[2] + standingteams[2].totPoints + s[2] +
+                          "\r\n║ P4   ║ " + standingteams[3].color + standingteams[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + "        " + standingteams[3].totChampionships + " (" + standingteams[3].totDChampionships + ")" + u[3] + standingteams[3].totWins + w[3] + standingteams[3].totPodiums + p[3] + standingteams[3].totPoints + s[3] +
+                          "\r\n║ P5   ║ " + standingteams[4].color + standingteams[4].name + "\x1b[38;5;" + 15 + "m" + t[4] + "        " + standingteams[4].totChampionships + " (" + standingteams[4].totDChampionships + ")" + u[4] + standingteams[4].totWins + w[4] + standingteams[4].totPodiums + p[4] + standingteams[4].totPoints + s[4] +
+                          "\r\n║ P6   ║ " + standingteams[5].color + standingteams[5].name + "\x1b[38;5;" + 15 + "m" + t[5] + "        " + standingteams[5].totChampionships + " (" + standingteams[5].totDChampionships + ")" + u[5] + standingteams[5].totWins + w[5] + standingteams[5].totPodiums + p[5] + standingteams[5].totPoints + s[5] +
+                          "\r\n║ P7   ║ " + standingteams[6].color + standingteams[6].name + "\x1b[38;5;" + 15 + "m" + t[6] + "        " + standingteams[6].totChampionships + " (" + standingteams[6].totDChampionships + ")" + u[6] + standingteams[6].totWins + w[6] + standingteams[6].totPodiums + p[6] + standingteams[6].totPoints + s[6] +
+                          "\r\n║ P8   ║ " + standingteams[7].color + standingteams[7].name + "\x1b[38;5;" + 15 + "m" + t[7] + "        " + standingteams[7].totChampionships + " (" + standingteams[7].totDChampionships + ")" + u[7] + standingteams[7].totWins + w[7] + standingteams[7].totPodiums + p[7] + standingteams[7].totPoints + s[7] +
+                          "\r\n║ P9   ║ " + standingteams[8].color + standingteams[8].name + "\x1b[38;5;" + 15 + "m" + t[8] + "        " + standingteams[8].totChampionships + " (" + standingteams[8].totDChampionships + ")" + u[8] + standingteams[8].totWins + w[8] + standingteams[8].totPodiums + p[8] + standingteams[8].totPoints + s[8] +
+                          "\r\n║ P10  ║ " + standingteams[9].color + standingteams[9].name + "\x1b[38;5;" + 15 + "m" + t[9] + "        " + standingteams[9].totChampionships + " (" + standingteams[9].totDChampionships + ")" + u[9] + standingteams[9].totWins + w[9] + standingteams[9].totPodiums + p[9] + standingteams[9].totPoints + s[9] +
+                          "\r\n╚══════╩═══════════════╩═════════════════════════╩══════╩═════════╩════════╝");
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void AllTimeDStandings()
+        {
+            Driver?[] standingdrivers = new[]
+            {
+                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20
+            };
+
+            Array.Sort(standingdrivers, new DAllTimeStandingComparer()!);
+
+            string[] t = new string[20];
+            string[] u = new string[20];
+            string[] w = new string[20];
+            string[] p = new string[20];
+            string[] s = new string[20];
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                t[i] = " ║ ";
+                for (int y = 0; y < 16 - standingdrivers[i]!.name.Length; y++)
+                {
+                    t[i] = " " + t[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                u[i] = "       ║ ";
+                for (int y = 0; y < 2 - standingdrivers[i]!.totChampionships.ToString().Length; y++)
+                {
+                    u[i] = " " + u[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                w[i] = " ║ ";
+                for (int y = 0; y < 4 - standingdrivers[i]!.totWins.ToString().Length; y++)
+                {
+                    w[i] = " " + w[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                p[i] = " ║ ";
+                for (int y = 0; y < 7 - standingdrivers[i]!.totPodiums.ToString().Length; y++)
+                {
+                    p[i] = " " + p[i];
+                }
+            }
+
+            for (int i = 0; i < t.Length; i++)
+            {
+                s[i] = " ║ ";
+                for (int y = 0; y < 6 - standingdrivers[i]!.totPoints.ToString().Length; y++)
+                {
+                    s[i] = " " + s[i];
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("╔═══════════════════════════════════════════════════════════════════╗" +
+                          "\r\n║                          All-Time Drivers                         ║" +
+                          "\r\n╠══════╦══════════════════╦═══════════════╦══════╦═════════╦════════╣" +
+                          "\r\n║ Pos. ║       Team       ║ Championships ║ Wins ║ Podiums ║ Points ║" +
+                          "\r\n╠══════╬══════════════════╬═══════════════╬══════╬═════════╬════════╣" +
+                          "\r\n║ " + "\x1b[38;5;" + 178 + "m" + "GOAT" + "\x1b[38;5;" + 15 + "m" + " ║ " + standingdrivers[0]!.color + standingdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + "     " + standingdrivers[0]!.totChampionships + u[0] + standingdrivers[0]!.totWins + w[0] + standingdrivers[0]!.totPodiums + p[0] + standingdrivers[0]!.totPoints + s[0] +
+                          "\r\n║ P2   ║ " + standingdrivers[1]!.color + standingdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + "     " + standingdrivers[1]!.totChampionships + u[1] + standingdrivers[1]!.totWins + w[1] + standingdrivers[1]!.totPodiums + p[1] + standingdrivers[1]!.totPoints + s[1] +
+                          "\r\n║ P3   ║ " + standingdrivers[2]!.color + standingdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + "     " + standingdrivers[2]!.totChampionships + u[2] + standingdrivers[2]!.totWins + w[2] + standingdrivers[2]!.totPodiums + p[2] + standingdrivers[2]!.totPoints + s[2] +
+                          "\r\n║ P4   ║ " + standingdrivers[3]!.color + standingdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + "     " + standingdrivers[3]!.totChampionships + u[3] + standingdrivers[3]!.totWins + w[3] + standingdrivers[3]!.totPodiums + p[3] + standingdrivers[3]!.totPoints + s[3] +
+                          "\r\n║ P5   ║ " + standingdrivers[4]!.color + standingdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + "     " + standingdrivers[4]!.totChampionships + u[4] + standingdrivers[4]!.totWins + w[4] + standingdrivers[4]!.totPodiums + p[4] + standingdrivers[4]!.totPoints + s[4] +
+                          "\r\n║ P6   ║ " + standingdrivers[5]!.color + standingdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + "     " + standingdrivers[5]!.totChampionships + u[5] + standingdrivers[5]!.totWins + w[5] + standingdrivers[5]!.totPodiums + p[5] + standingdrivers[5]!.totPoints + s[5] +
+                          "\r\n║ P7   ║ " + standingdrivers[6]!.color + standingdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + "     " + standingdrivers[6]!.totChampionships + u[6] + standingdrivers[6]!.totWins + w[6] + standingdrivers[6]!.totPodiums + p[6] + standingdrivers[6]!.totPoints + s[6] +
+                          "\r\n║ P8   ║ " + standingdrivers[7]!.color + standingdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + "     " + standingdrivers[7]!.totChampionships + u[7] + standingdrivers[7]!.totWins + w[7] + standingdrivers[7]!.totPodiums + p[7] + standingdrivers[7]!.totPoints + s[7] +
+                          "\r\n║ P9   ║ " + standingdrivers[8]!.color + standingdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + "     " + standingdrivers[8]!.totChampionships + u[8] + standingdrivers[8]!.totWins + w[8] + standingdrivers[8]!.totPodiums + p[8] + standingdrivers[8]!.totPoints + s[8] +
+                          "\r\n║ P10  ║ " + standingdrivers[9]!.color + standingdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + "     " + standingdrivers[9]!.totChampionships + u[9] + standingdrivers[9]!.totWins + w[9] + standingdrivers[9]!.totPodiums + p[9] + standingdrivers[9]!.totPoints + s[9] +
+                          "\r\n║ P11  ║ " + standingdrivers[10]!.color + standingdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + "     " + standingdrivers[10]!.totChampionships + u[10] + standingdrivers[10]!.totWins + w[10] + standingdrivers[10]!.totPodiums + p[10] + standingdrivers[10]!.totPoints + s[10] +
+                          "\r\n║ P12  ║ " + standingdrivers[11]!.color + standingdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + "     " + standingdrivers[11]!.totChampionships + u[11] + standingdrivers[11]!.totWins + w[11] + standingdrivers[11]!.totPodiums + p[11] + standingdrivers[11]!.totPoints + s[11] +
+                          "\r\n║ P13  ║ " + standingdrivers[12]!.color + standingdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + "     " + standingdrivers[12]!.totChampionships + u[12] + standingdrivers[12]!.totWins + w[12] + standingdrivers[12]!.totPodiums + p[12] + standingdrivers[12]!.totPoints + s[12] +
+                          "\r\n║ P14  ║ " + standingdrivers[13]!.color + standingdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + "     " + standingdrivers[13]!.totChampionships + u[13] + standingdrivers[13]!.totWins + w[13] + standingdrivers[13]!.totPodiums + p[13] + standingdrivers[13]!.totPoints + s[13] +
+                          "\r\n║ P15  ║ " + standingdrivers[14]!.color + standingdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + "     " + standingdrivers[14]!.totChampionships + u[14] + standingdrivers[14]!.totWins + w[14] + standingdrivers[14]!.totPodiums + p[14] + standingdrivers[14]!.totPoints + s[14] +
+                          "\r\n║ P16  ║ " + standingdrivers[15]!.color + standingdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + "     " + standingdrivers[15]!.totChampionships + u[15] + standingdrivers[15]!.totWins + w[15] + standingdrivers[15]!.totPodiums + p[15] + standingdrivers[15]!.totPoints + s[15] +
+                          "\r\n║ P17  ║ " + standingdrivers[16]!.color + standingdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + "     " + standingdrivers[16]!.totChampionships + u[16] + standingdrivers[16]!.totWins + w[16] + standingdrivers[16]!.totPodiums + p[16] + standingdrivers[16]!.totPoints + s[16] +
+                          "\r\n║ P18  ║ " + standingdrivers[17]!.color + standingdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + "     " + standingdrivers[17]!.totChampionships + u[17] + standingdrivers[17]!.totWins + w[17] + standingdrivers[17]!.totPodiums + p[17] + standingdrivers[17]!.totPoints + s[17] +
+                          "\r\n║ P19  ║ " + standingdrivers[18]!.color + standingdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + "     " + standingdrivers[18]!.totChampionships + u[18] + standingdrivers[18]!.totWins + w[18] + standingdrivers[18]!.totPodiums + p[18] + standingdrivers[18]!.totPoints + s[18] +
+                          "\r\n║ P20  ║ " + standingdrivers[19]!.color + standingdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + "     " + standingdrivers[19]!.totChampionships + u[19] + standingdrivers[19]!.totWins + w[19] + standingdrivers[19]!.totPodiums + p[19] + standingdrivers[19]!.totPoints + s[19] +
+                          "\r\n╚══════╩══════════════════╩═══════════════╩══════╩═════════╩════════╝");
             Console.WriteLine();
             Console.WriteLine();
         }
@@ -346,6 +534,8 @@ namespace Game
             Console.WriteLine("'specs'");
             Console.WriteLine("'driver standings'");
             Console.WriteLine("'team standings'");
+            Console.WriteLine("'all time driver standings'");
+            Console.WriteLine("'all time team standings'");
             Console.WriteLine("'(driver)' or '(team)' to find stats and info on a certain driver or team");
             Console.WriteLine("'clear' - clears up the console so you can stay focused on the present!");
             Console.WriteLine("'autorun' - let the simulation run continuosly, press 'Ctrl' + 'C' to stop");
@@ -378,6 +568,7 @@ namespace Game
                     Console.WriteLine("'info' - to learn more about them");
                     Console.WriteLine("'ratings' - displays the overall and in depth ratings of this teams car");
                     Console.WriteLine("'stats' - shows accumulated statistics since the season start");
+                    Console.WriteLine("'all time stats' - shows the all-time stats in this teams existence");
                     Console.WriteLine("'Backspace' - to return to general command mode");
                     goto checkpoint2;
                 }
@@ -413,6 +604,13 @@ namespace Game
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentteam.name + " currently has " + currentteam.wins + " wins, " + currentteam.podiums + " podiums, and " + currentteam.points + " points this season.");
+                }
+                else if (input.ToLower() == "all time stats")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine(currentteam.name + " has a total of " + currentteam.totWins + " wins, " + currentteam.totPodiums + " podiums, and " + currentteam.totPoints + " points.");
+                    Console.WriteLine("They have also won " + currentteam.totChampionships + " constructors championships, and " + currentteam.totDChampionships + " drivers championships.");
                 }
                 else
                 {
@@ -457,6 +655,7 @@ namespace Game
                     Console.WriteLine("'info' - to learn more about him");
                     Console.WriteLine("'ratings' - displays the drivers overall and other detailed ratings");
                     Console.WriteLine("'stats' - shows different statistics since the season start");
+                    Console.WriteLine("'all time stats' - shows the all-time stats in this drivers career");
                     Console.WriteLine("'Backspace' - to return to general command mode");
                     goto checkpoint3;
                 }
@@ -491,6 +690,13 @@ namespace Game
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " has accumulated " + currentdriver.wins + " wins, " + currentdriver.podiums + " podiums, and " + currentdriver.points + " points since the start of this season.");
+                }
+                else if (input.ToLower() == "all time stats")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("During his career, " + currentdriver.name + " have gotten " + currentdriver.totWins + " wins, " + currentdriver.totPodiums + " podiums, and " + currentdriver.totPoints + " points.");
+                    Console.WriteLine("He is a " + currentdriver.totChampionships + "x time world champion.");
                 }
                 else
                 {
@@ -664,6 +870,14 @@ namespace Game
             {
                 TeamStandings();
             }
+            else if (input.ToLower() == "all time driver standings")
+            {
+                AllTimeDStandings();
+            }
+            else if (input.ToLower() == "all time team standings")
+            {
+                AllTimeTStandings();
+            }
             else if (input.ToLower() == "clear")
             {
                 Console.Clear();
@@ -799,9 +1013,6 @@ namespace Game
                 chosenteams[i].points = 0;
                 chosenteams[i].wins = 0;
                 chosenteams[i].podiums = 0;
-            }
-            for (int i = 0; i < 20; i++)
-            {
                 driverarray[i].age += 1;
                 driverarray[i].points = 0;
                 driverarray[i].wins = 0;
@@ -1377,6 +1588,18 @@ namespace Game
 
             Array.Sort(standingdrivers, new DStandingComparer()!);
 
+            Team[] standingteams = new[]
+            {
+                car1, car3, car5, car7, car9, car11, car13, car15, car17, car19,
+            };
+
+            Array.Sort(standingteams, new TStandingComparer());
+
+            standingdrivers[0]!.totChampionships += 1;
+            standingdrivers[0]!.seat!.totDChampionships += 1;
+            standingteams[0]!.totChampionships += 1;
+
+
             Console.WriteLine();
             Console.WriteLine("\x1b[38;5;" + 178 + "m" + standingdrivers[0]!.name + " is crowned World Champion!");
             Console.ForegroundColor = ConsoleColor.White;
@@ -1674,10 +1897,14 @@ namespace Game
             }!;
 
             resultteams[0].wins = resultteams[0].wins + 1;
+            resultteams[0].totWins = resultteams[0].totWins + 1;
 
             resultteams[0].podiums = resultteams[0].podiums + 1;
             resultteams[1].podiums = resultteams[1].podiums + 1;
             resultteams[2].podiums = resultteams[2].podiums + 1;
+            resultteams[0].totPodiums = resultteams[0].totPodiums + 1;
+            resultteams[1].totPodiums = resultteams[1].totPodiums + 1;
+            resultteams[2].totPodiums = resultteams[2].totPodiums + 1;
 
             resultteams[0].points = resultteams[0].points + 25;
             resultteams[1].points = resultteams[1].points + 18;
@@ -1689,12 +1916,26 @@ namespace Game
             resultteams[7].points = resultteams[7].points + 4;
             resultteams[8].points = resultteams[8].points + 2;
             resultteams[9].points = resultteams[9].points + 1;
+            resultteams[0].totPoints = resultteams[0].totPoints + 25;
+            resultteams[1].totPoints = resultteams[1].totPoints + 18;
+            resultteams[2].totPoints = resultteams[2].totPoints + 15;
+            resultteams[3].totPoints = resultteams[3].totPoints + 12;
+            resultteams[4].totPoints = resultteams[4].totPoints + 10;
+            resultteams[5].totPoints = resultteams[5].totPoints + 8;
+            resultteams[6].totPoints = resultteams[6].totPoints + 6;
+            resultteams[7].totPoints = resultteams[7].totPoints + 4;
+            resultteams[8].totPoints = resultteams[8].totPoints + 2;
+            resultteams[9].totPoints = resultteams[9].totPoints + 1;
 
             resultdrivers[0]!.wins = resultdrivers[0]!.wins + 1;
+            resultdrivers[0]!.totWins = resultdrivers[0]!.totWins + 1;
 
             resultdrivers[0]!.podiums = resultdrivers[0]!.podiums + 1;
             resultdrivers[1]!.podiums = resultdrivers[1]!.podiums + 1;
             resultdrivers[2]!.podiums = resultdrivers[2]!.podiums + 1;
+            resultdrivers[0]!.totPodiums = resultdrivers[0]!.totPodiums + 1;
+            resultdrivers[1]!.totPodiums = resultdrivers[1]!.totPodiums + 1;
+            resultdrivers[2]!.totPodiums = resultdrivers[2]!.totPodiums + 1;
 
             resultdrivers[0]!.points = resultdrivers[0]!.points + 25;
             resultdrivers[1]!.points = resultdrivers[1]!.points + 18;
@@ -1706,6 +1947,16 @@ namespace Game
             resultdrivers[7]!.points = resultdrivers[7]!.points + 4;
             resultdrivers[8]!.points = resultdrivers[8]!.points + 2;
             resultdrivers[9]!.points = resultdrivers[9]!.points + 1;
+            resultdrivers[0]!.totPoints = resultdrivers[0]!.totPoints + 25;
+            resultdrivers[1]!.totPoints = resultdrivers[1]!.totPoints + 18;
+            resultdrivers[2]!.totPoints = resultdrivers[2]!.totPoints + 15;
+            resultdrivers[3]!.totPoints = resultdrivers[3]!.totPoints + 12;
+            resultdrivers[4]!.totPoints = resultdrivers[4]!.totPoints + 10;
+            resultdrivers[5]!.totPoints = resultdrivers[5]!.totPoints + 8;
+            resultdrivers[6]!.totPoints = resultdrivers[6]!.totPoints + 6;
+            resultdrivers[7]!.totPoints = resultdrivers[7]!.totPoints + 4;
+            resultdrivers[8]!.totPoints = resultdrivers[8]!.totPoints + 2;
+            resultdrivers[9]!.totPoints = resultdrivers[9]!.totPoints + 1;
 
             if (seasonSim == false)
             {
@@ -1801,7 +2052,9 @@ namespace Game
     }
 }
 
-//ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
+//KLART   ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
+
+//Göra i all time comparison att om de är lika i mästerskap går den istället efter vinster, podium, poäng osv.
 
 //fixa så autorun vet vart den ska återuppta, med variablar/checkpoints/labels nåt sånt
 

@@ -30,9 +30,14 @@
         public int wins;
         public int podiums;
         public int points;
+        public int totWins;
+        public int totPodiums;
+        public int totPoints;
+        public int totChampionships;
+        public int totDChampionships;
         public string color;
 
-        public Team(string name, string hq, int age, string engine, string prefix, string principal, int power, int reliability, int downforce, int traction, int drag, int degradation, int wins, int podiums, int points, string color)
+        public Team(string name, string hq, int age, string engine, string prefix, string principal, int power, int reliability, int downforce, int traction, int drag, int degradation, int wins, int podiums, int points, int totWins, int totPodiums, int totPoints, int totChampionships, int totDChampionships, string color)
         {
             this.name = name;
             this.hq = hq;
@@ -49,6 +54,11 @@
             this.wins = wins;
             this.podiums = podiums;
             this.points = points;
+            this.totWins = totWins;
+            this.totPodiums = totPodiums;
+            this.totPoints = totPoints;
+            this.totChampionships = totChampionships;
+            this.totDChampionships = totDChampionships;
             this.color = color;
             performance = (power + downforce + traction + drag + degradation) / 5;
         }
@@ -70,6 +80,10 @@
         public int wins;
         public int podiums;
         public int points;
+        public int totWins;
+        public int totPodiums;
+        public int totPoints;
+        public int totChampionships;
         public double overall;
         public double rating;
         public string? color;
@@ -83,7 +97,7 @@
         public double form7;
         public double form8;
 
-        public Driver(string name, int age, string firstname, string lastname, string shortname, string nationality, string prefix, int pace, int consistency, int racecraft, int experience, int wins, int podiums, int points)
+        public Driver(string name, int age, string firstname, string lastname, string shortname, string nationality, string prefix, int pace, int consistency, int racecraft, int experience, int wins, int podiums, int points, int totWins, int totPodiums, int totPoints, int totChampionships)
         {
             this.name = name;
             this.age = age;
@@ -99,6 +113,10 @@
             this.wins = wins;
             this.podiums = podiums;
             this.points = points;
+            this.totWins = totWins;
+            this.totPodiums = totPodiums;
+            this.totPoints = totPoints;
+            this.totChampionships = totChampionships;
             overall = (pace + consistency + racecraft) / 3;
             Random rand = new();
             double n1 = rand.Next(45 + experience / 10, 105 - experience / 10);
