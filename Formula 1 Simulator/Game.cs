@@ -2052,7 +2052,7 @@ namespace Game
     }
 }
 
-//KLART   ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
+//KLART ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
 
 //Göra i all time comparison att om de är lika i mästerskap går den istället efter vinster, podium, poäng osv.
 
