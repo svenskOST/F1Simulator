@@ -33,6 +33,7 @@ namespace Game
         static bool grid = false;
         static bool specs = false;
         static bool gameFinished = false;
+        static bool allDriversDead = false;
 
         readonly static Engine eRedBull = new(90, 92);
         readonly static Engine eFerrari = new(95, 85);
@@ -71,7 +72,7 @@ namespace Game
         readonly static Team car19 = Williams;
         readonly static Team car20 = Williams;
 
-        readonly static Team[] chosenteams = new[]
+        readonly static Team[] availableTeams = new[]
         {
             car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20
         };
@@ -99,7 +100,7 @@ namespace Game
         readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0, 0, 2, 198, 0);
         readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0, 0, 0, 7, 0);
 
-        readonly static Driver[] driverarray = new[]
+        static Driver[] availableDrivers = new[]
         {
             ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
         };
@@ -753,9 +754,9 @@ namespace Game
                         DriverMode();
                         goto checkpoint;
                     }
-                    else if (input.ToLower() == chosenteams[i].name.ToString().ToLower())
+                    else if (input.ToLower() == availableTeams[i].name.ToString().ToLower())
                     {
-                        currentteam = chosenteams[i];
+                        currentteam = availableTeams[i];
                         TeamMode();
                         goto checkpoint;
                     }
@@ -902,34 +903,37 @@ namespace Game
 
         public static void GameLoop()
         {
-            NewSeason();
-            if (gameFinished == false)
+            if (!allDriversDead)
             {
-                Reset();
-                Randomizer();
-                if (seasonSim == true)
+                NewSeason();
+                if (gameFinished == false)
                 {
-                    grid = true;
-                    specs = true;
+                    Reset();
+                    Randomizer();
+                    if (seasonSim == true)
+                    {
+                        grid = true;
+                        specs = true;
+                    }
+                    else
+                    {
+                        GridReveal();
+                    }
+                    if (seasonSim == false)
+                    {
+                        StartSeason();
+                    }
+                    SimulateRaces();
+                    EndSeason();
+                    GameLoop();
                 }
-                else
-                {
-                    GridReveal();
-                }
-                if (seasonSim == false)
-                {
-                    StartSeason();
-                }
-                SimulateRaces();
-                EndSeason();
-                GameLoop();
             }
         }
 
         public static void NewSeason()
         {
         checkpoint:
-            Console.WriteLine("Start new season or press 'E' to exit game...");
+            Console.WriteLine("Start a new season or press 'E' to exit game...");
         fallback:
             if (autorun == false)
             {
@@ -1009,30 +1013,24 @@ namespace Game
 
             for (int i = 0; i < 20; i++)
             {
-                chosenteams[i].age += 1;
-                chosenteams[i].points = 0;
-                chosenteams[i].wins = 0;
-                chosenteams[i].podiums = 0;
-                driverarray[i].age += 1;
-                driverarray[i].points = 0;
-                driverarray[i].wins = 0;
-                driverarray[i].podiums = 0;
+                availableTeams[i].age += 1;
+                availableTeams[i].points = 0;
+                availableTeams[i].wins = 0;
+                availableTeams[i].podiums = 0;
+                availableDrivers[i].age += 1;
+                availableDrivers[i].points = 0;
+                availableDrivers[i].wins = 0;
+                availableDrivers[i].podiums = 0;
             }
         }
 
         public static void Randomizer()
         {
-            drivers = new[]
-            {
-                ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
-            };
+            drivers = availableDrivers;
 
-            rdrivers = new[]
-            {
-                ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
-            };
+            rdrivers = drivers;
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < drivers.Length; i++)
             {
                 Random random = new();
                 int rindex = random.Next(drivers.Length);
@@ -1044,6 +1042,7 @@ namespace Game
                 Array.Resize(ref drivers, drivers.Length - 1);
             }
 
+            //ändra dessa så de stämmer med varierande längd på availableDrivers
             driver1 = rdrivers[0];
             driver2 = rdrivers[1];
             driver3 = rdrivers[2];
@@ -1112,7 +1111,7 @@ namespace Game
 
             for (int i = 0; i < chosendrivers.Length; i++)
             {
-                chosendrivers[i].color = chosenteams[i].color;
+                chosendrivers[i].color = availableTeams[i].color;
             }
         }
 
@@ -1138,7 +1137,7 @@ namespace Game
             }
         checkpoint:
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Go trough new grid...");
+            Console.WriteLine("Go through new grid...");
         fallback:
             if (autorun == false)
             {
@@ -1616,6 +1615,65 @@ namespace Game
 
             Console.WriteLine();
             Console.WriteLine();
+
+            DriverSurvival();
+        }
+
+        public static void DriverSurvival()
+        {
+            for (int i = 0; i < availableDrivers.Length; i++)
+            {
+                int index = i;
+                int survivalChance = 100;
+                switch (availableDrivers[i].age)
+                {
+                    case < 31:
+                        survivalChance = 95;
+                        break;
+                    case < 41:
+                        survivalChance = 90;
+                        break;
+                    case < 51:
+                        survivalChance = 85;
+                        break;
+                    case < 61:
+                        survivalChance = 75;
+                        break;
+                    case < 71:
+                        survivalChance = 60;
+                        break;
+                    case < 81:
+                        survivalChance = 45;
+                        break;
+                    case < 91:
+                        survivalChance = 30;
+                        break;
+                    case < 101:
+                        survivalChance = 15;
+                        break;
+                    case < 111:
+                        survivalChance = 5;
+                        break;
+                }
+
+                Random rand = new();
+                int r = rand.Next(100);
+
+                if (survivalChance - r !>= 0)
+                {
+                    Die(index);
+                }
+            }
+
+            static void Die(int index)
+            {
+                for (int i = index; i < availableDrivers.Length - 1; i++)
+                {
+                    availableDrivers[i] = availableDrivers[i + 1];
+                }
+                Array.Resize(ref availableDrivers, availableDrivers.Length - 1);
+                //slutade här
+            }
         }
 
         public static void Race()
@@ -1653,91 +1711,91 @@ namespace Game
             switch (CurrentRace)
             {
                 case "Bahrain":
-                    Results.Bahrain(chosenteams, chosendrivers!, seasonSim);
+                    Results.Bahrain(availableTeams, chosendrivers!, seasonSim);
                     currentgp = bahrain.gp;
                     break;
                 case "Jeddah":
-                    Results.Jeddah(chosenteams, chosendrivers!, seasonSim);
+                    Results.Jeddah(availableTeams, chosendrivers!, seasonSim);
                     currentgp = jeddah.gp;
                     break;
                 case "Australia":
-                    Results.Australia(chosenteams, chosendrivers!, seasonSim);
+                    Results.Australia(availableTeams, chosendrivers!, seasonSim);
                     currentgp = australia.gp;
                     break;
                 case "Imola":
-                    Results.Imola(chosenteams, chosendrivers!, seasonSim);
+                    Results.Imola(availableTeams, chosendrivers!, seasonSim);
                     currentgp = imola.gp;
                     break;
                 case "Miami":
-                    Results.Miami(chosenteams, chosendrivers!, seasonSim);
+                    Results.Miami(availableTeams, chosendrivers!, seasonSim);
                     currentgp = miami.gp;
                     break;
                 case "Spain":
-                    Results.Spain(chosenteams, chosendrivers!, seasonSim);
+                    Results.Spain(availableTeams, chosendrivers!, seasonSim);
                     currentgp = spain.gp;
                     break;
                 case "Monaco":
-                    Results.Monaco(chosenteams, chosendrivers!, seasonSim);
+                    Results.Monaco(availableTeams, chosendrivers!, seasonSim);
                     currentgp = monaco.gp;
                     break;
                 case "Baku":
-                    Results.Baku(chosenteams, chosendrivers!, seasonSim);
+                    Results.Baku(availableTeams, chosendrivers!, seasonSim);
                     currentgp = baku.gp;
                     break;
                 case "Canada":
-                    Results.Canada(chosenteams, chosendrivers!, seasonSim);
+                    Results.Canada(availableTeams, chosendrivers!, seasonSim);
                     currentgp = canada.gp;
                     break;
                 case "Silverstone":
-                    Results.Silverstone(chosenteams, chosendrivers!, seasonSim);
+                    Results.Silverstone(availableTeams, chosendrivers!, seasonSim);
                     currentgp = silverstone.gp;
                     break;
                 case "Austria":
-                    Results.Austria(chosenteams, chosendrivers!, seasonSim);
+                    Results.Austria(availableTeams, chosendrivers!, seasonSim);
                     currentgp = austria.gp;
                     break;
                 case "Paulricard":
-                    Results.Paulricard(chosenteams, chosendrivers!, seasonSim);
+                    Results.Paulricard(availableTeams, chosendrivers!, seasonSim);
                     currentgp = paulricard.gp;
                     break;
                 case "Hungaroring":
-                    Results.Hungaroring(chosenteams, chosendrivers!, seasonSim);
+                    Results.Hungaroring(availableTeams, chosendrivers!, seasonSim);
                     currentgp = hungaroring.gp;
                     break;
                 case "Spa":
-                    Results.Spa(chosenteams, chosendrivers!, seasonSim);
+                    Results.Spa(availableTeams, chosendrivers!, seasonSim);
                     currentgp = spa.gp;
                     break;
                 case "Zandvoort":
-                    Results.Zandvoort(chosenteams, chosendrivers!, seasonSim);
+                    Results.Zandvoort(availableTeams, chosendrivers!, seasonSim);
                     currentgp = zandvoort.gp;
                     break;
                 case "Monza":
-                    Results.Monza(chosenteams, chosendrivers!, seasonSim);
+                    Results.Monza(availableTeams, chosendrivers!, seasonSim);
                     currentgp = monza.gp;
                     break;
                 case "Singapore":
-                    Results.Singapore(chosenteams, chosendrivers!, seasonSim);
+                    Results.Singapore(availableTeams, chosendrivers!, seasonSim);
                     currentgp = singapore.gp;
                     break;
                 case "Suzuka":
-                    Results.Suzuka(chosenteams, chosendrivers!, seasonSim);
+                    Results.Suzuka(availableTeams, chosendrivers!, seasonSim);
                     currentgp = suzuka.gp;
                     break;
                 case "Cota":
-                    Results.Cota(chosenteams, chosendrivers!, seasonSim);
+                    Results.Cota(availableTeams, chosendrivers!, seasonSim);
                     currentgp = cota.gp;
                     break;
                 case "Mexico":
-                    Results.Mexico(chosenteams, chosendrivers!, seasonSim);
+                    Results.Mexico(availableTeams, chosendrivers!, seasonSim);
                     currentgp = mexico.gp;
                     break;
                 case "Interlagos":
-                    Results.Interlagos(chosenteams, chosendrivers!, seasonSim);
+                    Results.Interlagos(availableTeams, chosendrivers!, seasonSim);
                     currentgp = interlagos.gp;
                     break;
                 case "Abudhabi":
-                    Results.Abudhabi(chosenteams, chosendrivers!, seasonSim);
+                    Results.Abudhabi(availableTeams, chosendrivers!, seasonSim);
                     currentgp = abudhabi.gp;
                     break;
             }
