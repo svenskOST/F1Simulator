@@ -14,15 +14,17 @@ namespace Game
 
         readonly static string[] intro = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\intro.txt");
         readonly static string[] image = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\image.txt");
+        static string[]? colTitle;
+        static string[]? leftCol;
+        static string[]? chassis;
+        static string[]? powerUnit;
         static string? racestart;
         static string? startornext;
         static string? currentrace;
         static string? CurrentRace;
         static string? currentgp;
         static string? resulttitle;
-        static string? dTitle;
-        static string? tTitle;
-        static string? leaderOrC;
+        static string? tableTitle;
 
         static int x = 0;
         static int season = 2021;
@@ -34,6 +36,7 @@ namespace Game
         static bool specs = false;
         static bool gameFinished = false;
         static bool allDriversDead = false;
+        static bool seasonResults = false;
 
         readonly static Engine eRedBull = new(90, 92);
         readonly static Engine eFerrari = new(95, 85);
@@ -51,33 +54,33 @@ namespace Game
         readonly static Team AlphaTauri = new("AlphaTauri", "Faenza", 37, "Ferrari", "an italian", "Franz Tost", eRedBull.power - 9, eRedBull.reliability, 75, 74, 79, 78, 0, 0, 0, 1, 2, 249, 0, 0, "\x1b[38;5;" + 240 + "m");
         readonly static Team Williams = new("Williams", "Wantage", 53, "Mercedes", "a british", "Jost Capito", eMercedes.power - 3, eMercedes.reliability, 68, 72, 98, 75, 0, 0, 0, 114, 313, 3584, 9, 7, "\x1b[38;5;" + 26 + "m");
 
-        readonly static Team car1 = RedBull;
-        readonly static Team car2 = RedBull;
-        readonly static Team car3 = Ferrari;
-        readonly static Team car4 = Ferrari;
-        readonly static Team car5 = Mercedes;
-        readonly static Team car6 = Mercedes;
-        readonly static Team car7 = Alpine;
-        readonly static Team car8 = Alpine;
-        readonly static Team car9 = Mclaren;
-        readonly static Team car10 = Mclaren;
-        readonly static Team car11 = AlfaRomeo;
-        readonly static Team car12 = AlfaRomeo;
-        readonly static Team car13 = AstonMartin;
-        readonly static Team car14 = AstonMartin;
-        readonly static Team car15 = Haas;
-        readonly static Team car16 = Haas;
-        readonly static Team car17 = AlphaTauri;
-        readonly static Team car18 = AlphaTauri;
-        readonly static Team car19 = Williams;
-        readonly static Team car20 = Williams;
-
-        readonly static Team[] availableTeams = new[]
+        readonly static Team[] teams = new[]
         {
-            car1, car2, car3, car4, car5, car6, car7, car8, car9, car10, car11, car12, car13, car14, car15, car16, car17, car18, car19, car20
+            RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams
         };
 
+        readonly static Team[] seats = new[]
+        {
+            RedBull, RedBull, Ferrari, Ferrari, Mercedes, Mercedes, Alpine, Alpine, Mclaren, Mclaren, AlfaRomeo, AlfaRomeo, AstonMartin, AstonMartin, Haas, Haas, AlphaTauri, AlphaTauri, Williams, Williams
+        };
+
+        static Team[]? standingTeams;
+
         static Team? currentteam;
+
+        readonly static Team[] allTeams = new[]
+        {
+            RedBull,
+            Ferrari,
+            Mercedes,
+            Alpine,
+            Mclaren,
+            AlfaRomeo,
+            AstonMartin,
+            Haas,
+            AlphaTauri,
+            Williams
+        };
 
         readonly static Driver ver = new("Max Verstappen", 24, "Max", "Verstappen", "VER", "the Netherlands", "dutch", 97, 92, 90, 78, 0, 0, 0, 20, 60, 1558, 1);
         readonly static Driver per = new("Sergio Perez", 32, "Sergio", "Perez", "PER", "Mexicó", "mexican", 86, 89, 93, 88, 0, 0, 0, 2, 14, 893, 0);
@@ -100,10 +103,18 @@ namespace Game
         readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0, 0, 2, 198, 0);
         readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0, 0, 0, 7, 0);
 
-        static Driver[] availableDrivers = new[]
+        readonly static Driver[] drivers = new[]
         {
             ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
         };
+
+        static Driver[] sortedDrivers = drivers;
+
+        static Driver[]? driverPool;
+
+        static Driver[]? selectedDrivers;
+
+        static Driver? currentdriver;
 
         readonly static Track bahrain = new("Bahrain International Circuit", "BAHRAIN GRAND PRIX", "Sakhir, Bahrain", "Bahrain");
         readonly static Track jeddah = new("Jeddah Corniche Circuit", "SAUDI ARABIAN GRAND PRIX", "Jeddah, Saudi Arabia", "Jeddah");
@@ -127,37 +138,6 @@ namespace Game
         readonly static Track mexico = new("Autodromo Hermanos Rodriguez", "MEXICAN GRAND PRIX", "Mexico City", "Mexico City");
         readonly static Track interlagos = new("Autodromo Jose Carlos Pace", "SÃO PAULO GRAND PRIX", "São Paulo, Brazil", "Interlagos");
         readonly static Track abudhabi = new("Yas Marina Circuit", "ABU DHABI GRAND PRIX", "Abu Dhabi, United Arab Emirates", "Abu Dhabi");
-
-        static Driver[]? drivers;
-
-        static Driver[]? rdrivers;
-
-        static Driver?[]? resultdrivers;
-
-        static Driver? driver1;
-        static Driver? driver2;
-        static Driver? driver3;
-        static Driver? driver4;
-        static Driver? driver5;
-        static Driver? driver6;
-        static Driver? driver7;
-        static Driver? driver8;
-        static Driver? driver9;
-        static Driver? driver10;
-        static Driver? driver11;
-        static Driver? driver12;
-        static Driver? driver13;
-        static Driver? driver14;
-        static Driver? driver15;
-        static Driver? driver16;
-        static Driver? driver17;
-        static Driver? driver18;
-        static Driver? driver19;
-        static Driver? driver20;
-
-        static Driver[]? chosendrivers;
-
-        static Driver? currentdriver;
 
         public class DriverComparer : IComparer<Driver>
         {
@@ -187,7 +167,22 @@ namespace Game
         {
             public int Compare(Driver? x, Driver? y)
             {
-                return y!.totChampionships.CompareTo(x!.totChampionships);
+                if (y!.totChampionships != x!.totChampionships)
+                {
+                    return y!.totChampionships.CompareTo(x!.totChampionships);
+                }
+                else if (y!.totWins != x!.totWins)
+                {
+                    return y!.totWins.CompareTo(x!.totWins);
+                }
+                else if (y!.totPodiums != x!.totPodiums)
+                {
+                    return y!.totPodiums.CompareTo(x!.totPodiums);
+                }
+                else
+                {
+                    return y!.totPoints.CompareTo(x!.totPoints);
+                }
             }
         }
 
@@ -195,307 +190,152 @@ namespace Game
         {
             public int Compare(Team? x, Team? y)
             {
-                return y!.totChampionships.CompareTo(x!.totChampionships);
+                if (y!.totChampionships != x!.totChampionships)
+                {
+                    return y!.totChampionships.CompareTo(x!.totChampionships);
+                }
+                else if (y!.totWins != x!.totWins)
+                {
+                    return y!.totWins.CompareTo(x!.totWins);
+                }
+                else if (y!.totPodiums != x!.totPodiums)
+                {
+                    return y!.totPodiums.CompareTo(x!.totPodiums);
+                }
+                else
+                {
+                    return y!.totPoints.CompareTo(x!.totPoints);
+                }
             }
         }
 
-        public static void TeamStandings()
+        static void Main()
         {
-            Team[] standingteams = new[]
+            Console.Title = "Formula 1 Simulator";
+            Console.CancelKeyPress += new ConsoleCancelEventHandler(StopAutorun);
+
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            foreach (string ln in intro)
             {
-                car1, car3, car5, car7, car9, car11, car13, car15, car17, car19,
-            };
-
-            Array.Sort(standingteams, new TStandingComparer());
-
-            string[] t = new string[10];
-            string[] u = new string[10];
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                t[i] = "  ║ ";
-                for (int y = 0; y < 12 - standingteams[i].name.Length; y++)
-                {
-                    t[i] = " " + t[i];
-                }
+                Console.WriteLine(ln);
             }
-
-            for (int i = 0; i < t.Length; i++)
+            Console.WriteLine();
+            Console.WriteLine();
+            foreach (string ln in image)
             {
-                u[i] = " ║ ";
-                for (int y = 0; y < 3 - standingteams[i].points.ToString().Length; y++)
-                {
-                    u[i] = " " + u[i];
-                }
+                Console.WriteLine(ln);
             }
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(3000);
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("╔══════════════════════════════╗" +
-                                             tTitle +
-                          "\r\n╠════════╦═══════════════╦═════╣" +
-                          "\r\n║ Pos.   ║     Team      ║ Pts ║" +
-                          "\r\n╠════════╬═══════════════╬═════╣" +
-                                  leaderOrC + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + standingteams[0].points + u[0] +
-                          "\r\n║ P2     ║ " + standingteams[1].color + standingteams[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + standingteams[1].points + u[1] +
-                          "\r\n║ P3     ║ " + standingteams[2].color + standingteams[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + standingteams[2].points + u[2] +
-                          "\r\n║ P4     ║ " + standingteams[3].color + standingteams[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + standingteams[3].points + u[3] +
-                          "\r\n║ P5     ║ " + standingteams[4].color + standingteams[4].name + "\x1b[38;5;" + 15 + "m" + t[4] + standingteams[4].points + u[4] +
-                          "\r\n║ P6     ║ " + standingteams[5].color + standingteams[5].name + "\x1b[38;5;" + 15 + "m" + t[5] + standingteams[5].points + u[5] +
-                          "\r\n║ P7     ║ " + standingteams[6].color + standingteams[6].name + "\x1b[38;5;" + 15 + "m" + t[6] + standingteams[6].points + u[6] +
-                          "\r\n║ P8     ║ " + standingteams[7].color + standingteams[7].name + "\x1b[38;5;" + 15 + "m" + t[7] + standingteams[7].points + u[7] +
-                          "\r\n║ P9     ║ " + standingteams[8].color + standingteams[8].name + "\x1b[38;5;" + 15 + "m" + t[8] + standingteams[8].points + u[8] +
-                          "\r\n║ P10    ║ " + standingteams[9].color + standingteams[9].name + "\x1b[38;5;" + 15 + "m" + t[9] + standingteams[9].points + u[9] +
-                          "\r\n╚════════╩═══════════════╩═════╝");
+            Console.WriteLine("Welcome to the ultimate Formula 1 Simulator.");
+            Thread.Sleep(400);
+            Console.WriteLine("Are you ready to write a new chapter in the sports history books?");
             Console.WriteLine();
             Console.WriteLine();
+            Thread.Sleep(3000);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("After the game has started, press 'C' to enter command mode.");
+            Thread.Sleep(400);
+            Console.WriteLine("Press 'H' at any time to get help or a list of all available commands.");
+            Thread.Sleep(400);
+            Console.WriteLine("To continue press 'Enter'.");
+            Thread.Sleep(400);
+
+            GameLoop();
+
+            Console.WriteLine("Thank you for playing Formula 1 Simulator!");
         }
 
-        public static void DriverStandings()
+        public static void GameLoop()
         {
-            Driver?[] standingdrivers = new[]
+            if (!allDriversDead)
             {
-                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20
-            };
-
-            Array.Sort(standingdrivers, new DStandingComparer()!);
-
-            string[] t = new string[20];
-            string[] u = new string[20];
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                t[i] = " ║ ";
-                for (int y = 0; y < 16 - standingdrivers[i]!.name.Length; y++)
+                NewSeason();
+                if (gameFinished == false)
                 {
-                    t[i] = " " + t[i];
+                    Reset();
+                    Randomizer();
+                    if (seasonSim == true)
+                    {
+                        grid = true;
+                        specs = true;
+                    }
+                    else
+                    {
+                        tableTitle = season + " Grid Lineup";
+                        Grid();
+                    }
+                    if (seasonSim == false)
+                    {
+                        StartSeason();
+                    }
+                    SimulateRaces();
+                    EndSeason();
+                    GameLoop();
                 }
             }
-
-            for (int i = 0; i < t.Length; i++)
+            else
             {
-                u[i] = " ║ ";
-                for (int y = 0; y < 3 - standingdrivers[i]!.points.ToString().Length; y++)
-                {
-                    u[i] = " " + u[i];
-                }
+                GameOver();
             }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("╔═════════════════════════════════╗" +
-                                              dTitle +
-                          "\r\n╠════════╦══════════════════╦═════╣" +
-                          "\r\n║ Pos.   ║      Driver      ║ Pts ║" +
-                          "\r\n╠════════╬══════════════════╬═════╣" +
-                                  leaderOrC + standingdrivers[0]!.color + standingdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + standingdrivers[0]!.points + u[0] +
-                          "\r\n║ P2     ║ " + standingdrivers[1]!.color + standingdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + standingdrivers[1]!.points + u[1] +
-                          "\r\n║ P3     ║ " + standingdrivers[2]!.color + standingdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + standingdrivers[2]!.points + u[2] +
-                          "\r\n║ P4     ║ " + standingdrivers[3]!.color + standingdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + standingdrivers[3]!.points + u[3] +
-                          "\r\n║ P5     ║ " + standingdrivers[4]!.color + standingdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + standingdrivers[4]!.points + u[4] +
-                          "\r\n║ P6     ║ " + standingdrivers[5]!.color + standingdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + standingdrivers[5]!.points + u[5] +
-                          "\r\n║ P7     ║ " + standingdrivers[6]!.color + standingdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + standingdrivers[6]!.points + u[6] +
-                          "\r\n║ P8     ║ " + standingdrivers[7]!.color + standingdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + standingdrivers[7]!.points + u[7] +
-                          "\r\n║ P9     ║ " + standingdrivers[8]!.color + standingdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + standingdrivers[8]!.points + u[8] +
-                          "\r\n║ P10    ║ " + standingdrivers[9]!.color + standingdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + standingdrivers[9]!.points + u[9] +
-                          "\r\n║ P11    ║ " + standingdrivers[10]!.color + standingdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + standingdrivers[10]!.points + u[10] +
-                          "\r\n║ P12    ║ " + standingdrivers[11]!.color + standingdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + standingdrivers[11]!.points + u[11] +
-                          "\r\n║ P13    ║ " + standingdrivers[12]!.color + standingdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + standingdrivers[12]!.points + u[12] +
-                          "\r\n║ P14    ║ " + standingdrivers[13]!.color + standingdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + standingdrivers[13]!.points + u[13] +
-                          "\r\n║ P15    ║ " + standingdrivers[14]!.color + standingdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + standingdrivers[14]!.points + u[14] +
-                          "\r\n║ P16    ║ " + standingdrivers[15]!.color + standingdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + standingdrivers[15]!.points + u[15] +
-                          "\r\n║ P17    ║ " + standingdrivers[16]!.color + standingdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + standingdrivers[16]!.points + u[16] +
-                          "\r\n║ P18    ║ " + standingdrivers[17]!.color + standingdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + standingdrivers[17]!.points + u[17] +
-                          "\r\n║ P19    ║ " + standingdrivers[18]!.color + standingdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + standingdrivers[18]!.points + u[18] +
-                          "\r\n║ P20    ║ " + standingdrivers[19]!.color + standingdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + standingdrivers[19]!.points + u[19] +
-                          "\r\n╚════════╩══════════════════╩═════╝");
-            Console.WriteLine();
-            Console.WriteLine();
         }
 
-        public static void AllTimeTStandings()
+        public static void NewSeason()
         {
-            Team[] standingteams = new[]
-            {
-                car1, car3, car5, car7, car9, car11, car13, car15, car17, car19,
-            };
-
-            Array.Sort(standingteams, new TAllTimeStandingComparer());
-
-            string[] t = new string[10];
-            string[] u = new string[10];
-            string[] w = new string[10];
-            string[] p = new string[10];
-            string[] s = new string[10];
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                t[i] = "  ║ ";
-                for (int y = 0; y < 12 - standingteams[i].name.Length; y++)
-                {
-                    t[i] = " " + t[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                u[i] = "         ║ ";
-                for (int y = 0; y < 4 - standingteams[i].totChampionships.ToString().Length - standingteams[i].totDChampionships.ToString().Length; y++)
-                {
-                    u[i] = " " + u[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                w[i] = " ║ ";
-                for (int y = 0; y < 4 - standingteams[i].totWins.ToString().Length; y++)
-                {
-                    w[i] = " " + w[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                p[i] = " ║ ";
-                for (int y = 0; y < 7 - standingteams[i].totPodiums.ToString().Length; y++)
-                {
-                    p[i] = " " + p[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                s[i] = " ║ ";
-                for (int y = 0; y < 6 - standingteams[i].totPoints.ToString().Length; y++)
-                {
-                    s[i] = " " + s[i];
-                }
-            }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("╔══════════════════════════════════════════════════════════════════════════╗" +
-                          "\r\n║                           All-Time Constructors                          ║" +
-                          "\r\n╠══════╦═══════════════╦═════════════════════════╦══════╦═════════╦════════╣" +
-                          "\r\n║ Pos. ║     Team      ║ Championships (Drivers) ║ Wins ║ Podiums ║ Points ║" +
-                          "\r\n╠══════╬═══════════════╬═════════════════════════╬══════╬═════════╬════════╣" +
-                          "\r\n║ " + "\x1b[38;5;" + 178 + "m" + "Best" + "\x1b[38;5;" + 15 + "m" + " ║ " + standingteams[0].color + standingteams[0].name + "\x1b[38;5;" + 15 + "m" + t[0] + "        " + standingteams[0].totChampionships + " (" + standingteams[0].totDChampionships + ")" + u[0] + standingteams[0].totWins + w[0] + standingteams[0].totPodiums + p[0] + standingteams[0].totPoints + s[0] +
-                          "\r\n║ P2   ║ " + standingteams[1].color + standingteams[1].name + "\x1b[38;5;" + 15 + "m" + t[1] + "        " + standingteams[1].totChampionships + " (" + standingteams[1].totDChampionships + ")" + u[1] + standingteams[1].totWins + w[1] + standingteams[1].totPodiums + p[1] + standingteams[1].totPoints + s[1] +
-                          "\r\n║ P3   ║ " + standingteams[2].color + standingteams[2].name + "\x1b[38;5;" + 15 + "m" + t[2] + "        " + standingteams[2].totChampionships + " (" + standingteams[2].totDChampionships + ")" + u[2] + standingteams[2].totWins + w[2] + standingteams[2].totPodiums + p[2] + standingteams[2].totPoints + s[2] +
-                          "\r\n║ P4   ║ " + standingteams[3].color + standingteams[3].name + "\x1b[38;5;" + 15 + "m" + t[3] + "        " + standingteams[3].totChampionships + " (" + standingteams[3].totDChampionships + ")" + u[3] + standingteams[3].totWins + w[3] + standingteams[3].totPodiums + p[3] + standingteams[3].totPoints + s[3] +
-                          "\r\n║ P5   ║ " + standingteams[4].color + standingteams[4].name + "\x1b[38;5;" + 15 + "m" + t[4] + "        " + standingteams[4].totChampionships + " (" + standingteams[4].totDChampionships + ")" + u[4] + standingteams[4].totWins + w[4] + standingteams[4].totPodiums + p[4] + standingteams[4].totPoints + s[4] +
-                          "\r\n║ P6   ║ " + standingteams[5].color + standingteams[5].name + "\x1b[38;5;" + 15 + "m" + t[5] + "        " + standingteams[5].totChampionships + " (" + standingteams[5].totDChampionships + ")" + u[5] + standingteams[5].totWins + w[5] + standingteams[5].totPodiums + p[5] + standingteams[5].totPoints + s[5] +
-                          "\r\n║ P7   ║ " + standingteams[6].color + standingteams[6].name + "\x1b[38;5;" + 15 + "m" + t[6] + "        " + standingteams[6].totChampionships + " (" + standingteams[6].totDChampionships + ")" + u[6] + standingteams[6].totWins + w[6] + standingteams[6].totPodiums + p[6] + standingteams[6].totPoints + s[6] +
-                          "\r\n║ P8   ║ " + standingteams[7].color + standingteams[7].name + "\x1b[38;5;" + 15 + "m" + t[7] + "        " + standingteams[7].totChampionships + " (" + standingteams[7].totDChampionships + ")" + u[7] + standingteams[7].totWins + w[7] + standingteams[7].totPodiums + p[7] + standingteams[7].totPoints + s[7] +
-                          "\r\n║ P9   ║ " + standingteams[8].color + standingteams[8].name + "\x1b[38;5;" + 15 + "m" + t[8] + "        " + standingteams[8].totChampionships + " (" + standingteams[8].totDChampionships + ")" + u[8] + standingteams[8].totWins + w[8] + standingteams[8].totPodiums + p[8] + standingteams[8].totPoints + s[8] +
-                          "\r\n║ P10  ║ " + standingteams[9].color + standingteams[9].name + "\x1b[38;5;" + 15 + "m" + t[9] + "        " + standingteams[9].totChampionships + " (" + standingteams[9].totDChampionships + ")" + u[9] + standingteams[9].totWins + w[9] + standingteams[9].totPodiums + p[9] + standingteams[9].totPoints + s[9] +
-                          "\r\n╚══════╩═══════════════╩═════════════════════════╩══════╩═════════╩════════╝");
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-
-        public static void AllTimeDStandings()
-        {
-            Driver?[] standingdrivers = new[]
-            {
-                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20
-            };
-
-            Array.Sort(standingdrivers, new DAllTimeStandingComparer()!);
-
-            string[] t = new string[20];
-            string[] u = new string[20];
-            string[] w = new string[20];
-            string[] p = new string[20];
-            string[] s = new string[20];
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                t[i] = " ║ ";
-                for (int y = 0; y < 16 - standingdrivers[i]!.name.Length; y++)
-                {
-                    t[i] = " " + t[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                u[i] = "       ║ ";
-                for (int y = 0; y < 2 - standingdrivers[i]!.totChampionships.ToString().Length; y++)
-                {
-                    u[i] = " " + u[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                w[i] = " ║ ";
-                for (int y = 0; y < 4 - standingdrivers[i]!.totWins.ToString().Length; y++)
-                {
-                    w[i] = " " + w[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                p[i] = " ║ ";
-                for (int y = 0; y < 7 - standingdrivers[i]!.totPodiums.ToString().Length; y++)
-                {
-                    p[i] = " " + p[i];
-                }
-            }
-
-            for (int i = 0; i < t.Length; i++)
-            {
-                s[i] = " ║ ";
-                for (int y = 0; y < 6 - standingdrivers[i]!.totPoints.ToString().Length; y++)
-                {
-                    s[i] = " " + s[i];
-                }
-            }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("╔═══════════════════════════════════════════════════════════════════╗" +
-                          "\r\n║                          All-Time Drivers                         ║" +
-                          "\r\n╠══════╦══════════════════╦═══════════════╦══════╦═════════╦════════╣" +
-                          "\r\n║ Pos. ║       Team       ║ Championships ║ Wins ║ Podiums ║ Points ║" +
-                          "\r\n╠══════╬══════════════════╬═══════════════╬══════╬═════════╬════════╣" +
-                          "\r\n║ " + "\x1b[38;5;" + 178 + "m" + "GOAT" + "\x1b[38;5;" + 15 + "m" + " ║ " + standingdrivers[0]!.color + standingdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + "     " + standingdrivers[0]!.totChampionships + u[0] + standingdrivers[0]!.totWins + w[0] + standingdrivers[0]!.totPodiums + p[0] + standingdrivers[0]!.totPoints + s[0] +
-                          "\r\n║ P2   ║ " + standingdrivers[1]!.color + standingdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + "     " + standingdrivers[1]!.totChampionships + u[1] + standingdrivers[1]!.totWins + w[1] + standingdrivers[1]!.totPodiums + p[1] + standingdrivers[1]!.totPoints + s[1] +
-                          "\r\n║ P3   ║ " + standingdrivers[2]!.color + standingdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + "     " + standingdrivers[2]!.totChampionships + u[2] + standingdrivers[2]!.totWins + w[2] + standingdrivers[2]!.totPodiums + p[2] + standingdrivers[2]!.totPoints + s[2] +
-                          "\r\n║ P4   ║ " + standingdrivers[3]!.color + standingdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + "     " + standingdrivers[3]!.totChampionships + u[3] + standingdrivers[3]!.totWins + w[3] + standingdrivers[3]!.totPodiums + p[3] + standingdrivers[3]!.totPoints + s[3] +
-                          "\r\n║ P5   ║ " + standingdrivers[4]!.color + standingdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + "     " + standingdrivers[4]!.totChampionships + u[4] + standingdrivers[4]!.totWins + w[4] + standingdrivers[4]!.totPodiums + p[4] + standingdrivers[4]!.totPoints + s[4] +
-                          "\r\n║ P6   ║ " + standingdrivers[5]!.color + standingdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + "     " + standingdrivers[5]!.totChampionships + u[5] + standingdrivers[5]!.totWins + w[5] + standingdrivers[5]!.totPodiums + p[5] + standingdrivers[5]!.totPoints + s[5] +
-                          "\r\n║ P7   ║ " + standingdrivers[6]!.color + standingdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + "     " + standingdrivers[6]!.totChampionships + u[6] + standingdrivers[6]!.totWins + w[6] + standingdrivers[6]!.totPodiums + p[6] + standingdrivers[6]!.totPoints + s[6] +
-                          "\r\n║ P8   ║ " + standingdrivers[7]!.color + standingdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + "     " + standingdrivers[7]!.totChampionships + u[7] + standingdrivers[7]!.totWins + w[7] + standingdrivers[7]!.totPodiums + p[7] + standingdrivers[7]!.totPoints + s[7] +
-                          "\r\n║ P9   ║ " + standingdrivers[8]!.color + standingdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + "     " + standingdrivers[8]!.totChampionships + u[8] + standingdrivers[8]!.totWins + w[8] + standingdrivers[8]!.totPodiums + p[8] + standingdrivers[8]!.totPoints + s[8] +
-                          "\r\n║ P10  ║ " + standingdrivers[9]!.color + standingdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + "     " + standingdrivers[9]!.totChampionships + u[9] + standingdrivers[9]!.totWins + w[9] + standingdrivers[9]!.totPodiums + p[9] + standingdrivers[9]!.totPoints + s[9] +
-                          "\r\n║ P11  ║ " + standingdrivers[10]!.color + standingdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + "     " + standingdrivers[10]!.totChampionships + u[10] + standingdrivers[10]!.totWins + w[10] + standingdrivers[10]!.totPodiums + p[10] + standingdrivers[10]!.totPoints + s[10] +
-                          "\r\n║ P12  ║ " + standingdrivers[11]!.color + standingdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + "     " + standingdrivers[11]!.totChampionships + u[11] + standingdrivers[11]!.totWins + w[11] + standingdrivers[11]!.totPodiums + p[11] + standingdrivers[11]!.totPoints + s[11] +
-                          "\r\n║ P13  ║ " + standingdrivers[12]!.color + standingdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + "     " + standingdrivers[12]!.totChampionships + u[12] + standingdrivers[12]!.totWins + w[12] + standingdrivers[12]!.totPodiums + p[12] + standingdrivers[12]!.totPoints + s[12] +
-                          "\r\n║ P14  ║ " + standingdrivers[13]!.color + standingdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + "     " + standingdrivers[13]!.totChampionships + u[13] + standingdrivers[13]!.totWins + w[13] + standingdrivers[13]!.totPodiums + p[13] + standingdrivers[13]!.totPoints + s[13] +
-                          "\r\n║ P15  ║ " + standingdrivers[14]!.color + standingdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + "     " + standingdrivers[14]!.totChampionships + u[14] + standingdrivers[14]!.totWins + w[14] + standingdrivers[14]!.totPodiums + p[14] + standingdrivers[14]!.totPoints + s[14] +
-                          "\r\n║ P16  ║ " + standingdrivers[15]!.color + standingdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + "     " + standingdrivers[15]!.totChampionships + u[15] + standingdrivers[15]!.totWins + w[15] + standingdrivers[15]!.totPodiums + p[15] + standingdrivers[15]!.totPoints + s[15] +
-                          "\r\n║ P17  ║ " + standingdrivers[16]!.color + standingdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + "     " + standingdrivers[16]!.totChampionships + u[16] + standingdrivers[16]!.totWins + w[16] + standingdrivers[16]!.totPodiums + p[16] + standingdrivers[16]!.totPoints + s[16] +
-                          "\r\n║ P18  ║ " + standingdrivers[17]!.color + standingdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + "     " + standingdrivers[17]!.totChampionships + u[17] + standingdrivers[17]!.totWins + w[17] + standingdrivers[17]!.totPodiums + p[17] + standingdrivers[17]!.totPoints + s[17] +
-                          "\r\n║ P19  ║ " + standingdrivers[18]!.color + standingdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + "     " + standingdrivers[18]!.totChampionships + u[18] + standingdrivers[18]!.totWins + w[18] + standingdrivers[18]!.totPodiums + p[18] + standingdrivers[18]!.totPoints + s[18] +
-                          "\r\n║ P20  ║ " + standingdrivers[19]!.color + standingdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + "     " + standingdrivers[19]!.totChampionships + u[19] + standingdrivers[19]!.totWins + w[19] + standingdrivers[19]!.totPodiums + p[19] + standingdrivers[19]!.totPoints + s[19] +
-                          "\r\n╚══════╩══════════════════╩═══════════════╩══════╩═════════╩════════╝");
-            Console.WriteLine();
-            Console.WriteLine();
-        }
-
-        public static void ClearCurrentConsoleLine()
-        {
-            int currentLineCursor = Console.CursorTop;
-            Console.SetCursorPosition(x, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(x, currentLineCursor);
-        }
-
-        public static void DotAnimation()
-        {
+        checkpoint:
+            Console.WriteLine("Start a new season or press 'E' to exit game...");
+        fallback:
             if (autorun == false)
             {
-                for (int i = 0; i < 3; i++)
+                ConsoleKeyInfo advance = Console.ReadKey(true);
+                if (advance.Key == ConsoleKey.H)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    Help();
+                    goto checkpoint;
+                }
+                else if (advance.Key == ConsoleKey.C)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    CommandMode();
+                    goto checkpoint;
+                }
+                else if (advance.Key == ConsoleKey.Enter)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                }
+                else if (advance.Key == ConsoleKey.E)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    gameFinished = true;
+                }
+                else
+                {
+                    goto fallback;
+                }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
+
+            season += 1;
+
+            Console.WriteLine();
+            Console.WriteLine();
+            if (gameFinished == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write("Initializing new season");
+                x = 23;
+                for (int i = 0; i < 5; i++)
                 {
                     Console.Write(" .");
                     Thread.Sleep(100);
@@ -507,22 +347,302 @@ namespace Game
                     ClearCurrentConsoleLine();
                     Thread.Sleep(200);
                 }
-            }
-            else
-            {
-                Console.Write(" .");
-                Console.Write(" .");
-                Console.Write(" .");
+                x = 0;
                 Console.SetCursorPosition(x, Console.CursorTop);
                 ClearCurrentConsoleLine();
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 
-        public static void StopAutorun(object? sender, ConsoleCancelEventArgs args)
+        public static void Reset()
         {
-            Console.WriteLine("Stopped");
-            autorun = false;
-            //gå till senaste stället programmet var på, så den fortsätter
+            x = 0;
+            grid = false;
+            specs = false;
+            gameFinished = false;
+
+            for (int i = 0; i < teams.Length; i++)
+            {
+                teams[i].age += 1;
+                teams[i].points = 0;
+                teams[i].wins = 0;
+                teams[i].podiums = 0;
+            }
+
+            for (int i = 0; i < drivers.Length; i++)
+            {
+                drivers[i].points = 0;
+                drivers[i].wins = 0;
+                drivers[i].podiums = 0;
+                if (!drivers[i].dead)
+                {
+                    drivers[i].age += 1;
+                }
+            }
+        }
+
+        public static void Randomizer()
+        {
+            driverPool = drivers;
+
+            selectedDrivers = new Driver[20];
+
+            for (int i = 0; i < 20; i++)
+            {
+                Random random = new();
+                int rindex = random.Next(driverPool.Length);
+                selectedDrivers[i] = driverPool[rindex];
+                for (int y = rindex; y < driverPool.Length - 1; y++)
+                {
+                    driverPool[y] = driverPool[y + 1];
+                }
+                Array.Resize(ref driverPool, driverPool.Length - 1);
+            }
+
+            for (int i = 0; i < selectedDrivers.Length; i++)
+            {
+                selectedDrivers[i].seat = seats[i];
+                selectedDrivers[i].color = seats[i].color;
+            }
+
+            for (int i = 0; i < 20; i++)
+            {
+                Console.WriteLine(selectedDrivers[i].name);
+            }
+        }
+
+        public static void Grid()
+        {
+            colTitle = new[]
+            {
+                "             Team              ",
+                "    1st Driver    ",
+                "    2nd Driver    "
+            };
+
+            leftCol = new[]
+            {
+                "\x1b[38;5;" + 4 + "m" + "Oracle Red Bull Racing",
+                "\x1b[38;5;" + 196 + "m" + "Scuderia Ferrari",
+                "\x1b[38;5;" + 50 + "m" + "Mercedes-AMG Petronas",
+                "\x1b[38;5;" + 39 + "m" + "BWT ALpine",
+                "\x1b[38;5;" + 208 + "m" + "McLaren",
+                "\x1b[38;5;" + 124 + "m" + "Alfa Romeo Orlen",
+                "\x1b[38;5;" + 30 + "m" + "Aston Martin Aramco Cognizant",
+                "\x1b[38;5;" + 11 + "m" + "Haas",
+                "\x1b[38;5;" + 240 + "m" + "Scuderia AlphaTauri",
+                "\x1b[38;5;" + 26 + "m" + "Williams Racing"
+            };
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(5, 69, 10, 3));
+
+            //nu kommer säkert denna tabell bli fel för att den använder selectedDrivers, som sorteras och ändras av andra - måste skapa en oberoende array där deras index matchar deras seat i stallen
+        }
+
+        public static void StartSeason()
+        {
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Now that the teams have annouced their lineups and unveiled their cars, it's time for Formula 1 " + season + "!");
+        checkpoint:
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Go to first race...");
+        fallback:
+            if (autorun == false)
+            {
+                ConsoleKeyInfo advance = Console.ReadKey(true);
+                if (advance.Key == ConsoleKey.H)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    Help();
+                    goto checkpoint;
+                }
+                else if (advance.Key == ConsoleKey.C)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                    CommandMode();
+                    goto checkpoint;
+                }
+                else if (advance.Key == ConsoleKey.Enter)
+                {
+                    Console.SetCursorPosition(x, Console.CursorTop - 1);
+                    ClearCurrentConsoleLine();
+                }
+                else
+                {
+                    goto fallback;
+                }
+            }
+            else
+            {
+                Thread.Sleep(gameSpeed);
+            }
+        }
+
+        public static void SimulateRaces()
+        {
+            racestart = "Round 1 of 22 begins with the " + bahrain.gp + ".";
+            startornext = "Start race...";
+            currentrace = "        BAHRAIN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Bahrain";
+            Race();
+
+            racestart = "After that dramatic start of the season, it's time to race at " + jeddah.name + ".";
+            startornext = "Next race...";
+            currentrace = "    SAUDI ARABIAN GRAND PRIX RACE RESULTS     ";
+            CurrentRace = "Jeddah";
+            Race();
+
+            racestart = "Round 3 brings us to " + australia.location + ".";
+            currentrace = "      AUSTRALIAN GRAND PRIX RACE RESULTS      ";
+            CurrentRace = "Australia";
+            Race();
+
+            racestart = "This weekend the drivers will fight it out at " + imola.name + ".";
+            currentrace = "    EMILIA-ROMAGNA GRAND PRIX RACE RESULTS    ";
+            CurrentRace = "Imola";
+            Race();
+
+            racestart = "Brace yourself, it's time for the " + miami.gp + ".";
+            currentrace = "         MIAMI GRAND PRIX RACE RESULTS        ";
+            CurrentRace = "Miami";
+            Race();
+
+            racestart = spain.location + " will host this weekends race.";
+            currentrace = "        SPANISH GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Spain";
+            Race();
+
+            racestart = monaco.shortname + " is no stranger to Formula 1, it's time for the " + monaco.gp + ".";
+            currentrace = "        MONACO GRAND PRIX RACE RESULTS        ";
+            CurrentRace = "Monaco";
+            Race();
+
+            racestart = "Round 8 of 22 comes to " + baku.location + " at the " + baku.name + ".";
+            currentrace = "       AZERBAIJAN GRAND PRIX RACE RESULTS     ";
+            CurrentRace = "Baku";
+            Race();
+
+            racestart = "This weekend, we fly across the Atlantic for the " + canada.gp + ".";
+            currentrace = "       CANADIAN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Canada";
+            Race();
+
+            racestart = "Let's race at the legendary " + silverstone.name + "!";
+            currentrace = "       BRITISH GRAND PRIX RACE RESULTS        ";
+            CurrentRace = "Silverstone";
+            Race();
+
+            racestart = austria.name + " hosts the upcoming race.";
+            currentrace = "       AUSTRIAN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Austria";
+            Race();
+
+            racestart = "The " + paulricard.gp + " at " + paulricard.name + " marks the halfpoint of the season.";
+            currentrace = "        FRENCH GRAND PRIX RACE RESULTS        ";
+            CurrentRace = "Paulricard";
+            Race();
+
+            racestart = "It's time to race at the " + hungaroring.name + " in " + hungaroring.location + ".";
+            currentrace = "       HUNGARIAN GRAND PRIX RACE RESULTS      ";
+            CurrentRace = "Hungaroring";
+            Race();
+
+            racestart = "After the summer break, we continue at the fan favorite " + spa.name + ".";
+            currentrace = "        BELGIAN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Spa";
+            Race();
+
+            racestart = "Round 14 brings us to " + zandvoort.location + " for the " + zandvoort.gp + ".";
+            currentrace = "         DUTCH GRAND PRIX RACE RESULTS        ";
+            CurrentRace = "Zandvoort";
+            Race();
+
+            racestart = "With 8 races to go we visit the temple of speed. " + monza.name + "!";
+            currentrace = "        ITALIAN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Monza";
+            Race();
+
+            racestart = "Not many circuits can compare with the narrow streets of Monaco. " + singapore.name + " however, might be one of them.";
+            currentrace = "       SINGAPORE GRAND PRIX RACE RESULTS      ";
+            CurrentRace = "Singapore";
+            Race();
+
+            racestart = "We're in " + suzuka.location + " for another fan favorite. Let's race at " + suzuka.shortname + "!";
+            currentrace = "       JAPANESE GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Suzuka";
+            Race();
+            racestart = "Welcome to " + cota.location + ". We're racing at " + cota.name + ".";
+            currentrace = "     UNITED STATES GRAND PRIX RACE RESULTS    ";
+            CurrentRace = "Cota";
+            Race();
+
+            racestart = "This race weekend takes place at an altidude of 2280 meters, at " + mexico.name + ".";
+            currentrace = "        MEXICAN GRAND PRIX RACE RESULTS       ";
+            CurrentRace = "Mexico";
+            Race();
+
+            racestart = "Welcome to Brazil, where the drivers and teams will be racing for the win at " + interlagos.shortname + ".";
+            currentrace = "       SÃO PAULO GRAND PRIX RACE RESULTS      ";
+            CurrentRace = "Interlagos";
+            Race();
+
+            racestart = "Who will be crowned as world champion at the last race, in " + abudhabi.shortname + " today?";
+            currentrace = "       ABU DHABI GRAND PRIX RACE RESULTS      ";
+            CurrentRace = "Abudhabi";
+            Race();
+        }
+
+        public static void EndSeason()
+        {
+            Array.Sort(selectedDrivers!, new DStandingComparer()!);
+
+            Team[] standingteams = new[]
+            {
+                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+            };
+
+            Array.Sort(standingteams, new TStandingComparer());
+
+            selectedDrivers![0].totChampionships += 1;
+            selectedDrivers[0].seat!.totDChampionships += 1;
+            standingteams[0]!.totChampionships += 1;
+
+            Console.WriteLine();
+            Console.WriteLine("\x1b[38;5;" + 178 + "m" + selectedDrivers[0].name + " is crowned World Champion!");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine();
+            Console.WriteLine("Full " + season + " season results:");
+            Console.WriteLine();
+
+            seasonResults = true;
+            tableTitle = "Drivers";
+            DriverStandings();
+            tableTitle = "Constructors";
+            TeamStandings();
+            seasonResults = false;
+
+            Console.WriteLine();
+            Console.WriteLine();
+
+            DriverSurvival();
+
+            allDriversDead = true;
+            for (int i = 0; i < drivers.Length; i++)
+            {
+                if (drivers[i].dead == false)
+                {
+                    allDriversDead = false;
+                }
+            }
+        }
+
+        public static void GameOver()
+        {
+            //visa all time stats och avgöra vinnaren
         }
 
         public static void Help()
@@ -744,19 +864,23 @@ namespace Game
 
             Console.Write(">");
             string input = Console.ReadLine()!;
-            if (chosendrivers != null)
+            if (selectedDrivers != null)
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    if (input.ToLower() == chosendrivers![i].name.ToString().ToLower() || input.ToLower() == chosendrivers[i].firstname.ToString().ToLower() || input.ToLower() == chosendrivers[i].lastname.ToString().ToLower() || input.ToLower() == chosendrivers[i].shortname.ToString().ToLower())
+                    if (input.ToLower() == selectedDrivers![i].name.ToString().ToLower() || input.ToLower() == selectedDrivers[i].firstname.ToString().ToLower() || input.ToLower() == selectedDrivers[i].lastname.ToString().ToLower() || input.ToLower() == selectedDrivers[i].shortname.ToString().ToLower())
                     {
-                        currentdriver = chosendrivers[i];
+                        currentdriver = selectedDrivers[i];
                         DriverMode();
                         goto checkpoint;
                     }
-                    else if (input.ToLower() == availableTeams[i].name.ToString().ToLower())
+                }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    if (input.ToLower() == teams[i].name.ToString().ToLower())
                     {
-                        currentteam = availableTeams[i];
+                        currentteam = teams[i];
                         TeamMode();
                         goto checkpoint;
                     }
@@ -782,43 +906,8 @@ namespace Game
             {
                 if (grid == true)
                 {
-                    string[] t = new string[20];
-
-                    for (int i = 0; i < t.Length; i++)
-                    {
-                        t[i] = " ║ ";
-                        for (int y = 0; y < 16 - chosendrivers![i].name.Length; y++)
-                        {
-                            t[i] = " " + t[i];
-                        }
-                    }
-
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("╔═════════════════════════════════════════════════════════════════════╗" +
-                                  "\r\n║                         Current grid lineup                         ║" +
-                                  "\r\n╠═══════════════════════════════╦══════════════════╦══════════════════╣" +
-                                  "\r\n║             Team              ║    1st Driver    ║    2nd Driver    ║" +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 4 + "m" + "Oracle Red Bull Racing" + "\x1b[38;5;" + 15 + "m" + "        ║ " + "\x1b[38;5;" + 4 + "m" + driver1!.name + "\x1b[38;5;" + 15 + "m" + t[0] + "\x1b[38;5;" + 4 + "m" + driver2!.name + "\x1b[38;5;" + 15 + "m" + t[1] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 196 + "m" + "Scuderia Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║ " + "\x1b[38;5;" + 196 + "m" + driver3!.name + "\x1b[38;5;" + 15 + "m" + t[2] + "\x1b[38;5;" + 196 + "m" + driver4!.name + "\x1b[38;5;" + 15 + "m" + t[3] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes-AMG Petronas" + "\x1b[38;5;" + 15 + "m" + "         ║ " + "\x1b[38;5;" + 50 + "m" + driver5!.name + "\x1b[38;5;" + 15 + "m" + t[4] + "\x1b[38;5;" + 50 + "m" + driver6!.name + "\x1b[38;5;" + 15 + "m" + t[5] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 39 + "m" + "BWT Alpine" + "\x1b[38;5;" + 15 + "m" + "                    ║ " + "\x1b[38;5;" + 39 + "m" + driver7!.name + "\x1b[38;5;" + 15 + "m" + t[6] + "\x1b[38;5;" + 39 + "m" + driver8!.name + "\x1b[38;5;" + 15 + "m" + t[7] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 208 + "m" + "McLaren" + "\x1b[38;5;" + 15 + "m" + "                       ║ " + "\x1b[38;5;" + 208 + "m" + driver9!.name + "\x1b[38;5;" + 15 + "m" + t[8] + "\x1b[38;5;" + 208 + "m" + driver10!.name + "\x1b[38;5;" + 15 + "m" + t[9] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 124 + "m" + "Alfa Romeo Orlen" + "\x1b[38;5;" + 15 + "m" + "              ║ " + "\x1b[38;5;" + 124 + "m" + driver11!.name + "\x1b[38;5;" + 15 + "m" + t[10] + "\x1b[38;5;" + 124 + "m" + driver12!.name + "\x1b[38;5;" + 15 + "m" + t[11] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 30 + "m" + "Aston Martin Aramco Cognizant" + "\x1b[38;5;" + 15 + "m" + " ║ " + "\x1b[38;5;" + 30 + "m" + driver13!.name + "\x1b[38;5;" + 15 + "m" + t[12] + "\x1b[38;5;" + 30 + "m" + driver14!.name + "\x1b[38;5;" + 15 + "m" + t[13] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 11 + "m" + "Haas" + "\x1b[38;5;" + 15 + "m" + "                          ║ " + "\x1b[38;5;" + 11 + "m" + driver15!.name + "\x1b[38;5;" + 15 + "m" + t[14] + "\x1b[38;5;" + 11 + "m" + driver16!.name + "\x1b[38;5;" + 15 + "m" + t[15] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 240 + "m" + "Scuderia AlphaTauri" + "\x1b[38;5;" + 15 + "m" + "           ║ " + "\x1b[38;5;" + 240 + "m" + driver17!.name + "\x1b[38;5;" + 15 + "m" + t[16] + "\x1b[38;5;" + 240 + "m" + driver18!.name + "\x1b[38;5;" + 15 + "m" + t[17] +
-                                  "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 26 + "m" + "Williams Racing" + "\x1b[38;5;" + 15 + "m" + "               ║ " + "\x1b[38;5;" + 26 + "m" + driver19!.name + "\x1b[38;5;" + 15 + "m" + t[18] + "\x1b[38;5;" + 26 + "m" + driver20!.name + "\x1b[38;5;" + 15 + "m" + t[19] +
-                                  "\r\n╚═══════════════════════════════╩══════════════════╩══════════════════╝");
+                    tableTitle = "Current Grid Lineup";
+                    Grid();
                 }
                 else
                 {
@@ -830,32 +919,8 @@ namespace Game
             {
                 if (specs == true)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("╔═══════════════════════════════════════════════╗" +
-                                  "\r\n║            Technical specifications           ║" +
-                                  "\r\n╠══════════════╦═════════╦══════════════════════╣" +
-                                  "\r\n║     Team     ║ Chassis ║      Power unit      ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 4 + "m" + "Red Bull" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 4 + "m" + "RB18" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 4 + "m" + "Red Bull Powertrains" + "\x1b[38;5;" + 15 + "m" + " ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "      ║ " + "\x1b[38;5;" + 196 + "m" + "F1-75" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 50 + "m" + "W13" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes" + "\x1b[38;5;" + 15 + "m" + "             ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 39 + "m" + "Alpine" + "\x1b[38;5;" + 15 + "m" + "       ║ " + "\x1b[38;5;" + 39 + "m" + "A522" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 39 + "m" + "Renault" + "\x1b[38;5;" + 15 + "m" + "              ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 208 + "m" + "McLaren" + "\x1b[38;5;" + 15 + "m" + "      ║ " + "\x1b[38;5;" + 208 + "m" + "MCL36" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes" + "\x1b[38;5;" + 15 + "m" + "             ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 124 + "m" + "Alfa Romeo" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 124 + "m" + "C41" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 30 + "m" + "Aston Martin" + "\x1b[38;5;" + 15 + "m" + " ║ " + "\x1b[38;5;" + 30 + "m" + "AMR22" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes" + "\x1b[38;5;" + 15 + "m" + "             ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 11 + "m" + "Haas" + "\x1b[38;5;" + 15 + "m" + "         ║ " + "\x1b[38;5;" + 11 + "m" + "VF-22" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 196 + "m" + "Ferrari" + "\x1b[38;5;" + 15 + "m" + "              ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 240 + "m" + "AlphaTauri" + "\x1b[38;5;" + 15 + "m" + "   ║ " + "\x1b[38;5;" + 240 + "m" + "AT03" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 21 + "m" + "Red Bull Powertrains" + "\x1b[38;5;" + 15 + "m" + " ║" +
-                                  "\r\n╠══════════════╬═════════╬══════════════════════╣" +
-                                  "\r\n║ " + "\x1b[38;5;" + 26 + "m" + "Williams" + "\x1b[38;5;" + 15 + "m" + "     ║ " + "\x1b[38;5;" + 26 + "m" + "FW44" + "\x1b[38;5;" + 15 + "m" + "    ║ " + "\x1b[38;5;" + 50 + "m" + "Mercedes" + "\x1b[38;5;" + 15 + "m" + "             ║" +
-                                  "\r\n╚══════════════╩═════════╩══════════════════════╝");
+                    tableTitle = "Technical Specifications";
+                    Specs();
                 }
                 else
                 {
@@ -865,18 +930,22 @@ namespace Game
             }
             else if (input.ToLower() == "driver standings")
             {
+                tableTitle = "Drivers Championship";
                 DriverStandings();
             }
             else if (input.ToLower() == "team standings")
             {
+                tableTitle = "Constructors Championship";
                 TeamStandings();
             }
             else if (input.ToLower() == "all time driver standings")
             {
+                tableTitle = "All-Time Drivers";
                 AllTimeDStandings();
             }
             else if (input.ToLower() == "all time team standings")
             {
+                tableTitle = "All-Time Constructors";
                 AllTimeTStandings();
             }
             else if (input.ToLower() == "clear")
@@ -901,91 +970,575 @@ namespace Game
             }
         }
 
-        public static void GameLoop()
+        public static void StopAutorun(object? sender, ConsoleCancelEventArgs args)
         {
-            if (!allDriversDead)
+            Console.WriteLine("Stopped");
+            autorun = false;
+            //gå till senaste stället programmet var på, så den fortsätter
+        }
+
+        public static void Specs()
+        {
+            colTitle = new[]
             {
-                NewSeason();
-                if (gameFinished == false)
+                "     Team     ",
+                " Chassis ",
+                "      Power Unit      "
+            };
+
+            chassis = new[]
+            {
+                "\x1b[38;5;" + 4 + "m" + "RB18",
+                "\x1b[38;5;" + 196 + "m" + "F1-75",
+                "\x1b[38;5;" + 50 + "m" + "W13",
+                "\x1b[38;5;" + 39 + "m" + "A522",
+                "\x1b[38;5;" + 208 + "m" + "MCL36",
+                "\x1b[38;5;" + 124 + "m" + "C41",
+                "\x1b[38;5;" + 30 + "m" + "AMR22",
+                "\x1b[38;5;" + 11 + "m" + "VF-22",
+                "\x1b[38;5;" + 240 + "m" + "AT03",
+                "\x1b[38;5;" + 26 + "m" + "FW44"
+            };
+
+            powerUnit = new[]
+            {
+                "\x1b[38;5;" + 4 + "m" + "Red Bull Powertrains",
+                "\x1b[38;5;" + 196 + "m" + "Ferrari",
+                "\x1b[38;5;" + 50 + "m" + "Mercedes",
+                "\x1b[38;5;" + 39 + "m" + "Renault",
+                "\x1b[38;5;" + 50 + "m" + "Mercedes",
+                "\x1b[38;5;" + 196 + "m" + "Ferrari",
+                "\x1b[38;5;" + 50 + "m" + "Mercedes",
+                "\x1b[38;5;" + 196 + "m" + "Ferrari",
+                "\x1b[38;5;" + 21 + "m" + "Red Bull Powertrains",
+                "\x1b[38;5;" + 50 + "m" + "Mercedes"
+            };
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(6, 45, 10, 3));
+        }
+
+        public static void DriverStandings()
+        {
+            Array.Sort(selectedDrivers!, new DStandingComparer()!);
+
+            colTitle = new[]
+            {
+                " Pos.   ",
+                "      Driver       ",
+                " Pts "
+            };
+
+            leftCol = new string[selectedDrivers!.Length];
+
+            for (int i = 0; i < selectedDrivers.Length; i++)
+            {
+                if (i == 0)
                 {
-                    Reset();
-                    Randomizer();
-                    if (seasonSim == true)
+                    if (seasonResults)
                     {
-                        grid = true;
-                        specs = true;
+                        leftCol[i] = "\x1b[38;5;" + 178 + "m" + " C     " + "\x1b[38;5;" + 15 + "m";
                     }
                     else
                     {
-                        GridReveal();
+                        leftCol[i] = " Leader";
                     }
-                    if (seasonSim == false)
-                    {
-                        StartSeason();
-                    }
-                    SimulateRaces();
-                    EndSeason();
-                    GameLoop();
-                }
-            }
-        }
-
-        public static void NewSeason()
-        {
-        checkpoint:
-            Console.WriteLine("Start a new season or press 'E' to exit game...");
-        fallback:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key == ConsoleKey.H)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    Help();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.C)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    CommandMode();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.Enter)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                }
-                else if (advance.Key == ConsoleKey.E)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    gameFinished = true;
                 }
                 else
                 {
-                    goto fallback;
+                    leftCol[i] = " P" + (i + 1).ToString();
+                    for (int n = 0; n < 6 - (i + 1).ToString().Length; n++)
+                    {
+                        leftCol[i] += " ";
+                    }
                 }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(2, 34, selectedDrivers!.Length, 3));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void AllTimeDStandings()
+        {
+            Array.Sort(sortedDrivers, new DAllTimeStandingComparer()!);
+
+            colTitle = new[]
+            {
+                " Pos. ",
+                "      Driver      ",
+                " Championships ",
+                " Wins ",
+                " Podiums ",
+                " Points "
+            };
+
+            leftCol = new string[sortedDrivers!.Length];
+
+            for (int i = 0; i < sortedDrivers.Length; i++)
+            {
+                if (i == 0)
+                {
+                    leftCol[i] = " GOAT ";
+                }
+                else
+                {
+                    leftCol[i] = " P" + (i + 1).ToString();
+                    for (int n = 0; n < 4 - (i + 1).ToString().Length; n++)
+                    {
+                        leftCol[i] += " ";
+                    }
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(4, 67, 20, 6));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void TeamStandings()
+        {
+            standingTeams = new[]
+            {
+                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+            };
+
+            Array.Sort(standingTeams, new TStandingComparer());
+
+            colTitle = new[]
+            {
+                " Pos.   ",
+                "     Team      ",
+                " Pts "
+            };
+
+            leftCol = new string[standingTeams.Length];
+
+            for (int i = 0; i < standingTeams.Length; i++)
+            {
+                if (i == 0)
+                {
+                    if (seasonResults)
+                    {
+                        leftCol[i] = "\x1b[38;5;" + 178 + "m" + " C     " + "\x1b[38;5;" + 15 + "m";
+                    }
+                    else
+                    {
+                        leftCol[i] = " Leader";
+                    }
+                }
+                else
+                {
+                    leftCol[i] = " P" + (i + 1).ToString();
+                    for (int n = 0; n < 6 - (i + 1).ToString().Length; n++)
+                    {
+                        leftCol[i] += " ";
+                    }
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(1, 30, 10, 3));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static void AllTimeTStandings()
+        {
+            standingTeams = new[]
+            {
+                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
+            };
+
+            Array.Sort(standingTeams, new TAllTimeStandingComparer());
+
+            colTitle = new[]
+{
+                " Pos. ",
+                "     Team      ",
+                " Championships (Drivers) ",
+                " Wins ",
+                " Podiums ",
+                " Points "
+            };
+
+            leftCol = new string[standingTeams!.Length];
+
+            for (int i = 0; i < standingTeams.Length; i++)
+            {
+                if (i == 0)
+                {
+                    leftCol[i] = " Best ";
+                }
+                else
+                {
+                    leftCol[i] = " P" + (i + 1).ToString();
+                    for (int n = 0; n < 4 - (i + 1).ToString().Length; n++)
+                    {
+                        leftCol[i] += " ";
+                    }
+                }
+            }
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(TableGenerator(3, 74, 10, 6));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public static string TableGenerator(int type, int width, int rows, int columns)
+        {
+            string table = "╔";
+            string titleSpace = "";
+
+            for (int i = 0; i < width; i++)
+            {
+                table += "═";
+            }
+            table += "╗\r\n║";
+
+            for (int i = 0; i < (width - tableTitle!.Length) / 2; i++)
+            {
+                titleSpace += " ";
+            }
+            table += titleSpace + tableTitle;
+            if (tableTitle.Length % 2 == 1 || type == 4)
+            {
+                table += titleSpace + " ║\r\n╠";
             }
             else
             {
-                Thread.Sleep(gameSpeed);
+                table += titleSpace + "║\r\n╠";
             }
 
-            dTitle = "\r\n║     F1 Drivers Championship     ║";
-            tTitle = "\r\n║ F1 Constructors Championship ║";
-            leaderOrC = "\r\n║ Leader ║ ";
-            season += 1;
-
-            Console.WriteLine();
-            Console.WriteLine();
-            if (gameFinished == false)
+            for (int i = 0; i < columns; i++)
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("Initializing new season");
-                x = 23;
-                for (int i = 0; i < 5; i++)
+                for (int y = 0; y < colTitle![i].Length; y++)
+                {
+                    table += "═";
+                }
+                if (i == columns - 1)
+                {
+                    table += "╣\r\n║";
+                }
+                else
+                {
+                    table += "╦";
+                }
+            }
+
+            for (int i = 0; i < columns; i++)
+            {
+                table += colTitle![i] + "║";
+            }
+            table += "\r\n╠";
+
+            for (int i = 0; i < columns; i++)
+            {
+                for (int y = 0; y < colTitle![i].Length; y++)
+                {
+                    table += "═";
+                }
+                if (i == columns - 1)
+                {
+                    table += "╣";
+                }
+                else
+                {
+                    table += "╬";
+                }
+            }
+
+            if (type == 1)
+            {
+                string[] t = new string[standingTeams!.Length];
+                string[] u = new string[standingTeams.Length];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = "  ║ ";
+                    for (int y = 0; y < 12 - standingTeams[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 3 - standingTeams[i].points.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < rows; i++)
+                {
+                    table += "\r\n║" + leftCol![i] + "║ " + standingTeams[i].color + standingTeams[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + standingTeams[i].points + u[i];
+                }
+            }
+            else if (type == 2)
+            {
+                string[] t = new string[selectedDrivers!.Length];
+                string[] u = new string[selectedDrivers.Length];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = "  ║ ";
+                    for (int y = 0; y < 16 - selectedDrivers[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 3 - selectedDrivers[i].points.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < rows; i++)
+                {
+                    table += "\r\n║" + leftCol![i] + "║ " + selectedDrivers[i].color + selectedDrivers[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + selectedDrivers[i].points + u[i];
+                }
+            }
+            else if (type == 3)
+            {
+                string[] t = new string[10];
+                string[] u = new string[10];
+                string[] w = new string[10];
+                string[] p = new string[10];
+                string[] s = new string[10];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = "  ║ ";
+                    for (int y = 0; y < 12 - standingTeams![i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = "         ║ ";
+                    for (int y = 0; y < 4 - standingTeams![i].totChampionships.ToString().Length - standingTeams[i].totDChampionships.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    w[i] = " ║ ";
+                    for (int y = 0; y < 4 - standingTeams![i].totWins.ToString().Length; y++)
+                    {
+                        w[i] = " " + w[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    p[i] = " ║ ";
+                    for (int y = 0; y < 7 - standingTeams![i].totPodiums.ToString().Length; y++)
+                    {
+                        p[i] = " " + p[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    s[i] = " ║ ";
+                    for (int y = 0; y < 6 - standingTeams![i].totPoints.ToString().Length; y++)
+                    {
+                        s[i] = " " + s[i];
+                    }
+                }
+
+                for (int i = 0; i < rows; i++)
+                {
+                    table += "\r\n║" + leftCol![i] + "║ " + standingTeams![i].color + standingTeams[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + "        " + standingTeams[i].totChampionships + " (" + standingTeams[i].totDChampionships + ")" + u[i] + standingTeams[i].totWins + w[i] + standingTeams[i].totPodiums + p[i] + standingTeams[i].totPoints + s[i];
+                }
+            }
+            else if (type == 4)
+            {
+                string[] t = new string[20];
+                string[] u = new string[20];
+                string[] w = new string[20];
+                string[] p = new string[20];
+                string[] s = new string[20];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = " ║ ";
+                    for (int y = 0; y < 16 - sortedDrivers[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = "      ║ ";
+                    for (int y = 0; y < 2 - sortedDrivers[i]!.totChampionships.ToString().Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    w[i] = " ║ ";
+                    for (int y = 0; y < 4 - sortedDrivers[i]!.totWins.ToString().Length; y++)
+                    {
+                        w[i] = " " + w[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    p[i] = " ║ ";
+                    for (int y = 0; y < 7 - sortedDrivers[i]!.totPodiums.ToString().Length; y++)
+                    {
+                        p[i] = " " + p[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    s[i] = " ║ ";
+                    for (int y = 0; y < 6 - sortedDrivers[i]!.totPoints.ToString().Length; y++)
+                    {
+                        s[i] = " " + s[i];
+                    }
+                }
+
+                for (int i = 0; i < rows; i++)
+                {
+                    table += "\r\n║" + leftCol![i] + "║ " + sortedDrivers[i].color + sortedDrivers[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + "      " + sortedDrivers[i].totChampionships + u[i] + sortedDrivers[i].totWins + w[i] + sortedDrivers[i].totPodiums + p[i] + sortedDrivers[i].totPoints + s[i];
+                }
+            }
+            else if (type == 5)
+            {
+                string[] t = new string[10];
+                string[] u = new string[20];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = " ║ ";
+                    for (int y = 0; y < 29 - leftCol![i].Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < u.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 16 - selectedDrivers![i].name.Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                int a = 0;
+                for (int i = 0; i < rows; i++)
+                {
+                    if (i != 0)
+                    {
+                        table += "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣";
+                    }
+                    table += "\r\n║ " + leftCol![i] + "\x1b[38;5;" + 15 + "m" + t[i];
+                    for (int n = 0; n < 2; n++)
+                    {
+                        table += selectedDrivers![a].color + selectedDrivers[a].name + "\x1b[38;5;" + 15 + "m" + u[a];
+                        a++;
+                    }
+                }
+            }
+            else if (type == 6)
+            {
+                string[] t = new string[10];
+                string[] u = new string[10];
+                string[] w = new string[10];
+
+                for (int i = 0; i < u.Length; i++)
+                {
+                    t[i] = " ║ ";
+                    for (int y = 0; y < 12 - allTeams[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < u.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 5 - chassis![i].Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < w.Length; i++)
+                {
+                    w[i] = " ║ ";
+                    for (int y = 0; y < 20 - powerUnit![i].Length; y++)
+                    {
+                        w[i] = " " + w[i];
+                    }
+                }
+
+                //chassis och powerUnit kanske blir fel ifall den tar med stringen för färg och de eftersom de blir längre då - isåfall göra separata arrays för färgerna till allt (chassis, powerUnit, leftCol i grid) och lägga till i for loopen för raderna i tabellen
+
+                for (int i = 0; i < rows; i++)
+                {
+                    if (i != 0)
+                    {
+                        table += "\r\n╠══════════════╬═════════╬══════════════════════╣";
+                    }
+                    table += "\r\n║ " + allTeams[i].color + allTeams[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + chassis![i] + "\x1b[38;5;" + 15 + "m" + u[i] + powerUnit![i] + "\x1b[38;5;" + 15 + "m" + w[i];
+                }
+            }
+
+            table += "\r\n╚";
+            for (int i = 0; i < columns; i++)
+            {
+                for (int y = 0; y < colTitle![i].Length; y++)
+                {
+                    table += "═";
+                }
+                if (i == columns - 1)
+                {
+                    table += "╝";
+                }
+                else
+                {
+                    table += "╩";
+                }
+            }
+
+            return table;
+        }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(x, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(x, currentLineCursor);
+        }
+
+        public static void DotAnimation()
+        {
+            if (autorun == false)
+            {
+                for (int i = 0; i < 3; i++)
                 {
                     Console.Write(" .");
                     Thread.Sleep(100);
@@ -997,635 +1550,24 @@ namespace Game
                     ClearCurrentConsoleLine();
                     Thread.Sleep(200);
                 }
-                x = 0;
+            }
+            else
+            {
+                Console.Write(" .");
+                Console.Write(" .");
+                Console.Write(" .");
                 Console.SetCursorPosition(x, Console.CursorTop);
                 ClearCurrentConsoleLine();
-                Console.ForegroundColor = ConsoleColor.White;
             }
-        }
-
-        public static void Reset()
-        {
-            x = 0;
-            grid = false;
-            specs = false;
-            gameFinished = false;
-
-            for (int i = 0; i < 20; i++)
-            {
-                availableTeams[i].age += 1;
-                availableTeams[i].points = 0;
-                availableTeams[i].wins = 0;
-                availableTeams[i].podiums = 0;
-                availableDrivers[i].age += 1;
-                availableDrivers[i].points = 0;
-                availableDrivers[i].wins = 0;
-                availableDrivers[i].podiums = 0;
-            }
-        }
-
-        public static void Randomizer()
-        {
-            drivers = availableDrivers;
-
-            rdrivers = drivers;
-
-            for (int i = 0; i < drivers.Length; i++)
-            {
-                Random random = new();
-                int rindex = random.Next(drivers.Length);
-                rdrivers[i] = drivers[rindex];
-                for (int y = rindex; y < drivers.Length - 1; y++)
-                {
-                    drivers[y] = drivers[y + 1];
-                }
-                Array.Resize(ref drivers, drivers.Length - 1);
-            }
-
-            //ändra dessa så de stämmer med varierande längd på availableDrivers
-            driver1 = rdrivers[0];
-            driver2 = rdrivers[1];
-            driver3 = rdrivers[2];
-            driver4 = rdrivers[3];
-            driver5 = rdrivers[4];
-            driver6 = rdrivers[5];
-            driver7 = rdrivers[6];
-            driver8 = rdrivers[7];
-            driver9 = rdrivers[8];
-            driver10 = rdrivers[9];
-            driver11 = rdrivers[10];
-            driver12 = rdrivers[11];
-            driver13 = rdrivers[12];
-            driver14 = rdrivers[13];
-            driver15 = rdrivers[14];
-            driver16 = rdrivers[15];
-            driver17 = rdrivers[16];
-            driver18 = rdrivers[17];
-            driver19 = rdrivers[18];
-            driver20 = rdrivers[19];
-
-            driver1.seat = RedBull;
-            driver2.seat = RedBull;
-            driver3.seat = Ferrari;
-            driver4.seat = Ferrari;
-            driver5.seat = Mercedes;
-            driver6.seat = Mercedes;
-            driver7.seat = Alpine;
-            driver8.seat = Alpine;
-            driver9.seat = Mclaren;
-            driver10.seat = Mclaren;
-            driver11.seat = AlfaRomeo;
-            driver12.seat = AlfaRomeo;
-            driver13.seat = AstonMartin;
-            driver14.seat = AstonMartin;
-            driver15.seat = Haas;
-            driver16.seat = Haas;
-            driver17.seat = AlphaTauri;
-            driver18.seat = AlphaTauri;
-            driver19.seat = Williams;
-            driver20.seat = Williams;
-
-            chosendrivers = new[]
-            {
-                driver1,
-                driver2,
-                driver3,
-                driver4,
-                driver5,
-                driver6,
-                driver7,
-                driver8,
-                driver9,
-                driver10,
-                driver11,
-                driver12,
-                driver13,
-                driver14,
-                driver15,
-                driver16,
-                driver17,
-                driver18,
-                driver19,
-                driver20
-            };
-
-            for (int i = 0; i < chosendrivers.Length; i++)
-            {
-                chosendrivers[i].color = availableTeams[i].color;
-            }
-        }
-
-        public static void GridReveal()
-        {
-            if (autorun == false)
-            {
-                Thread.Sleep(200);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Winter break is over and the first round of the Formula 1 " + season + " season is just around the corner.");
-                Thread.Sleep(400);
-                Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
-                Thread.Sleep(400);
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Winter break is over and the first round of the Formula 1 2023 season is just around the corner.");
-                Thread.Sleep(gameSpeed / 2);
-                Console.WriteLine("As the teams are preparing to unveil this years cars, lets take a look at the new grid lineup in the paddock.");
-                Thread.Sleep(gameSpeed / 2);
-            }
-        checkpoint:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Go through new grid...");
-        fallback:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key == ConsoleKey.H)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    Help();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.C)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    CommandMode();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.Enter)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                }
-                else
-                {
-                    goto fallback;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed);
-            }
-
-            var handle = GetStdHandle(-11);
-            GetConsoleMode(handle, out int mode);
-            SetConsoleMode(handle, mode | 0x4);
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.Write("\x1b[38;5;" + 4 + "m" + car1.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" has signed ");
-            Console.Write("\x1b[38;5;" + 4 + "m" + driver1!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 4 + "m" + driver2!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" for the upcoming season.");
-            Console.WriteLine();
-        fallback2:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback2;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("Meanwhile, " + car3.principal + " has chosen ");
-            Console.Write("\x1b[38;5;" + 196 + "m" + driver3!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 196 + "m" + driver4!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" to drive for the " + car3.hq + " based team.");
-            Console.Write("I am very excited to drive for ");
-            Console.Write("\x1b[38;5;" + 196 + "m" + car3.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(", says " + driver4.lastname + " in an interview.");
-            Console.WriteLine();
-        fallback3:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback3;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 50 + "m" + driver5!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 50 + "m" + driver6!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" will be driving for ");
-            Console.Write("\x1b[38;5;" + 50 + "m" + car5.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback4:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback4;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 39 + "m" + car7.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" principal " + car7.principal + " is reported to have held negotiations with several drivers.");
-            Console.Write("The team have settled for ");
-            Console.Write("\x1b[38;5;" + 39 + "m" + driver7!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 39 + "m" + driver8!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback5:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback5;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 208 + "m" + car9.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" has surprised the whole paddock by signing ");
-            Console.Write("\x1b[38;5;" + 208 + "m" + driver9!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 208 + "m" + driver10!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback6:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback6;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 124 + "m" + driver11!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(", who says he has never driven for " + car11.prefix + " team before will be the first driver for ");
-            Console.Write("\x1b[38;5;" + 124 + "m" + car11.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(". He will be accompanied by ");
-            Console.Write("\x1b[38;5;" + 124 + "m" + driver12!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback7:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback7;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 30 + "m" + car13.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" chooses ");
-            Console.Write("\x1b[38;5;" + 30 + "m" + driver13!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 30 + "m" + driver14!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" for their lineup.");
-            Console.WriteLine();
-        fallback8:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback8;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("Initial reports suggested that " + driver5.name + " would drive for ");
-            Console.Write("\x1b[38;5;" + 11 + "m" + car15.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" this season. ");
-            Console.Write("However it seems that " + car15.principal + " had something else in mind, as he signed ");
-            Console.Write("\x1b[38;5;" + 11 + "m" + driver15!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" along with ");
-            Console.Write("\x1b[38;5;" + 11 + "m" + driver16!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback9:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback9;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("\x1b[38;5;" + 240 + "m" + car17.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" signs ");
-            Console.Write("\x1b[38;5;" + 240 + "m" + driver17!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 240 + "m" + driver18!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(".");
-            Console.WriteLine();
-        fallback10:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key != ConsoleKey.Enter)
-                {
-                    goto fallback10;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            Console.Write("And finally, ");
-            Console.Write("\x1b[38;5;" + 26 + "m" + car19.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" has landed on the decision to involve ");
-            Console.Write("\x1b[38;5;" + 26 + "m" + driver19!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(" and ");
-            Console.Write("\x1b[38;5;" + 26 + "m" + driver20!.name);
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(" in this years lineup.");
-            if (autorun == false)
-            {
-                Thread.Sleep(1000);
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed / 2);
-            }
-
-            grid = true;
-            specs = true;
-        }
-
-        public static void StartSeason()
-        {
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("Now that the teams have annouced their lineups and unveiled their cars, it's time for Formula 1 " + season + "!");
-        checkpoint:
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Go to first race...");
-        fallback:
-            if (autorun == false)
-            {
-                ConsoleKeyInfo advance = Console.ReadKey(true);
-                if (advance.Key == ConsoleKey.H)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    Help();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.C)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                    CommandMode();
-                    goto checkpoint;
-                }
-                else if (advance.Key == ConsoleKey.Enter)
-                {
-                    Console.SetCursorPosition(x, Console.CursorTop - 1);
-                    ClearCurrentConsoleLine();
-                }
-                else
-                {
-                    goto fallback;
-                }
-            }
-            else
-            {
-                Thread.Sleep(gameSpeed);
-            }
-        }
-
-        public static void SimulateRaces()
-        {
-            racestart = "Round 1 of 22 begins with the " + bahrain.gp + ".";
-            startornext = "Start race...";
-            currentrace = "        BAHRAIN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Bahrain";
-            Race();
-
-            racestart = "After that dramatic start of the season, it's time to race at " + jeddah.name + ".";
-            startornext = "Next race...";
-            currentrace = "    SAUDI ARABIAN GRAND PRIX RACE RESULTS     ";
-            CurrentRace = "Jeddah";
-            Race();
-
-            racestart = "Round 3 brings us to " + australia.location + ".";
-            currentrace = "      AUSTRALIAN GRAND PRIX RACE RESULTS      ";
-            CurrentRace = "Australia";
-            Race();
-
-            racestart = "This weekend the drivers will fight it out at " + imola.name + ".";
-            currentrace = "    EMILIA-ROMAGNA GRAND PRIX RACE RESULTS    ";
-            CurrentRace = "Imola";
-            Race();
-
-            racestart = "Brace yourself, it's time for the " + miami.gp + ".";
-            currentrace = "         MIAMI GRAND PRIX RACE RESULTS        ";
-            CurrentRace = "Miami";
-            Race();
-
-            racestart = spain.location + " will host this weekends race.";
-            currentrace = "        SPANISH GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Spain";
-            Race();
-
-            racestart = monaco.shortname + " is no stranger to Formula 1, it's time for the " + monaco.gp + ".";
-            currentrace = "        MONACO GRAND PRIX RACE RESULTS        ";
-            CurrentRace = "Monaco";
-            Race();
-
-            racestart = "Round 8 of 22 comes to " + baku.location + " at the " + baku.name + ".";
-            currentrace = "       AZERBAIJAN GRAND PRIX RACE RESULTS     ";
-            CurrentRace = "Baku";
-            Race();
-
-            racestart = "This weekend, we fly across the Atlantic for the " + canada.gp + ".";
-            currentrace = "       CANADIAN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Canada";
-            Race();
-
-            racestart = "Let's race at the legendary " + silverstone.name + "!";
-            currentrace = "       BRITISH GRAND PRIX RACE RESULTS        ";
-            CurrentRace = "Silverstone";
-            Race();
-
-            racestart = austria.name + " hosts the upcoming race.";
-            currentrace = "       AUSTRIAN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Austria";
-            Race();
-
-            racestart = "The " + paulricard.gp + " at " + paulricard.name + " marks the halfpoint of the season.";
-            currentrace = "        FRENCH GRAND PRIX RACE RESULTS        ";
-            CurrentRace = "Paulricard";
-            Race();
-
-            racestart = "It's time to race at the " + hungaroring.name + " in " + hungaroring.location + ".";
-            currentrace = "       HUNGARIAN GRAND PRIX RACE RESULTS      ";
-            CurrentRace = "Hungaroring";
-            Race();
-
-            racestart = "After the summer break, we continue at the fan favorite " + spa.name + ".";
-            currentrace = "        BELGIAN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Spa";
-            Race();
-
-            racestart = "Round 14 brings us to " + zandvoort.location + " for the " + zandvoort.gp + ".";
-            currentrace = "         DUTCH GRAND PRIX RACE RESULTS        ";
-            CurrentRace = "Zandvoort";
-            Race();
-
-            racestart = "With 8 races to go we visit the temple of speed. " + monza.name + "!";
-            currentrace = "        ITALIAN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Monza";
-            Race();
-
-            racestart = "Not many circuits can compare with the narrow streets of Monaco. " + singapore.name + " however, might be one of them.";
-            currentrace = "       SINGAPORE GRAND PRIX RACE RESULTS      ";
-            CurrentRace = "Singapore";
-            Race();
-
-            racestart = "We're in " + suzuka.location + " for another fan favorite. Let's race at " + suzuka.shortname + "!";
-            currentrace = "       JAPANESE GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Suzuka";
-            Race();
-            racestart = "Welcome to " + cota.location + ". We're racing at " + cota.name + ".";
-            currentrace = "     UNITED STATES GRAND PRIX RACE RESULTS    ";
-            CurrentRace = "Cota";
-            Race();
-
-            racestart = "This race weekend takes place at an altidude of 2280 meters, at " + mexico.name + ".";
-            currentrace = "        MEXICAN GRAND PRIX RACE RESULTS       ";
-            CurrentRace = "Mexico";
-            Race();
-
-            racestart = "Welcome to Brazil, where the drivers and teams will be racing for the win at " + interlagos.shortname + ".";
-            currentrace = "       SÃO PAULO GRAND PRIX RACE RESULTS      ";
-            CurrentRace = "Interlagos";
-            Race();
-
-            racestart = "Who will be crowned as world champion at the last race, in " + abudhabi.shortname + " today?";
-            currentrace = "       ABU DHABI GRAND PRIX RACE RESULTS      ";
-            CurrentRace = "Abudhabi";
-            Race();
-        }
-
-        public static void EndSeason()
-        {
-            Driver?[] standingdrivers = new[]
-            {
-                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20
-            };
-
-            Array.Sort(standingdrivers, new DStandingComparer()!);
-
-            Team[] standingteams = new[]
-            {
-                car1, car3, car5, car7, car9, car11, car13, car15, car17, car19,
-            };
-
-            Array.Sort(standingteams, new TStandingComparer());
-
-            standingdrivers[0]!.totChampionships += 1;
-            standingdrivers[0]!.seat!.totDChampionships += 1;
-            standingteams[0]!.totChampionships += 1;
-
-
-            Console.WriteLine();
-            Console.WriteLine("\x1b[38;5;" + 178 + "m" + standingdrivers[0]!.name + " is crowned World Champion!");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine("Full " + season + " season results:");
-            Console.WriteLine();
-
-            leaderOrC = "\r\n║ " + "\x1b[38;5;" + 178 + "m" + "C" + "\x1b[38;5;" + 15 + "m" + "      ║ ";
-            dTitle = "\r\n║             Drivers             ║";
-            tTitle = "\r\n║         Constructors         ║";
-
-            DriverStandings();
-            TeamStandings();
-
-            Console.WriteLine();
-            Console.WriteLine();
-
-            DriverSurvival();
         }
 
         public static void DriverSurvival()
         {
-            for (int i = 0; i < availableDrivers.Length; i++)
+            for (int i = 0; i < drivers.Length; i++)
             {
                 int index = i;
                 int survivalChance = 100;
-                switch (availableDrivers[i].age)
+                switch (drivers[i].age)
                 {
                     case < 31:
                         survivalChance = 95;
@@ -1659,7 +1601,7 @@ namespace Game
                 Random rand = new();
                 int r = rand.Next(100);
 
-                if (survivalChance - r !>= 0)
+                if (survivalChance - r! >= 0 && drivers[i].dead == false)
                 {
                     Die(index);
                 }
@@ -1667,12 +1609,46 @@ namespace Game
 
             static void Die(int index)
             {
-                for (int i = index; i < availableDrivers.Length - 1; i++)
+                string? verb;
+                string cause = "old age";
+                Random rand = new();
+                int r = rand.Next(100);
+
+                if (r < 50)
                 {
-                    availableDrivers[i] = availableDrivers[i + 1];
+                    verb = "died";
                 }
-                Array.Resize(ref availableDrivers, availableDrivers.Length - 1);
-                //slutade här
+                else
+                {
+                    verb = "passed away";
+                }
+
+                switch (r)
+                {
+                    case < 40:
+                        if (drivers[index].age > 60)
+                        {
+                            cause = "old age";
+                        }
+                        else
+                        {
+                            cause = "a crash";
+                        }
+                        break;
+                    case < 60:
+                        cause = "cancer";
+                        break;
+                    case < 80:
+                        cause = "a skiing accident";
+                        break;
+                    case < 100:
+                        cause = "a heart attack";
+                        break;
+                }
+
+                Console.WriteLine(drivers[index].name + " " + verb + " from " + cause);
+
+                drivers[index].dead = true;
             }
         }
 
@@ -1711,91 +1687,91 @@ namespace Game
             switch (CurrentRace)
             {
                 case "Bahrain":
-                    Results.Bahrain(availableTeams, chosendrivers!, seasonSim);
+                    Results.Bahrain(seats, selectedDrivers!, seasonSim);
                     currentgp = bahrain.gp;
                     break;
                 case "Jeddah":
-                    Results.Jeddah(availableTeams, chosendrivers!, seasonSim);
+                    Results.Jeddah(seats, selectedDrivers!, seasonSim);
                     currentgp = jeddah.gp;
                     break;
                 case "Australia":
-                    Results.Australia(availableTeams, chosendrivers!, seasonSim);
+                    Results.Australia(seats, selectedDrivers!, seasonSim);
                     currentgp = australia.gp;
                     break;
                 case "Imola":
-                    Results.Imola(availableTeams, chosendrivers!, seasonSim);
+                    Results.Imola(seats, selectedDrivers!, seasonSim);
                     currentgp = imola.gp;
                     break;
                 case "Miami":
-                    Results.Miami(availableTeams, chosendrivers!, seasonSim);
+                    Results.Miami(seats, selectedDrivers!, seasonSim);
                     currentgp = miami.gp;
                     break;
                 case "Spain":
-                    Results.Spain(availableTeams, chosendrivers!, seasonSim);
+                    Results.Spain(seats, selectedDrivers!, seasonSim);
                     currentgp = spain.gp;
                     break;
                 case "Monaco":
-                    Results.Monaco(availableTeams, chosendrivers!, seasonSim);
+                    Results.Monaco(seats, selectedDrivers!, seasonSim);
                     currentgp = monaco.gp;
                     break;
                 case "Baku":
-                    Results.Baku(availableTeams, chosendrivers!, seasonSim);
+                    Results.Baku(seats, selectedDrivers!, seasonSim);
                     currentgp = baku.gp;
                     break;
                 case "Canada":
-                    Results.Canada(availableTeams, chosendrivers!, seasonSim);
+                    Results.Canada(seats, selectedDrivers!, seasonSim);
                     currentgp = canada.gp;
                     break;
                 case "Silverstone":
-                    Results.Silverstone(availableTeams, chosendrivers!, seasonSim);
+                    Results.Silverstone(seats, selectedDrivers!, seasonSim);
                     currentgp = silverstone.gp;
                     break;
                 case "Austria":
-                    Results.Austria(availableTeams, chosendrivers!, seasonSim);
+                    Results.Austria(seats, selectedDrivers!, seasonSim);
                     currentgp = austria.gp;
                     break;
                 case "Paulricard":
-                    Results.Paulricard(availableTeams, chosendrivers!, seasonSim);
+                    Results.Paulricard(seats, selectedDrivers!, seasonSim);
                     currentgp = paulricard.gp;
                     break;
                 case "Hungaroring":
-                    Results.Hungaroring(availableTeams, chosendrivers!, seasonSim);
+                    Results.Hungaroring(seats, selectedDrivers!, seasonSim);
                     currentgp = hungaroring.gp;
                     break;
                 case "Spa":
-                    Results.Spa(availableTeams, chosendrivers!, seasonSim);
+                    Results.Spa(seats, selectedDrivers!, seasonSim);
                     currentgp = spa.gp;
                     break;
                 case "Zandvoort":
-                    Results.Zandvoort(availableTeams, chosendrivers!, seasonSim);
+                    Results.Zandvoort(seats, selectedDrivers!, seasonSim);
                     currentgp = zandvoort.gp;
                     break;
                 case "Monza":
-                    Results.Monza(availableTeams, chosendrivers!, seasonSim);
+                    Results.Monza(seats, selectedDrivers!, seasonSim);
                     currentgp = monza.gp;
                     break;
                 case "Singapore":
-                    Results.Singapore(availableTeams, chosendrivers!, seasonSim);
+                    Results.Singapore(seats, selectedDrivers!, seasonSim);
                     currentgp = singapore.gp;
                     break;
                 case "Suzuka":
-                    Results.Suzuka(availableTeams, chosendrivers!, seasonSim);
+                    Results.Suzuka(seats, selectedDrivers!, seasonSim);
                     currentgp = suzuka.gp;
                     break;
                 case "Cota":
-                    Results.Cota(availableTeams, chosendrivers!, seasonSim);
+                    Results.Cota(seats, selectedDrivers!, seasonSim);
                     currentgp = cota.gp;
                     break;
                 case "Mexico":
-                    Results.Mexico(availableTeams, chosendrivers!, seasonSim);
+                    Results.Mexico(seats, selectedDrivers!, seasonSim);
                     currentgp = mexico.gp;
                     break;
                 case "Interlagos":
-                    Results.Interlagos(availableTeams, chosendrivers!, seasonSim);
+                    Results.Interlagos(seats, selectedDrivers!, seasonSim);
                     currentgp = interlagos.gp;
                     break;
                 case "Abudhabi":
-                    Results.Abudhabi(availableTeams, chosendrivers!, seasonSim);
+                    Results.Abudhabi(seats, selectedDrivers!, seasonSim);
                     currentgp = abudhabi.gp;
                     break;
             }
@@ -1923,35 +1899,30 @@ namespace Game
 
         public static void Result()
         {
-            resultdrivers = new[]
-            {
-                driver1, driver2, driver3, driver4, driver5, driver6, driver7, driver8, driver9, driver10, driver11, driver12, driver13, driver14, driver15, driver16, driver17, driver18, driver19, driver20
-            };
-
-            Array.Sort(resultdrivers, new DriverComparer()!);
+            Array.Sort(selectedDrivers!, new DriverComparer()!);
 
             Team[] resultteams = new[]
             {
-                resultdrivers[0]!.seat,
-                resultdrivers[1]!.seat,
-                resultdrivers[2]!.seat,
-                resultdrivers[3]!.seat,
-                resultdrivers[4]!.seat,
-                resultdrivers[5]!.seat,
-                resultdrivers[6]!.seat,
-                resultdrivers[7]!.seat,
-                resultdrivers[8]!.seat,
-                resultdrivers[9]!.seat,
-                resultdrivers[10]!.seat,
-                resultdrivers[11]!.seat,
-                resultdrivers[12]!.seat,
-                resultdrivers[13]!.seat,
-                resultdrivers[14]!.seat,
-                resultdrivers[15]!.seat,
-                resultdrivers[16]!.seat,
-                resultdrivers[17]!.seat,
-                resultdrivers[18]!.seat,
-                resultdrivers[19]!.seat,
+                selectedDrivers![0].seat,
+                selectedDrivers[1].seat,
+                selectedDrivers[2].seat,
+                selectedDrivers[3].seat,
+                selectedDrivers[4].seat,
+                selectedDrivers[5].seat,
+                selectedDrivers[6].seat,
+                selectedDrivers[7].seat,
+                selectedDrivers[8].seat,
+                selectedDrivers[9].seat,
+                selectedDrivers[10].seat,
+                selectedDrivers[11].seat,
+                selectedDrivers[12].seat,
+                selectedDrivers[13].seat,
+                selectedDrivers[14].seat,
+                selectedDrivers[15].seat,
+                selectedDrivers[16].seat,
+                selectedDrivers[17].seat,
+                selectedDrivers[18].seat,
+                selectedDrivers[19].seat,
             }!;
 
             resultteams[0].wins = resultteams[0].wins + 1;
@@ -1985,36 +1956,36 @@ namespace Game
             resultteams[8].totPoints = resultteams[8].totPoints + 2;
             resultteams[9].totPoints = resultteams[9].totPoints + 1;
 
-            resultdrivers[0]!.wins = resultdrivers[0]!.wins + 1;
-            resultdrivers[0]!.totWins = resultdrivers[0]!.totWins + 1;
+            selectedDrivers[0]!.wins = selectedDrivers[0]!.wins + 1;
+            selectedDrivers[0]!.totWins = selectedDrivers[0]!.totWins + 1;
 
-            resultdrivers[0]!.podiums = resultdrivers[0]!.podiums + 1;
-            resultdrivers[1]!.podiums = resultdrivers[1]!.podiums + 1;
-            resultdrivers[2]!.podiums = resultdrivers[2]!.podiums + 1;
-            resultdrivers[0]!.totPodiums = resultdrivers[0]!.totPodiums + 1;
-            resultdrivers[1]!.totPodiums = resultdrivers[1]!.totPodiums + 1;
-            resultdrivers[2]!.totPodiums = resultdrivers[2]!.totPodiums + 1;
+            selectedDrivers[0]!.podiums = selectedDrivers[0]!.podiums + 1;
+            selectedDrivers[1]!.podiums = selectedDrivers[1]!.podiums + 1;
+            selectedDrivers[2]!.podiums = selectedDrivers[2]!.podiums + 1;
+            selectedDrivers[0]!.totPodiums = selectedDrivers[0]!.totPodiums + 1;
+            selectedDrivers[1]!.totPodiums = selectedDrivers[1]!.totPodiums + 1;
+            selectedDrivers[2]!.totPodiums = selectedDrivers[2]!.totPodiums + 1;
 
-            resultdrivers[0]!.points = resultdrivers[0]!.points + 25;
-            resultdrivers[1]!.points = resultdrivers[1]!.points + 18;
-            resultdrivers[2]!.points = resultdrivers[2]!.points + 15;
-            resultdrivers[3]!.points = resultdrivers[3]!.points + 12;
-            resultdrivers[4]!.points = resultdrivers[4]!.points + 10;
-            resultdrivers[5]!.points = resultdrivers[5]!.points + 8;
-            resultdrivers[6]!.points = resultdrivers[6]!.points + 6;
-            resultdrivers[7]!.points = resultdrivers[7]!.points + 4;
-            resultdrivers[8]!.points = resultdrivers[8]!.points + 2;
-            resultdrivers[9]!.points = resultdrivers[9]!.points + 1;
-            resultdrivers[0]!.totPoints = resultdrivers[0]!.totPoints + 25;
-            resultdrivers[1]!.totPoints = resultdrivers[1]!.totPoints + 18;
-            resultdrivers[2]!.totPoints = resultdrivers[2]!.totPoints + 15;
-            resultdrivers[3]!.totPoints = resultdrivers[3]!.totPoints + 12;
-            resultdrivers[4]!.totPoints = resultdrivers[4]!.totPoints + 10;
-            resultdrivers[5]!.totPoints = resultdrivers[5]!.totPoints + 8;
-            resultdrivers[6]!.totPoints = resultdrivers[6]!.totPoints + 6;
-            resultdrivers[7]!.totPoints = resultdrivers[7]!.totPoints + 4;
-            resultdrivers[8]!.totPoints = resultdrivers[8]!.totPoints + 2;
-            resultdrivers[9]!.totPoints = resultdrivers[9]!.totPoints + 1;
+            selectedDrivers[0]!.points = selectedDrivers[0]!.points + 25;
+            selectedDrivers[1]!.points = selectedDrivers[1]!.points + 18;
+            selectedDrivers[2]!.points = selectedDrivers[2]!.points + 15;
+            selectedDrivers[3]!.points = selectedDrivers[3]!.points + 12;
+            selectedDrivers[4]!.points = selectedDrivers[4]!.points + 10;
+            selectedDrivers[5]!.points = selectedDrivers[5]!.points + 8;
+            selectedDrivers[6]!.points = selectedDrivers[6]!.points + 6;
+            selectedDrivers[7]!.points = selectedDrivers[7]!.points + 4;
+            selectedDrivers[8]!.points = selectedDrivers[8]!.points + 2;
+            selectedDrivers[9]!.points = selectedDrivers[9]!.points + 1;
+            selectedDrivers[0]!.totPoints = selectedDrivers[0]!.totPoints + 25;
+            selectedDrivers[1]!.totPoints = selectedDrivers[1]!.totPoints + 18;
+            selectedDrivers[2]!.totPoints = selectedDrivers[2]!.totPoints + 15;
+            selectedDrivers[3]!.totPoints = selectedDrivers[3]!.totPoints + 12;
+            selectedDrivers[4]!.totPoints = selectedDrivers[4]!.totPoints + 10;
+            selectedDrivers[5]!.totPoints = selectedDrivers[5]!.totPoints + 8;
+            selectedDrivers[6]!.totPoints = selectedDrivers[6]!.totPoints + 6;
+            selectedDrivers[7]!.totPoints = selectedDrivers[7]!.totPoints + 4;
+            selectedDrivers[8]!.totPoints = selectedDrivers[8]!.totPoints + 2;
+            selectedDrivers[9]!.totPoints = selectedDrivers[9]!.totPoints + 1;
 
             if (seasonSim == false)
             {
@@ -2024,7 +1995,7 @@ namespace Game
                 for (int i = 0; i < t.Length; i++)
                 {
                     t[i] = " ║ ";
-                    for (int y = 0; y < 16 - resultdrivers[i]!.name.Length; y++)
+                    for (int y = 0; y < 16 - selectedDrivers[i]!.name.Length; y++)
                     {
                         t[i] = " " + t[i];
                     }
@@ -2041,84 +2012,49 @@ namespace Game
 
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine();
-                Console.WriteLine(resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + " wins the " + currentgp + "!");
+                Console.WriteLine(selectedDrivers[0]!.color + selectedDrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + " wins the " + currentgp + "!");
                 Console.WriteLine();
                 Console.WriteLine("╔══════════════════════════════════════════════╗" +
                               "\r\n║" + resulttitle + "║" +
                               "\r\n╠══════╦══════════════════╦══════════════╦═════╣" +
                               "\r\n║ Pos. ║      Driver      ║     Team     ║ Pts ║" +
                               "\r\n╠══════╬══════════════════╬══════════════╬═════╣" +
-                              "\r\n║ P1   ║ " + resultdrivers[0]!.color + resultdrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + resultteams[0].color + resultteams[0].name + "\x1b[38;5;" + 15 + "m" + u[0] + "25  ║" +
-                              "\r\n║ P2   ║ " + resultdrivers[1]!.color + resultdrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + resultteams[1].color + resultteams[1].name + "\x1b[38;5;" + 15 + "m" + u[1] + "18  ║" +
-                              "\r\n║ P3   ║ " + resultdrivers[2]!.color + resultdrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + resultteams[2].color + resultteams[2].name + "\x1b[38;5;" + 15 + "m" + u[2] + "15  ║" +
-                              "\r\n║ P4   ║ " + resultdrivers[3]!.color + resultdrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + resultteams[3].color + resultteams[3].name + "\x1b[38;5;" + 15 + "m" + u[3] + "12  ║" +
-                              "\r\n║ P5   ║ " + resultdrivers[4]!.color + resultdrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + resultteams[4].color + resultteams[4].name + "\x1b[38;5;" + 15 + "m" + u[4] + "10  ║" +
-                              "\r\n║ P6   ║ " + resultdrivers[5]!.color + resultdrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + resultteams[5].color + resultteams[5].name + "\x1b[38;5;" + 15 + "m" + u[5] + "8   ║" +
-                              "\r\n║ P7   ║ " + resultdrivers[6]!.color + resultdrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + resultteams[6].color + resultteams[6].name + "\x1b[38;5;" + 15 + "m" + u[6] + "6   ║" +
-                              "\r\n║ P8   ║ " + resultdrivers[7]!.color + resultdrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + resultteams[7].color + resultteams[7].name + "\x1b[38;5;" + 15 + "m" + u[7] + "4   ║" +
-                              "\r\n║ P9   ║ " + resultdrivers[8]!.color + resultdrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + resultteams[8].color + resultteams[8].name + "\x1b[38;5;" + 15 + "m" + u[8] + "2   ║" +
-                              "\r\n║ P10  ║ " + resultdrivers[9]!.color + resultdrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + resultteams[9].color + resultteams[9].name + "\x1b[38;5;" + 15 + "m" + u[9] + "1   ║" +
-                              "\r\n║ P11  ║ " + resultdrivers[10]!.color + resultdrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + resultteams[10].color + resultteams[10].name + "\x1b[38;5;" + 15 + "m" + u[10] + "0   ║" +
-                              "\r\n║ P12  ║ " + resultdrivers[11]!.color + resultdrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + resultteams[11].color + resultteams[11].name + "\x1b[38;5;" + 15 + "m" + u[11] + "0   ║" +
-                              "\r\n║ P13  ║ " + resultdrivers[12]!.color + resultdrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + resultteams[12].color + resultteams[12].name + "\x1b[38;5;" + 15 + "m" + u[12] + "0   ║" +
-                              "\r\n║ P14  ║ " + resultdrivers[13]!.color + resultdrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + resultteams[13].color + resultteams[13].name + "\x1b[38;5;" + 15 + "m" + u[13] + "0   ║" +
-                              "\r\n║ P15  ║ " + resultdrivers[14]!.color + resultdrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + resultteams[14].color + resultteams[14].name + "\x1b[38;5;" + 15 + "m" + u[14] + "0   ║" +
-                              "\r\n║ P16  ║ " + resultdrivers[15]!.color + resultdrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + resultteams[15].color + resultteams[15].name + "\x1b[38;5;" + 15 + "m" + u[15] + "0   ║" +
-                              "\r\n║ P17  ║ " + resultdrivers[16]!.color + resultdrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + resultteams[16].color + resultteams[16].name + "\x1b[38;5;" + 15 + "m" + u[16] + "0   ║" +
-                              "\r\n║ P18  ║ " + resultdrivers[17]!.color + resultdrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + resultteams[17].color + resultteams[17].name + "\x1b[38;5;" + 15 + "m" + u[17] + "0   ║" +
-                              "\r\n║ P19  ║ " + resultdrivers[18]!.color + resultdrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + resultteams[18].color + resultteams[18].name + "\x1b[38;5;" + 15 + "m" + u[18] + "0   ║" +
-                              "\r\n║ P20  ║ " + resultdrivers[19]!.color + resultdrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + resultteams[19].color + resultteams[19].name + "\x1b[38;5;" + 15 + "m" + u[19] + "0   ║" +
+                              "\r\n║ P1   ║ " + selectedDrivers[0]!.color + selectedDrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + resultteams[0].color + resultteams[0].name + "\x1b[38;5;" + 15 + "m" + u[0] + "25  ║" +
+                              "\r\n║ P2   ║ " + selectedDrivers[1]!.color + selectedDrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + resultteams[1].color + resultteams[1].name + "\x1b[38;5;" + 15 + "m" + u[1] + "18  ║" +
+                              "\r\n║ P3   ║ " + selectedDrivers[2]!.color + selectedDrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + resultteams[2].color + resultteams[2].name + "\x1b[38;5;" + 15 + "m" + u[2] + "15  ║" +
+                              "\r\n║ P4   ║ " + selectedDrivers[3]!.color + selectedDrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + resultteams[3].color + resultteams[3].name + "\x1b[38;5;" + 15 + "m" + u[3] + "12  ║" +
+                              "\r\n║ P5   ║ " + selectedDrivers[4]!.color + selectedDrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + resultteams[4].color + resultteams[4].name + "\x1b[38;5;" + 15 + "m" + u[4] + "10  ║" +
+                              "\r\n║ P6   ║ " + selectedDrivers[5]!.color + selectedDrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + resultteams[5].color + resultteams[5].name + "\x1b[38;5;" + 15 + "m" + u[5] + "8   ║" +
+                              "\r\n║ P7   ║ " + selectedDrivers[6]!.color + selectedDrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + resultteams[6].color + resultteams[6].name + "\x1b[38;5;" + 15 + "m" + u[6] + "6   ║" +
+                              "\r\n║ P8   ║ " + selectedDrivers[7]!.color + selectedDrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + resultteams[7].color + resultteams[7].name + "\x1b[38;5;" + 15 + "m" + u[7] + "4   ║" +
+                              "\r\n║ P9   ║ " + selectedDrivers[8]!.color + selectedDrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + resultteams[8].color + resultteams[8].name + "\x1b[38;5;" + 15 + "m" + u[8] + "2   ║" +
+                              "\r\n║ P10  ║ " + selectedDrivers[9]!.color + selectedDrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + resultteams[9].color + resultteams[9].name + "\x1b[38;5;" + 15 + "m" + u[9] + "1   ║" +
+                              "\r\n║ P11  ║ " + selectedDrivers[10]!.color + selectedDrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + resultteams[10].color + resultteams[10].name + "\x1b[38;5;" + 15 + "m" + u[10] + "0   ║" +
+                              "\r\n║ P12  ║ " + selectedDrivers[11]!.color + selectedDrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + resultteams[11].color + resultteams[11].name + "\x1b[38;5;" + 15 + "m" + u[11] + "0   ║" +
+                              "\r\n║ P13  ║ " + selectedDrivers[12]!.color + selectedDrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + resultteams[12].color + resultteams[12].name + "\x1b[38;5;" + 15 + "m" + u[12] + "0   ║" +
+                              "\r\n║ P14  ║ " + selectedDrivers[13]!.color + selectedDrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + resultteams[13].color + resultteams[13].name + "\x1b[38;5;" + 15 + "m" + u[13] + "0   ║" +
+                              "\r\n║ P15  ║ " + selectedDrivers[14]!.color + selectedDrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + resultteams[14].color + resultteams[14].name + "\x1b[38;5;" + 15 + "m" + u[14] + "0   ║" +
+                              "\r\n║ P16  ║ " + selectedDrivers[15]!.color + selectedDrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + resultteams[15].color + resultteams[15].name + "\x1b[38;5;" + 15 + "m" + u[15] + "0   ║" +
+                              "\r\n║ P17  ║ " + selectedDrivers[16]!.color + selectedDrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + resultteams[16].color + resultteams[16].name + "\x1b[38;5;" + 15 + "m" + u[16] + "0   ║" +
+                              "\r\n║ P18  ║ " + selectedDrivers[17]!.color + selectedDrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + resultteams[17].color + resultteams[17].name + "\x1b[38;5;" + 15 + "m" + u[17] + "0   ║" +
+                              "\r\n║ P19  ║ " + selectedDrivers[18]!.color + selectedDrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + resultteams[18].color + resultteams[18].name + "\x1b[38;5;" + 15 + "m" + u[18] + "0   ║" +
+                              "\r\n║ P20  ║ " + selectedDrivers[19]!.color + selectedDrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + resultteams[19].color + resultteams[19].name + "\x1b[38;5;" + 15 + "m" + u[19] + "0   ║" +
                               "\r\n╚══════╩══════════════════╩══════════════╩═════╝");
             }
-        }
-
-        static void Main()
-        {
-            Console.Title = "Formula 1 Simulator";
-            Console.CancelKeyPress += new ConsoleCancelEventHandler(StopAutorun);
-
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            foreach (string ln in intro)
-            Console.WriteLine(ln);
-            Console.WriteLine();
-            Console.WriteLine();
-            foreach (string ln in image)
-            Console.WriteLine(ln);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(3000);
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Welcome to the ultimate Formula 1 Simulator.");
-            Thread.Sleep(400);
-            Console.WriteLine("Are you ready to write a new chapter in the sports history books?");
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(3000);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("After the game has started, press 'C' to enter command mode.");
-            Thread.Sleep(400);
-            Console.WriteLine("Press 'H' at any time to get help or a list of all available commands.");
-            Thread.Sleep(400);
-            Console.WriteLine("To continue press 'Enter'.");
-            Thread.Sleep(400);
-
-            GameLoop();
-
-            Console.WriteLine("Thank you for playing Formula 1 Simulator!");
         }
     }
 }
 
-//KLART ska finnas stats för säsong samt total/career stats (ta med irl innan 2023)
 
-//Göra i all time comparison att om de är lika i mästerskap går den istället efter vinster, podium, poäng osv.
+//göra så när tex 15 förare är kvar så är det random varje säsong vilka team som får förare, eller göra så de blir som vanligt och alla får förare men en del då är döda
+
+//göra algorithm skit för tabellerna så det funkar med antal förare
+
+//lägga till så om man kollar info om föraren så ser man om han är död eller ej
 
 //fixa så autorun vet vart den ska återuppta, med variablar/checkpoints/labels nåt sånt
 
 //fixa buggen där typ alla får engine issues i sista racet
-
-//göra så de kan dö av ålder???
 
 //skapa custom drivers?
 

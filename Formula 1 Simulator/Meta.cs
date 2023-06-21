@@ -68,6 +68,7 @@
     {
         public string name;
         public int age;
+        public bool dead;
         public string firstname;
         public string lastname;
         public string shortname;
@@ -101,6 +102,7 @@
         {
             this.name = name;
             this.age = age;
+            dead = false;
             this.firstname = firstname;
             this.lastname = lastname;
             this.shortname = shortname;
