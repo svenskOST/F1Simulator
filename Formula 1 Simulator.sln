@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Formula 1 Simulator", "Formula 1 Simulator\Formula 1 Simulator.csproj", "{DEBFFEC6-215F-4D7B-887F-392DC7D544C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Formula 1 Simulator", "Formula 1 Simulator.csproj", "{EA9C0205-BE48-4E8E-A246-BD0E488D3BE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEBFFEC6-215F-4D7B-887F-392DC7D544C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEBFFEC6-215F-4D7B-887F-392DC7D544C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEBFFEC6-215F-4D7B-887F-392DC7D544C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEBFFEC6-215F-4D7B-887F-392DC7D544C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA9C0205-BE48-4E8E-A246-BD0E488D3BE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA9C0205-BE48-4E8E-A246-BD0E488D3BE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA9C0205-BE48-4E8E-A246-BD0E488D3BE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA9C0205-BE48-4E8E-A246-BD0E488D3BE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

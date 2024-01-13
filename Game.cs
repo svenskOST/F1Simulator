@@ -14,9 +14,13 @@ namespace Game
 
         readonly static string[] intro = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\intro.txt");
         readonly static string[] image = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\image.txt");
+        readonly static string[] pointsAllocation = { "25  ║", "18  ║", "15  ║", "12  ║", "10  ║", "8   ║", "6   ║", "4   ║", "2   ║", "1   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║" };
         static string[]? colTitle;
+        static string[]? leftColColor;
         static string[]? leftCol;
+        static string[]? chassisColor;
         static string[]? chassis;
+        static string[]? powerUnitColor;
         static string[]? powerUnit;
         static string? racestart;
         static string? startornext;
@@ -404,11 +408,6 @@ namespace Game
                 selectedDrivers[i].seat = seats[i];
                 selectedDrivers[i].color = seats[i].color;
             }
-
-            for (int i = 0; i < 20; i++)
-            {
-                Console.WriteLine(selectedDrivers[i].name);
-            }
         }
 
         public static void Grid()
@@ -420,24 +419,39 @@ namespace Game
                 "    2nd Driver    "
             };
 
+            leftColColor = new[]
+            {
+                "\x1b[38;5;" + 4 + "m",
+                "\x1b[38;5;" + 196 + "m",
+                "\x1b[38;5;" + 50 + "m",
+                "\x1b[38;5;" + 39 + "m",
+                "\x1b[38;5;" + 208 + "m",
+                "\x1b[38;5;" + 124 + "m",
+                "\x1b[38;5;" + 30 + "m",
+                "\x1b[38;5;" + 11 + "m",
+                "\x1b[38;5;" + 240 + "m",
+                "\x1b[38;5;" + 26 + "m"
+            };
+
             leftCol = new[]
             {
-                "\x1b[38;5;" + 4 + "m" + "Oracle Red Bull Racing",
-                "\x1b[38;5;" + 196 + "m" + "Scuderia Ferrari",
-                "\x1b[38;5;" + 50 + "m" + "Mercedes-AMG Petronas",
-                "\x1b[38;5;" + 39 + "m" + "BWT ALpine",
-                "\x1b[38;5;" + 208 + "m" + "McLaren",
-                "\x1b[38;5;" + 124 + "m" + "Alfa Romeo Orlen",
-                "\x1b[38;5;" + 30 + "m" + "Aston Martin Aramco Cognizant",
-                "\x1b[38;5;" + 11 + "m" + "Haas",
-                "\x1b[38;5;" + 240 + "m" + "Scuderia AlphaTauri",
-                "\x1b[38;5;" + 26 + "m" + "Williams Racing"
+                "Oracle Red Bull Racing",
+                "Scuderia Ferrari",
+                "Mercedes-AMG Petronas",
+                "BWT ALpine",
+                "McLaren",
+                "Alfa Romeo Orlen",
+                "Aston Martin Aramco Cognizant",
+                "Haas",
+                "Scuderia AlphaTauri",
+                "Williams Racing"
             };
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(TableGenerator(5, 69, 10, 3));
 
-            //nu kommer säkert denna tabell bli fel för att den använder selectedDrivers, som sorteras och ändras av andra - måste skapa en oberoende array där deras index matchar deras seat i stallen
+            grid = true;
+            specs = true;
         }
 
         public static void StartSeason()
@@ -486,112 +500,112 @@ namespace Game
         {
             racestart = "Round 1 of 22 begins with the " + bahrain.gp + ".";
             startornext = "Start race...";
-            currentrace = "        BAHRAIN GRAND PRIX RACE RESULTS       ";
+            currentrace = "BAHRAIN GRAND PRIX RACE RESULTS";
             CurrentRace = "Bahrain";
             Race();
 
             racestart = "After that dramatic start of the season, it's time to race at " + jeddah.name + ".";
             startornext = "Next race...";
-            currentrace = "    SAUDI ARABIAN GRAND PRIX RACE RESULTS     ";
+            currentrace = "SAUDI ARABIAN GRAND PRIX RACE RESULTS";
             CurrentRace = "Jeddah";
             Race();
 
             racestart = "Round 3 brings us to " + australia.location + ".";
-            currentrace = "      AUSTRALIAN GRAND PRIX RACE RESULTS      ";
+            currentrace = "AUSTRALIAN GRAND PRIX RACE RESULTS ";
             CurrentRace = "Australia";
             Race();
 
             racestart = "This weekend the drivers will fight it out at " + imola.name + ".";
-            currentrace = "    EMILIA-ROMAGNA GRAND PRIX RACE RESULTS    ";
+            currentrace = "EMILIA-ROMAGNA GRAND PRIX RACE RESULTS ";
             CurrentRace = "Imola";
             Race();
 
             racestart = "Brace yourself, it's time for the " + miami.gp + ".";
-            currentrace = "         MIAMI GRAND PRIX RACE RESULTS        ";
+            currentrace = "MIAMI GRAND PRIX RACE RESULTS";
             CurrentRace = "Miami";
             Race();
 
             racestart = spain.location + " will host this weekends race.";
-            currentrace = "        SPANISH GRAND PRIX RACE RESULTS       ";
+            currentrace = "SPANISH GRAND PRIX RACE RESULTS";
             CurrentRace = "Spain";
             Race();
 
             racestart = monaco.shortname + " is no stranger to Formula 1, it's time for the " + monaco.gp + ".";
-            currentrace = "        MONACO GRAND PRIX RACE RESULTS        ";
+            currentrace = "MONACO GRAND PRIX RACE RESULTS ";
             CurrentRace = "Monaco";
             Race();
 
             racestart = "Round 8 of 22 comes to " + baku.location + " at the " + baku.name + ".";
-            currentrace = "       AZERBAIJAN GRAND PRIX RACE RESULTS     ";
+            currentrace = "AZERBAIJAN GRAND PRIX RACE RESULTS ";
             CurrentRace = "Baku";
             Race();
 
             racestart = "This weekend, we fly across the Atlantic for the " + canada.gp + ".";
-            currentrace = "       CANADIAN GRAND PRIX RACE RESULTS       ";
+            currentrace = "CANADIAN GRAND PRIX RACE RESULTS ";
             CurrentRace = "Canada";
             Race();
 
             racestart = "Let's race at the legendary " + silverstone.name + "!";
-            currentrace = "       BRITISH GRAND PRIX RACE RESULTS        ";
+            currentrace = "BRITISH GRAND PRIX RACE RESULTS";
             CurrentRace = "Silverstone";
             Race();
 
             racestart = austria.name + " hosts the upcoming race.";
-            currentrace = "       AUSTRIAN GRAND PRIX RACE RESULTS       ";
+            currentrace = "AUSTRIAN GRAND PRIX RACE RESULTS ";
             CurrentRace = "Austria";
             Race();
 
             racestart = "The " + paulricard.gp + " at " + paulricard.name + " marks the halfpoint of the season.";
-            currentrace = "        FRENCH GRAND PRIX RACE RESULTS        ";
+            currentrace = "FRENCH GRAND PRIX RACE RESULTS ";
             CurrentRace = "Paulricard";
             Race();
 
             racestart = "It's time to race at the " + hungaroring.name + " in " + hungaroring.location + ".";
-            currentrace = "       HUNGARIAN GRAND PRIX RACE RESULTS      ";
+            currentrace = "HUNGARIAN GRAND PRIX RACE RESULTS";
             CurrentRace = "Hungaroring";
             Race();
 
             racestart = "After the summer break, we continue at the fan favorite " + spa.name + ".";
-            currentrace = "        BELGIAN GRAND PRIX RACE RESULTS       ";
+            currentrace = "BELGIAN GRAND PRIX RACE RESULTS";
             CurrentRace = "Spa";
             Race();
 
             racestart = "Round 14 brings us to " + zandvoort.location + " for the " + zandvoort.gp + ".";
-            currentrace = "         DUTCH GRAND PRIX RACE RESULTS        ";
+            currentrace = "DUTCH GRAND PRIX RACE RESULTS";
             CurrentRace = "Zandvoort";
             Race();
 
             racestart = "With 8 races to go we visit the temple of speed. " + monza.name + "!";
-            currentrace = "        ITALIAN GRAND PRIX RACE RESULTS       ";
+            currentrace = "ITALIAN GRAND PRIX RACE RESULTS";
             CurrentRace = "Monza";
             Race();
 
             racestart = "Not many circuits can compare with the narrow streets of Monaco. " + singapore.name + " however, might be one of them.";
-            currentrace = "       SINGAPORE GRAND PRIX RACE RESULTS      ";
+            currentrace = "SINGAPORE GRAND PRIX RACE RESULTS";
             CurrentRace = "Singapore";
             Race();
 
             racestart = "We're in " + suzuka.location + " for another fan favorite. Let's race at " + suzuka.shortname + "!";
-            currentrace = "       JAPANESE GRAND PRIX RACE RESULTS       ";
+            currentrace = "JAPANESE GRAND PRIX RACE RESULTS ";
             CurrentRace = "Suzuka";
             Race();
             racestart = "Welcome to " + cota.location + ". We're racing at " + cota.name + ".";
-            currentrace = "     UNITED STATES GRAND PRIX RACE RESULTS    ";
+            currentrace = "UNITED STATES GRAND PRIX RACE RESULTS";
             CurrentRace = "Cota";
             Race();
 
             racestart = "This race weekend takes place at an altidude of 2280 meters, at " + mexico.name + ".";
-            currentrace = "        MEXICAN GRAND PRIX RACE RESULTS       ";
+            currentrace = "MEXICAN GRAND PRIX RACE RESULTS";
             CurrentRace = "Mexico";
             Race();
 
             racestart = "Welcome to Brazil, where the drivers and teams will be racing for the win at " + interlagos.shortname + ".";
-            currentrace = "       SÃO PAULO GRAND PRIX RACE RESULTS      ";
+            currentrace = "SÃO PAULO GRAND PRIX RACE RESULTS";
             CurrentRace = "Interlagos";
             Race();
 
             racestart = "Who will be crowned as world champion at the last race, in " + abudhabi.shortname + " today?";
-            currentrace = "       ABU DHABI GRAND PRIX RACE RESULTS      ";
+            currentrace = "ABU DHABI GRAND PRIX RACE RESULTS";
             CurrentRace = "Abudhabi";
             Race();
         }
@@ -986,36 +1000,64 @@ namespace Game
                 "      Power Unit      "
             };
 
+            chassisColor = new[]
+            {
+                "\x1b[38;5;" + 4 + "m",
+                "\x1b[38;5;" + 196 + "m",
+                "\x1b[38;5;" + 50 + "m",
+                "\x1b[38;5;" + 39 + "m",
+                "\x1b[38;5;" + 208 + "m",
+                "\x1b[38;5;" + 124 + "m",
+                "\x1b[38;5;" + 30 + "m",
+                "\x1b[38;5;" + 11 + "m",
+                "\x1b[38;5;" + 240 + "m",
+                "\x1b[38;5;" + 26 + "m"
+            };
+
             chassis = new[]
             {
-                "\x1b[38;5;" + 4 + "m" + "RB18",
-                "\x1b[38;5;" + 196 + "m" + "F1-75",
-                "\x1b[38;5;" + 50 + "m" + "W13",
-                "\x1b[38;5;" + 39 + "m" + "A522",
-                "\x1b[38;5;" + 208 + "m" + "MCL36",
-                "\x1b[38;5;" + 124 + "m" + "C41",
-                "\x1b[38;5;" + 30 + "m" + "AMR22",
-                "\x1b[38;5;" + 11 + "m" + "VF-22",
-                "\x1b[38;5;" + 240 + "m" + "AT03",
-                "\x1b[38;5;" + 26 + "m" + "FW44"
+                "RB18",
+                "F1-75",
+                "W13",
+                "A522",
+                "MCL36",
+                "C41",
+                "AMR22",
+                "VF-22",
+                "AT03",
+                "FW44"
+            };
+
+            powerUnitColor = new[]
+            {
+                "\x1b[38;5;" + 4 + "m",
+                "\x1b[38;5;" + 196 + "m",
+                "\x1b[38;5;" + 50 + "m",
+                "\x1b[38;5;" + 39 + "m",
+                "\x1b[38;5;" + 50 + "m",
+                "\x1b[38;5;" + 196 + "m",
+                "\x1b[38;5;" + 50 + "m",
+                "\x1b[38;5;" + 196 + "m",
+                "\x1b[38;5;" + 21 + "m",
+                "\x1b[38;5;" + 50 + "m"
             };
 
             powerUnit = new[]
             {
-                "\x1b[38;5;" + 4 + "m" + "Red Bull Powertrains",
-                "\x1b[38;5;" + 196 + "m" + "Ferrari",
-                "\x1b[38;5;" + 50 + "m" + "Mercedes",
-                "\x1b[38;5;" + 39 + "m" + "Renault",
-                "\x1b[38;5;" + 50 + "m" + "Mercedes",
-                "\x1b[38;5;" + 196 + "m" + "Ferrari",
-                "\x1b[38;5;" + 50 + "m" + "Mercedes",
-                "\x1b[38;5;" + 196 + "m" + "Ferrari",
-                "\x1b[38;5;" + 21 + "m" + "Red Bull Powertrains",
-                "\x1b[38;5;" + 50 + "m" + "Mercedes"
+                "Red Bull Powertrains",
+                "Ferrari",
+                "Mercedes",
+                "Renault",
+                "Mercedes",
+                "Ferrari",
+                "Mercedes",
+                "Ferrari",
+                "Red Bull Powertrains",
+                "Mercedes"
             };
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(TableGenerator(6, 45, 10, 3));
+            Console.WriteLine(TableGenerator(6, 47, 10, 3));
         }
 
         public static void DriverStandings()
@@ -1041,7 +1083,7 @@ namespace Game
                     }
                     else
                     {
-                        leftCol[i] = " Leader";
+                        leftCol[i] = " Leader ";
                     }
                 }
                 else
@@ -1056,7 +1098,6 @@ namespace Game
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(TableGenerator(2, 34, selectedDrivers!.Length, 3));
-            Console.WriteLine();
             Console.WriteLine();
         }
 
@@ -1126,7 +1167,7 @@ namespace Game
                     }
                     else
                     {
-                        leftCol[i] = " Leader";
+                        leftCol[i] = " Leader ";
                     }
                 }
                 else
@@ -1204,7 +1245,15 @@ namespace Game
                 titleSpace += " ";
             }
             table += titleSpace + tableTitle;
-            if (tableTitle.Length % 2 == 1 || type == 4)
+            if (type == 7)
+            {
+                for (int i = 1; i < titleSpace.Length; i++)
+                {
+                    table += titleSpace[i];
+                }
+                table += " ║\r\n╠";
+            }
+            else if (tableTitle.Length % 2 == 1 || type == 4 || type == 5 || type == 6)
             {
                 table += titleSpace + " ║\r\n╠";
             }
@@ -1453,7 +1502,7 @@ namespace Game
                     {
                         table += "\r\n╠═══════════════════════════════╬══════════════════╬══════════════════╣";
                     }
-                    table += "\r\n║ " + leftCol![i] + "\x1b[38;5;" + 15 + "m" + t[i];
+                    table += "\r\n║ " + leftColColor![i] + leftCol![i] + "\x1b[38;5;" + 15 + "m" + t[i];
                     for (int n = 0; n < 2; n++)
                     {
                         table += selectedDrivers![a].color + selectedDrivers[a].name + "\x1b[38;5;" + 15 + "m" + u[a];
@@ -1467,7 +1516,7 @@ namespace Game
                 string[] u = new string[10];
                 string[] w = new string[10];
 
-                for (int i = 0; i < u.Length; i++)
+                for (int i = 0; i < t.Length; i++)
                 {
                     t[i] = " ║ ";
                     for (int y = 0; y < 12 - allTeams[i].name.Length; y++)
@@ -1479,7 +1528,7 @@ namespace Game
                 for (int i = 0; i < u.Length; i++)
                 {
                     u[i] = " ║ ";
-                    for (int y = 0; y < 5 - chassis![i].Length; y++)
+                    for (int y = 0; y < 7 - chassis![i].Length; y++)
                     {
                         u[i] = " " + u[i];
                     }
@@ -1494,15 +1543,41 @@ namespace Game
                     }
                 }
 
-                //chassis och powerUnit kanske blir fel ifall den tar med stringen för färg och de eftersom de blir längre då - isåfall göra separata arrays för färgerna till allt (chassis, powerUnit, leftCol i grid) och lägga till i for loopen för raderna i tabellen
-
                 for (int i = 0; i < rows; i++)
                 {
                     if (i != 0)
                     {
                         table += "\r\n╠══════════════╬═════════╬══════════════════════╣";
                     }
-                    table += "\r\n║ " + allTeams[i].color + allTeams[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + chassis![i] + "\x1b[38;5;" + 15 + "m" + u[i] + powerUnit![i] + "\x1b[38;5;" + 15 + "m" + w[i];
+                    table += "\r\n║ " + allTeams[i].color + allTeams[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + chassisColor![i] + chassis![i] + "\x1b[38;5;" + 15 + "m" + u[i] + powerUnitColor![i] + powerUnit![i] + "\x1b[38;5;" + 15 + "m" + w[i];
+                }
+            }
+            else if (type == 7)
+            {
+                string[] t = new string[selectedDrivers!.Length];
+                string[] u = new string[t.Length];
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    t[i] = "  ║ ";
+                    for (int y = 0; y < 16 - selectedDrivers[i].name.Length; y++)
+                    {
+                        t[i] = " " + t[i];
+                    }
+                }
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    u[i] = " ║ ";
+                    for (int y = 0; y < 12 - selectedDrivers[i].seat!.name.Length; y++)
+                    {
+                        u[i] = " " + u[i];
+                    }
+                }
+
+                for (int i = 0; i < rows; i++)
+                {
+                    table += "\r\n║" + leftCol![i] + "║ " + selectedDrivers[i].color + selectedDrivers[i].name + "\x1b[38;5;" + 15 + "m" + t[i] + selectedDrivers[i].seat!.color + selectedDrivers[i].seat!.name + "\x1b[38;5;" + 15 + "m" + u[i] + pointsAllocation[i];
                 }
             }
 
@@ -1901,112 +1976,84 @@ namespace Game
         {
             Array.Sort(selectedDrivers!, new DriverComparer()!);
 
-            Team[] resultteams = new[]
+            //fixa så döda förare inte kan få poäng
+            selectedDrivers![0].wins += 1;
+            selectedDrivers[0].totWins += 1;
+            selectedDrivers[0].seat!.wins += 1;
+            selectedDrivers[0].seat!.totWins += 1;
+            
+            for (int i = 0; i < 3; i++)
             {
-                selectedDrivers![0].seat,
-                selectedDrivers[1].seat,
-                selectedDrivers[2].seat,
-                selectedDrivers[3].seat,
-                selectedDrivers[4].seat,
-                selectedDrivers[5].seat,
-                selectedDrivers[6].seat,
-                selectedDrivers[7].seat,
-                selectedDrivers[8].seat,
-                selectedDrivers[9].seat,
-                selectedDrivers[10].seat,
-                selectedDrivers[11].seat,
-                selectedDrivers[12].seat,
-                selectedDrivers[13].seat,
-                selectedDrivers[14].seat,
-                selectedDrivers[15].seat,
-                selectedDrivers[16].seat,
-                selectedDrivers[17].seat,
-                selectedDrivers[18].seat,
-                selectedDrivers[19].seat,
-            }!;
+                selectedDrivers[i].podiums += 1;
+                selectedDrivers[i].totPodiums += 1;
+                selectedDrivers[i].seat!.podiums += 1;
+                selectedDrivers[i].seat!.totPodiums += 1;
+            }
 
-            resultteams[0].wins = resultteams[0].wins + 1;
-            resultteams[0].totWins = resultteams[0].totWins + 1;
+            for (int i = 0; i < 10; i++)
+            {
+                int x = 0;
 
-            resultteams[0].podiums = resultteams[0].podiums + 1;
-            resultteams[1].podiums = resultteams[1].podiums + 1;
-            resultteams[2].podiums = resultteams[2].podiums + 1;
-            resultteams[0].totPodiums = resultteams[0].totPodiums + 1;
-            resultteams[1].totPodiums = resultteams[1].totPodiums + 1;
-            resultteams[2].totPodiums = resultteams[2].totPodiums + 1;
+                switch (i)
+                {
+                    case 0:
+                        x = 25;
+                        break;
+                    case 1:
+                        x = 18;
+                        break;
+                    case 2:
+                        x = 15;
+                        break;
+                    case 3:
+                        x = 12;
+                        break;
+                    case 4:
+                        x = 10;
+                        break;
+                    case 5:
+                        x = 8;
+                        break;
+                    case 6:
+                        x = 6;
+                        break;
+                    case 7:
+                        x = 4;
+                        break;
+                    case 8:
+                        x = 2;
+                        break;
+                    case 9:
+                        x = 1;
+                        break;
+                }
 
-            resultteams[0].points = resultteams[0].points + 25;
-            resultteams[1].points = resultteams[1].points + 18;
-            resultteams[2].points = resultteams[2].points + 15;
-            resultteams[3].points = resultteams[3].points + 12;
-            resultteams[4].points = resultteams[4].points + 10;
-            resultteams[5].points = resultteams[5].points + 8;
-            resultteams[6].points = resultteams[6].points + 6;
-            resultteams[7].points = resultteams[7].points + 4;
-            resultteams[8].points = resultteams[8].points + 2;
-            resultteams[9].points = resultteams[9].points + 1;
-            resultteams[0].totPoints = resultteams[0].totPoints + 25;
-            resultteams[1].totPoints = resultteams[1].totPoints + 18;
-            resultteams[2].totPoints = resultteams[2].totPoints + 15;
-            resultteams[3].totPoints = resultteams[3].totPoints + 12;
-            resultteams[4].totPoints = resultteams[4].totPoints + 10;
-            resultteams[5].totPoints = resultteams[5].totPoints + 8;
-            resultteams[6].totPoints = resultteams[6].totPoints + 6;
-            resultteams[7].totPoints = resultteams[7].totPoints + 4;
-            resultteams[8].totPoints = resultteams[8].totPoints + 2;
-            resultteams[9].totPoints = resultteams[9].totPoints + 1;
-
-            selectedDrivers[0]!.wins = selectedDrivers[0]!.wins + 1;
-            selectedDrivers[0]!.totWins = selectedDrivers[0]!.totWins + 1;
-
-            selectedDrivers[0]!.podiums = selectedDrivers[0]!.podiums + 1;
-            selectedDrivers[1]!.podiums = selectedDrivers[1]!.podiums + 1;
-            selectedDrivers[2]!.podiums = selectedDrivers[2]!.podiums + 1;
-            selectedDrivers[0]!.totPodiums = selectedDrivers[0]!.totPodiums + 1;
-            selectedDrivers[1]!.totPodiums = selectedDrivers[1]!.totPodiums + 1;
-            selectedDrivers[2]!.totPodiums = selectedDrivers[2]!.totPodiums + 1;
-
-            selectedDrivers[0]!.points = selectedDrivers[0]!.points + 25;
-            selectedDrivers[1]!.points = selectedDrivers[1]!.points + 18;
-            selectedDrivers[2]!.points = selectedDrivers[2]!.points + 15;
-            selectedDrivers[3]!.points = selectedDrivers[3]!.points + 12;
-            selectedDrivers[4]!.points = selectedDrivers[4]!.points + 10;
-            selectedDrivers[5]!.points = selectedDrivers[5]!.points + 8;
-            selectedDrivers[6]!.points = selectedDrivers[6]!.points + 6;
-            selectedDrivers[7]!.points = selectedDrivers[7]!.points + 4;
-            selectedDrivers[8]!.points = selectedDrivers[8]!.points + 2;
-            selectedDrivers[9]!.points = selectedDrivers[9]!.points + 1;
-            selectedDrivers[0]!.totPoints = selectedDrivers[0]!.totPoints + 25;
-            selectedDrivers[1]!.totPoints = selectedDrivers[1]!.totPoints + 18;
-            selectedDrivers[2]!.totPoints = selectedDrivers[2]!.totPoints + 15;
-            selectedDrivers[3]!.totPoints = selectedDrivers[3]!.totPoints + 12;
-            selectedDrivers[4]!.totPoints = selectedDrivers[4]!.totPoints + 10;
-            selectedDrivers[5]!.totPoints = selectedDrivers[5]!.totPoints + 8;
-            selectedDrivers[6]!.totPoints = selectedDrivers[6]!.totPoints + 6;
-            selectedDrivers[7]!.totPoints = selectedDrivers[7]!.totPoints + 4;
-            selectedDrivers[8]!.totPoints = selectedDrivers[8]!.totPoints + 2;
-            selectedDrivers[9]!.totPoints = selectedDrivers[9]!.totPoints + 1;
+                selectedDrivers[i].points += x;
+                selectedDrivers[i].totPoints += x;
+                selectedDrivers[i].seat!.points += x;
+                selectedDrivers[i].seat!.totPoints += x;
+            }
 
             if (seasonSim == false)
             {
-                string[] t = new string[20];
-                string[] u = new string[20];
+                tableTitle = resulttitle;
 
-                for (int i = 0; i < t.Length; i++)
+                colTitle = new[]
                 {
-                    t[i] = " ║ ";
-                    for (int y = 0; y < 16 - selectedDrivers[i]!.name.Length; y++)
-                    {
-                        t[i] = " " + t[i];
-                    }
-                }
+                " Pos.   ",
+                "      Driver       ",
+                "     Team     ",
+                " Pts "
+                };
 
-                for (int i = 0; i < t.Length; i++)
+                leftCol = new string[selectedDrivers!.Length];
+
+                for (int i = 0; i < selectedDrivers.Length; i++)
                 {
-                    u[i] = " ║ ";
-                    for (int y = 0; y < 12 - resultteams[i].name.Length; y++)
+                    leftCol[i] = " P" + (i + 1).ToString();
+                    for (int n = 0; n < 6 - (i + 1).ToString().Length; n++)
                     {
-                        u[i] = " " + u[i];
+                        leftCol[i] += " ";
                     }
                 }
 
@@ -2014,41 +2061,19 @@ namespace Game
                 Console.WriteLine();
                 Console.WriteLine(selectedDrivers[0]!.color + selectedDrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + " wins the " + currentgp + "!");
                 Console.WriteLine();
-                Console.WriteLine("╔══════════════════════════════════════════════╗" +
-                              "\r\n║" + resulttitle + "║" +
-                              "\r\n╠══════╦══════════════════╦══════════════╦═════╣" +
-                              "\r\n║ Pos. ║      Driver      ║     Team     ║ Pts ║" +
-                              "\r\n╠══════╬══════════════════╬══════════════╬═════╣" +
-                              "\r\n║ P1   ║ " + selectedDrivers[0]!.color + selectedDrivers[0]!.name + "\x1b[38;5;" + 15 + "m" + t[0] + resultteams[0].color + resultteams[0].name + "\x1b[38;5;" + 15 + "m" + u[0] + "25  ║" +
-                              "\r\n║ P2   ║ " + selectedDrivers[1]!.color + selectedDrivers[1]!.name + "\x1b[38;5;" + 15 + "m" + t[1] + resultteams[1].color + resultteams[1].name + "\x1b[38;5;" + 15 + "m" + u[1] + "18  ║" +
-                              "\r\n║ P3   ║ " + selectedDrivers[2]!.color + selectedDrivers[2]!.name + "\x1b[38;5;" + 15 + "m" + t[2] + resultteams[2].color + resultteams[2].name + "\x1b[38;5;" + 15 + "m" + u[2] + "15  ║" +
-                              "\r\n║ P4   ║ " + selectedDrivers[3]!.color + selectedDrivers[3]!.name + "\x1b[38;5;" + 15 + "m" + t[3] + resultteams[3].color + resultteams[3].name + "\x1b[38;5;" + 15 + "m" + u[3] + "12  ║" +
-                              "\r\n║ P5   ║ " + selectedDrivers[4]!.color + selectedDrivers[4]!.name + "\x1b[38;5;" + 15 + "m" + t[4] + resultteams[4].color + resultteams[4].name + "\x1b[38;5;" + 15 + "m" + u[4] + "10  ║" +
-                              "\r\n║ P6   ║ " + selectedDrivers[5]!.color + selectedDrivers[5]!.name + "\x1b[38;5;" + 15 + "m" + t[5] + resultteams[5].color + resultteams[5].name + "\x1b[38;5;" + 15 + "m" + u[5] + "8   ║" +
-                              "\r\n║ P7   ║ " + selectedDrivers[6]!.color + selectedDrivers[6]!.name + "\x1b[38;5;" + 15 + "m" + t[6] + resultteams[6].color + resultteams[6].name + "\x1b[38;5;" + 15 + "m" + u[6] + "6   ║" +
-                              "\r\n║ P8   ║ " + selectedDrivers[7]!.color + selectedDrivers[7]!.name + "\x1b[38;5;" + 15 + "m" + t[7] + resultteams[7].color + resultteams[7].name + "\x1b[38;5;" + 15 + "m" + u[7] + "4   ║" +
-                              "\r\n║ P9   ║ " + selectedDrivers[8]!.color + selectedDrivers[8]!.name + "\x1b[38;5;" + 15 + "m" + t[8] + resultteams[8].color + resultteams[8].name + "\x1b[38;5;" + 15 + "m" + u[8] + "2   ║" +
-                              "\r\n║ P10  ║ " + selectedDrivers[9]!.color + selectedDrivers[9]!.name + "\x1b[38;5;" + 15 + "m" + t[9] + resultteams[9].color + resultteams[9].name + "\x1b[38;5;" + 15 + "m" + u[9] + "1   ║" +
-                              "\r\n║ P11  ║ " + selectedDrivers[10]!.color + selectedDrivers[10]!.name + "\x1b[38;5;" + 15 + "m" + t[10] + resultteams[10].color + resultteams[10].name + "\x1b[38;5;" + 15 + "m" + u[10] + "0   ║" +
-                              "\r\n║ P12  ║ " + selectedDrivers[11]!.color + selectedDrivers[11]!.name + "\x1b[38;5;" + 15 + "m" + t[11] + resultteams[11].color + resultteams[11].name + "\x1b[38;5;" + 15 + "m" + u[11] + "0   ║" +
-                              "\r\n║ P13  ║ " + selectedDrivers[12]!.color + selectedDrivers[12]!.name + "\x1b[38;5;" + 15 + "m" + t[12] + resultteams[12].color + resultteams[12].name + "\x1b[38;5;" + 15 + "m" + u[12] + "0   ║" +
-                              "\r\n║ P14  ║ " + selectedDrivers[13]!.color + selectedDrivers[13]!.name + "\x1b[38;5;" + 15 + "m" + t[13] + resultteams[13].color + resultteams[13].name + "\x1b[38;5;" + 15 + "m" + u[13] + "0   ║" +
-                              "\r\n║ P15  ║ " + selectedDrivers[14]!.color + selectedDrivers[14]!.name + "\x1b[38;5;" + 15 + "m" + t[14] + resultteams[14].color + resultteams[14].name + "\x1b[38;5;" + 15 + "m" + u[14] + "0   ║" +
-                              "\r\n║ P16  ║ " + selectedDrivers[15]!.color + selectedDrivers[15]!.name + "\x1b[38;5;" + 15 + "m" + t[15] + resultteams[15].color + resultteams[15].name + "\x1b[38;5;" + 15 + "m" + u[15] + "0   ║" +
-                              "\r\n║ P17  ║ " + selectedDrivers[16]!.color + selectedDrivers[16]!.name + "\x1b[38;5;" + 15 + "m" + t[16] + resultteams[16].color + resultteams[16].name + "\x1b[38;5;" + 15 + "m" + u[16] + "0   ║" +
-                              "\r\n║ P18  ║ " + selectedDrivers[17]!.color + selectedDrivers[17]!.name + "\x1b[38;5;" + 15 + "m" + t[17] + resultteams[17].color + resultteams[17].name + "\x1b[38;5;" + 15 + "m" + u[17] + "0   ║" +
-                              "\r\n║ P19  ║ " + selectedDrivers[18]!.color + selectedDrivers[18]!.name + "\x1b[38;5;" + 15 + "m" + t[18] + resultteams[18].color + resultteams[18].name + "\x1b[38;5;" + 15 + "m" + u[18] + "0   ║" +
-                              "\r\n║ P20  ║ " + selectedDrivers[19]!.color + selectedDrivers[19]!.name + "\x1b[38;5;" + 15 + "m" + t[19] + resultteams[19].color + resultteams[19].name + "\x1b[38;5;" + 15 + "m" + u[19] + "0   ║" +
-                              "\r\n╚══════╩══════════════════╩══════════════╩═════╝");
+                Console.WriteLine(TableGenerator(7, 49, 20, 4)); //byta 20 till längden av en array som består av endast levande förare
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
 }
 
+//SENAST: Fixade tabell för results
+
+//göra klart död o sånt
 
 //göra så när tex 15 förare är kvar så är det random varje säsong vilka team som får förare, eller göra så de blir som vanligt och alla får förare men en del då är döda
-
-//göra algorithm skit för tabellerna så det funkar med antal förare
 
 //lägga till så om man kollar info om föraren så ser man om han är död eller ej
 
