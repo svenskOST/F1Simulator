@@ -1,67 +1,35 @@
-﻿namespace Meta
+﻿namespace F1Simulator
 {
-    internal class Engine
+    internal class Engine(int power, int reliability)
     {
-        public int power;
-        public int reliability;
-
-        public Engine(int power, int reliability)
-        {
-            this.power = power;
-            this.reliability = reliability;
-        }
+        public int power = power;
+        public int reliability = reliability;
     }
 
-    internal class Team
+    internal class Team(string name, string hq, int age, string engine, string prefix, string principal, int power, int reliability, int downforce, int traction, int drag, int degradation, int wins, int podiums, int points, int totWins, int totPodiums, int totPoints, int totChampionships, int totDChampionships, string color)
     {
-        public string name;
-        public string hq;
-        public int age;
-        public string engine;
-        public string prefix;
-        public string principal;
-        public int power;
-        public int reliability;
-        public int downforce;
-        public int traction;
-        public int drag;
-        public int degradation;
-        public int performance;
-        public int wins;
-        public int podiums;
-        public int points;
-        public int totWins;
-        public int totPodiums;
-        public int totPoints;
-        public int totChampionships;
-        public int totDChampionships;
-        public string color;
-
-        public Team(string name, string hq, int age, string engine, string prefix, string principal, int power, int reliability, int downforce, int traction, int drag, int degradation, int wins, int podiums, int points, int totWins, int totPodiums, int totPoints, int totChampionships, int totDChampionships, string color)
-        {
-            this.name = name;
-            this.hq = hq;
-            this.age = age;
-            this.engine = engine;
-            this.prefix = prefix;
-            this.principal = principal;
-            this.power = power;
-            this.reliability = reliability;
-            this.downforce = downforce;
-            this.traction = traction;
-            this.drag = drag;
-            this.degradation = degradation;
-            this.wins = wins;
-            this.podiums = podiums;
-            this.points = points;
-            this.totWins = totWins;
-            this.totPodiums = totPodiums;
-            this.totPoints = totPoints;
-            this.totChampionships = totChampionships;
-            this.totDChampionships = totDChampionships;
-            this.color = color;
-            performance = (power + downforce + traction + drag + degradation) / 5;
-        }
+        public string name = name;
+        public string hq = hq;
+        public int age = age;
+        public string engine = engine;
+        public string prefix = prefix;
+        public string principal = principal;
+        public int power = power;
+        public int reliability = reliability;
+        public int downforce = downforce;
+        public int traction = traction;
+        public int drag = drag;
+        public int degradation = degradation;
+        public int performance = (power + downforce + traction + drag + degradation) / 5;
+        public int wins = wins;
+        public int podiums = podiums;
+        public int points = points;
+        public int totWins = totWins;
+        public int totPodiums = totPodiums;
+        public int totPoints = totPoints;
+        public int totChampionships = totChampionships;
+        public int totDChampionships = totDChampionships;
+        public string color = color;
     }
 
     internal class Driver
@@ -140,20 +108,12 @@
         }
     }
 
-    internal class Track
+    internal class Track(string name, string gp, string location, string shortname)
     {
-        public string name;
-        public string gp;
-        public string location;
-        public string shortname;
-
-        public Track(string name, string gp, string location, string shortname)
-        {
-            this.name = name;
-            this.gp = gp;
-            this.location = location;
-            this.shortname = shortname;
-        }
+        public string name = name;
+        public string gp = gp;
+        public string location = location;
+        public string shortname = shortname;
     }
 
     internal class Results

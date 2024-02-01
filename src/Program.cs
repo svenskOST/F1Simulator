@@ -1,20 +1,23 @@
-﻿using Meta;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
-namespace Game
+namespace F1Simulator
 {
-    class Program
+    partial class Program
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
-        [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern IntPtr GetStdHandle(int handle);
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool SetConsoleMode(nint hConsoleHandle, int mode);
 
-        readonly static string[] intro = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\intro.txt");
-        readonly static string[] image = File.ReadAllLines(@"C:\Users\alexander.marini\OneDrive - Academedia\Desktop\Programmering 1\Formula 1 Simulator\Formula 1 Simulator\image.txt");
-        readonly static string[] pointsAllocation = { "25  ║", "18  ║", "15  ║", "12  ║", "10  ║", "8   ║", "6   ║", "4   ║", "2   ║", "1   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║" };
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static partial bool GetConsoleMode(nint handle, out int mode);
+
+        [LibraryImport("kernel32.dll", SetLastError = true)]
+        public static partial nint GetStdHandle(int handle);
+
+        readonly static string[] intro = File.ReadAllLines("assets/intro.txt");
+        readonly static string[] image = File.ReadAllLines("assets/image.txt");
+        readonly static string[] pointsAllocation = ["25  ║", "18  ║", "15  ║", "12  ║", "10  ║", "8   ║", "6   ║", "4   ║", "2   ║", "1   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║", "0   ║"];
         static string[]? colTitle;
         static string[]? leftColColor;
         static string[]? leftCol;
@@ -58,22 +61,7 @@ namespace Game
         readonly static Team AlphaTauri = new("AlphaTauri", "Faenza", 37, "Ferrari", "an italian", "Franz Tost", eRedBull.power - 9, eRedBull.reliability, 75, 74, 79, 78, 0, 0, 0, 1, 2, 249, 0, 0, "\x1b[38;5;" + 240 + "m");
         readonly static Team Williams = new("Williams", "Wantage", 53, "Mercedes", "a british", "Jost Capito", eMercedes.power - 3, eMercedes.reliability, 68, 72, 98, 75, 0, 0, 0, 114, 313, 3584, 9, 7, "\x1b[38;5;" + 26 + "m");
 
-        readonly static Team[] teams = new[]
-        {
-            RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams
-        };
-
-        readonly static Team[] seats = new[]
-        {
-            RedBull, RedBull, Ferrari, Ferrari, Mercedes, Mercedes, Alpine, Alpine, Mclaren, Mclaren, AlfaRomeo, AlfaRomeo, AstonMartin, AstonMartin, Haas, Haas, AlphaTauri, AlphaTauri, Williams, Williams
-        };
-
-        static Team[]? standingTeams;
-
-        static Team? currentteam;
-
-        readonly static Team[] allTeams = new[]
-        {
+        readonly static Team[] teams = [
             RedBull,
             Ferrari,
             Mercedes,
@@ -84,7 +72,47 @@ namespace Game
             Haas,
             AlphaTauri,
             Williams
-        };
+        ];
+
+        readonly static Team[] seats = [
+            RedBull,
+            RedBull,
+            Ferrari,
+            Ferrari,
+            Mercedes,
+            Mercedes,
+            Alpine,
+            Alpine,
+            Mclaren,
+            Mclaren,
+            AlfaRomeo,
+            AlfaRomeo,
+            AstonMartin,
+            AstonMartin,
+            Haas,
+            Haas,
+            AlphaTauri,
+            AlphaTauri,
+            Williams,
+            Williams
+        ];
+
+        static Team[]? standingTeams;
+
+        static Team? currentteam;
+
+        readonly static Team[] allTeams = [
+            RedBull, 
+            Ferrari,
+            Mercedes,
+            Alpine,
+            Mclaren,
+            AlfaRomeo,
+            AstonMartin,
+            Haas,
+            AlphaTauri,
+            Williams
+        ];
 
         readonly static Driver ver = new("Max Verstappen", 24, "Max", "Verstappen", "VER", "the Netherlands", "dutch", 97, 92, 90, 78, 0, 0, 0, 20, 60, 1558, 1);
         readonly static Driver per = new("Sergio Perez", 32, "Sergio", "Perez", "PER", "Mexicó", "mexican", 86, 89, 93, 88, 0, 0, 0, 2, 14, 893, 0);
@@ -107,10 +135,10 @@ namespace Game
         readonly static Driver alb = new("Alexander Albon", 26, "Alexander", "Albon", "ALB", "Thailand", "thai", 81, 84, 75, 68, 0, 0, 0, 0, 2, 198, 0);
         readonly static Driver lat = new("Nicholas Latifi", 26, "Nicholas", "Latifi", "LAT", "Canada", "canadian", 67, 71, 73, 61, 0, 0, 0, 0, 0, 7, 0);
 
-        readonly static Driver[] drivers = new[]
-        {
+        readonly static Driver[] drivers =
+        [
             ver, per, lec, sai, ham, rus, alo, oco, nor, ric, bot, zho, vet, str, mag, msc, gas, tsu, alb, lat
-        };
+        ];
 
         static Driver[] sortedDrivers = drivers;
 
@@ -412,15 +440,13 @@ namespace Game
 
         public static void Grid()
         {
-            colTitle = new[]
-            {
+            colTitle = [
                 "             Team              ",
                 "    1st Driver    ",
                 "    2nd Driver    "
-            };
+            ];
 
-            leftColColor = new[]
-            {
+            leftColColor = [
                 "\x1b[38;5;" + 4 + "m",
                 "\x1b[38;5;" + 196 + "m",
                 "\x1b[38;5;" + 50 + "m",
@@ -431,10 +457,9 @@ namespace Game
                 "\x1b[38;5;" + 11 + "m",
                 "\x1b[38;5;" + 240 + "m",
                 "\x1b[38;5;" + 26 + "m"
-            };
+            ];
 
-            leftCol = new[]
-            {
+            leftCol = [
                 "Oracle Red Bull Racing",
                 "Scuderia Ferrari",
                 "Mercedes-AMG Petronas",
@@ -445,7 +470,7 @@ namespace Game
                 "Haas",
                 "Scuderia AlphaTauri",
                 "Williams Racing"
-            };
+            ];
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(TableGenerator(5, 69, 10, 3));
@@ -614,10 +639,18 @@ namespace Game
         {
             Array.Sort(selectedDrivers!, new DStandingComparer()!);
 
-            Team[] standingteams = new[]
-            {
-                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
-            };
+            Team[] standingteams = [
+                RedBull,
+                Ferrari,
+                Mercedes,
+                Alpine,
+                Mclaren,
+                AlfaRomeo,
+                AstonMartin,
+                Haas,
+                AlphaTauri,
+                Williams,
+            ];
 
             Array.Sort(standingteams, new TStandingComparer());
 
@@ -715,7 +748,7 @@ namespace Game
                 Console.Write(">");
                 string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
-                if (input.ToLower() == "info")
+                if (input.Equals("info"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -723,7 +756,7 @@ namespace Game
                     Console.WriteLine("They have been in the sport for " + currentteam.age + " years.");
                     Console.WriteLine(currentteam.principal + " is currently the team principal of " + currentteam.name + ".");
                 }
-                else if (input.ToLower() == "ratings" || input.ToLower() == "rating")
+                else if (input.Equals("ratings") || input.Equals("rating"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -734,13 +767,13 @@ namespace Game
                     Console.WriteLine("Downforce: " + currentteam.downforce + "     Aerodynamics:    " + currentteam.drag);
                     Console.WriteLine("Traction:  " + currentteam.traction + "     Tyre degradation: " + currentteam.degradation);
                 }
-                else if (input.ToLower() == "stats")
+                else if (input.Equals("stats"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentteam.name + " currently has " + currentteam.wins + " wins, " + currentteam.podiums + " podiums, and " + currentteam.points + " points this season.");
                 }
-                else if (input.ToLower() == "all time stats")
+                else if (input.Equals("all time stats"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -802,14 +835,14 @@ namespace Game
                 Console.Write(">");
                 string input = Console.ReadLine()!;
                 Console.ForegroundColor = ConsoleColor.White;
-                if (input.ToLower() == "info")
+                if (input.Equals("info"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " is a " + currentdriver.prefix + " Formula 1 driver.");
                     Console.WriteLine("He is " + currentdriver.age + " years of age.");
                 }
-                else if (input.ToLower() == "ratings" || input.ToLower() == "rating")
+                else if (input.Equals("ratings") || input.Equals("rating"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -820,13 +853,13 @@ namespace Game
                     Console.WriteLine("Racecraft: " + currentdriver.racecraft + "     Experience:  " + currentdriver.experience);
                     Console.ForegroundColor = ConsoleColor.White;
                 }
-                else if (input.ToLower() == "stats")
+                else if (input.Equals("stats"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.WriteLine(currentdriver.name + " has accumulated " + currentdriver.wins + " wins, " + currentdriver.podiums + " podiums, and " + currentdriver.points + " points since the start of this season.");
                 }
-                else if (input.ToLower() == "all time stats")
+                else if (input.Equals("all time stats"))
                 {
                     Console.WriteLine();
                     Console.WriteLine();
@@ -882,7 +915,7 @@ namespace Game
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    if (input.ToLower() == selectedDrivers![i].name.ToString().ToLower() || input.ToLower() == selectedDrivers[i].firstname.ToString().ToLower() || input.ToLower() == selectedDrivers[i].lastname.ToString().ToLower() || input.ToLower() == selectedDrivers[i].shortname.ToString().ToLower())
+                    if (input.Equals(selectedDrivers![i].name.ToString().ToLower()) || input.Equals(selectedDrivers[i].firstname.ToString().ToLower()) || input.Equals(selectedDrivers[i].lastname.ToString().ToLower()) || input.Equals(selectedDrivers[i].shortname.ToString().ToLower()))
                     {
                         currentdriver = selectedDrivers[i];
                         DriverMode();
@@ -892,7 +925,7 @@ namespace Game
 
                 for (int i = 0; i < 10; i++)
                 {
-                    if (input.ToLower() == teams[i].name.ToString().ToLower())
+                    if (input.Equals(teams[i].name.ToString().ToLower()))
                     {
                         currentteam = teams[i];
                         TeamMode();
@@ -901,22 +934,22 @@ namespace Game
                 }
             }
 
-            if (input.ToLower() == "simulate season")
+            if (input.Equals("simulate season"))
             {
                 Console.WriteLine("Now simulating whole championship, enter command 'simulate races' to revert");
                 seasonSim = true;
             }
-            else if (input.ToLower() == "simulate races" && seasonSim == true)
+            else if (input.Equals("simulate races") && seasonSim == true)
             {
                 Console.WriteLine("Reverted to race simulation");
                 seasonSim = false;
             }
-            else if (input.ToLower() == "autorun")
+            else if (input.Equals("autorun"))
             {
                 Console.WriteLine("The game will now run automatically, press 'Ctrl' + 'C' to stop");
                 autorun = true;
             }
-            else if (input.ToLower() == "grid")
+            else if (input.Equals("grid"))
             {
                 if (grid == true)
                 {
@@ -929,7 +962,7 @@ namespace Game
                     Console.WriteLine("This seasons grid has not been revealed yet!");
                 }
             }
-            else if (input.ToLower() == "specs")
+            else if (input.Equals("specs"))
             {
                 if (specs == true)
                 {
@@ -942,27 +975,27 @@ namespace Game
                     Console.WriteLine("The teams haven't announced this years cars yet!");
                 }
             }
-            else if (input.ToLower() == "driver standings")
+            else if (input.Equals("driver standings"))
             {
                 tableTitle = "Drivers Championship";
                 DriverStandings();
             }
-            else if (input.ToLower() == "team standings")
+            else if (input.Equals("team standings"))
             {
                 tableTitle = "Constructors Championship";
                 TeamStandings();
             }
-            else if (input.ToLower() == "all time driver standings")
+            else if (input.Equals("all time driver standings"))
             {
                 tableTitle = "All-Time Drivers";
                 AllTimeDStandings();
             }
-            else if (input.ToLower() == "all time team standings")
+            else if (input.Equals("all time team standings"))
             {
                 tableTitle = "All-Time Constructors";
                 AllTimeTStandings();
             }
-            else if (input.ToLower() == "clear")
+            else if (input.Equals("clear"))
             {
                 Console.Clear();
                 Console.WriteLine("Cleared console");
@@ -993,15 +1026,13 @@ namespace Game
 
         public static void Specs()
         {
-            colTitle = new[]
-            {
+            colTitle = [
                 "     Team     ",
                 " Chassis ",
                 "      Power Unit      "
-            };
+            ];
 
-            chassisColor = new[]
-            {
+            chassisColor = [
                 "\x1b[38;5;" + 4 + "m",
                 "\x1b[38;5;" + 196 + "m",
                 "\x1b[38;5;" + 50 + "m",
@@ -1012,10 +1043,9 @@ namespace Game
                 "\x1b[38;5;" + 11 + "m",
                 "\x1b[38;5;" + 240 + "m",
                 "\x1b[38;5;" + 26 + "m"
-            };
+            ];
 
-            chassis = new[]
-            {
+            chassis = [
                 "RB18",
                 "F1-75",
                 "W13",
@@ -1026,10 +1056,9 @@ namespace Game
                 "VF-22",
                 "AT03",
                 "FW44"
-            };
+            ];
 
-            powerUnitColor = new[]
-            {
+            powerUnitColor = [
                 "\x1b[38;5;" + 4 + "m",
                 "\x1b[38;5;" + 196 + "m",
                 "\x1b[38;5;" + 50 + "m",
@@ -1040,10 +1069,9 @@ namespace Game
                 "\x1b[38;5;" + 196 + "m",
                 "\x1b[38;5;" + 21 + "m",
                 "\x1b[38;5;" + 50 + "m"
-            };
+            ];
 
-            powerUnit = new[]
-            {
+            powerUnit = [
                 "Red Bull Powertrains",
                 "Ferrari",
                 "Mercedes",
@@ -1054,7 +1082,7 @@ namespace Game
                 "Ferrari",
                 "Red Bull Powertrains",
                 "Mercedes"
-            };
+            ];
 
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(TableGenerator(6, 47, 10, 3));
@@ -1064,12 +1092,11 @@ namespace Game
         {
             Array.Sort(selectedDrivers!, new DStandingComparer()!);
 
-            colTitle = new[]
-            {
+            colTitle = [
                 " Pos.   ",
                 "      Driver       ",
                 " Pts "
-            };
+            ];
 
             leftCol = new string[selectedDrivers!.Length];
 
@@ -1105,15 +1132,14 @@ namespace Game
         {
             Array.Sort(sortedDrivers, new DAllTimeStandingComparer()!);
 
-            colTitle = new[]
-            {
+            colTitle = [
                 " Pos. ",
                 "      Driver      ",
                 " Championships ",
                 " Wins ",
                 " Podiums ",
                 " Points "
-            };
+            ];
 
             leftCol = new string[sortedDrivers!.Length];
 
@@ -1141,19 +1167,26 @@ namespace Game
 
         public static void TeamStandings()
         {
-            standingTeams = new[]
-            {
-                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
-            };
+            standingTeams = [
+                RedBull,
+                Ferrari,
+                Mercedes,
+                Alpine,
+                Mclaren,
+                AlfaRomeo,
+                AstonMartin,
+                Haas,
+                AlphaTauri,
+                Williams,
+            ];
 
             Array.Sort(standingTeams, new TStandingComparer());
 
-            colTitle = new[]
-            {
+            colTitle = [
                 " Pos.   ",
                 "     Team      ",
                 " Pts "
-            };
+            ];
 
             leftCol = new string[standingTeams.Length];
 
@@ -1188,22 +1221,29 @@ namespace Game
 
         public static void AllTimeTStandings()
         {
-            standingTeams = new[]
-            {
-                RedBull, Ferrari, Mercedes, Alpine, Mclaren, AlfaRomeo, AstonMartin, Haas, AlphaTauri, Williams,
-            };
+            standingTeams = [
+                RedBull,
+                Ferrari,
+                Mercedes,
+                Alpine,
+                Mclaren,
+                AlfaRomeo,
+                AstonMartin,
+                Haas,
+                AlphaTauri,
+                Williams,
+            ];
 
             Array.Sort(standingTeams, new TAllTimeStandingComparer());
 
-            colTitle = new[]
-{
+            colTitle = [
                 " Pos. ",
                 "     Team      ",
                 " Championships (Drivers) ",
                 " Wins ",
                 " Podiums ",
                 " Points "
-            };
+            ];
 
             leftCol = new string[standingTeams!.Length];
 
@@ -1981,7 +2021,7 @@ namespace Game
             selectedDrivers[0].totWins += 1;
             selectedDrivers[0].seat!.wins += 1;
             selectedDrivers[0].seat!.totWins += 1;
-            
+
             for (int i = 0; i < 3; i++)
             {
                 selectedDrivers[i].podiums += 1;
@@ -2038,13 +2078,12 @@ namespace Game
             {
                 tableTitle = resulttitle;
 
-                colTitle = new[]
-                {
-                " Pos.   ",
-                "      Driver       ",
-                "     Team     ",
-                " Pts "
-                };
+                colTitle = [
+                    " Pos.   ",
+                    "      Driver       ",
+                    "     Team     ",
+                    " Pts "
+                ];
 
                 leftCol = new string[selectedDrivers!.Length];
 
